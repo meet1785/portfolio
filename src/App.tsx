@@ -1,7 +1,8 @@
-import React from 'react';
 import { Github, Linkedin, Mail, Code, FileText, Home, Briefcase } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-
+import { ThemeProvider} from './context/ThemeContext';
+import { motion, AnimatePresence } from 'framer-motion';
+import { pageTransition, fadeInUp, scaleIn} from './utils/animations';
 
 interface SkillCategoryProps {
   title: string;
@@ -17,69 +18,70 @@ interface ProfileCardProps {
 const profileIcons: Record<string, string> = {
   LeetCode: "https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png",
   GeeksForGeeks: "https://upload.wikimedia.org/wikipedia/commons/4/43/GeeksforGeeks.svg",
-  CodeChef: "https://cdn.worldvectorlogo.com/logos/codechef.svg"  // updated CodeChef icon
+  CodeChef:" data:image/jpeg;base64,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"
 };
 
 const skillIcons: Record<string, string> = {
   React: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-  TypeScript: "https://cdn.worldvectorlogo.com/logos/typescript.svg",  // updated TypeScript icon
+  TypeScript: "https://cdn.worldvectorlogo.com/logos/typescript.svg",  
   "Tailwind CSS": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg",
   Redux: "https://upload.wikimedia.org/wikipedia/commons/4/49/Redux.png",  
-  "Node.js": "https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg",    // updated Node.js icon
+  "Node.js": "https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg",    
   Express: "https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png",
-  MongoDB: "https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg",    // updated MongoDB icon
+  MongoDB: "https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg",    
   Git: "https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png",
   Docker: "https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png",
   AWS: "https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png",
-  Vercel: "https://cdn.worldvectorlogo.com/logos/vercel.svg",             // updated Vercel icon
-  JavaScript: "https://cdn.worldvectorlogo.com/logos/javascript-1.svg",     // updated JavaScript icon
+  Vercel: "https://cdn.worldvectorlogo.com/logos/vercel.svg",             
+  JavaScript: "https://cdn.worldvectorlogo.com/logos/javascript-1.svg",     
   "C++": "https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg",
   Python: "https://cdn.worldvectorlogo.com/logos/python-5.svg",
   Java: "https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg"
 };
 
-const App: React.FC = () => {
+const AppContent: React.FC = () => {
   return (
-    <Router>
-      <div className="min-h-screen bg-gradient-to-tr from-green-50 to-blue-100">
-        <nav className="bg-white shadow-sm fixed w-full z-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
-              <div className="flex">
-                <Link to="/" className="flex items-center px-4 text-gray-700 hover:text-gray-900">
-                  <Home className="w-5 h-5 mr-2" />
-                  Home
-                </Link>
-                <Link to="/works" className="flex items-center px-4 text-gray-700 hover:text-gray-900">
-                  <Briefcase className="w-5 h-5 mr-2" />
-                  Works
-                </Link>
-                <Link to="/resume" className="flex items-center px-4 text-gray-700 hover:text-gray-900">
-                  <FileText className="w-5 h-5 mr-2" />
-                  Resume
-                </Link>
-                <Link to="/about" className="flex items-center px-4 text-gray-700 hover:text-gray-900">
-                  About
-                </Link>
-                <Link to="/contact" className="flex items-center px-4 text-gray-700 hover:text-gray-900">
-                  Contact
-                </Link>
-              </div>
-              <div className="flex items-center space-x-4">
-                <a href="mailto:meetshah1785@gmail.com" className="text-gray-500 hover:text-gray-900">
-                  <Mail className="w-5 h-5" />
-                </a>
-                <a href="https://github.com/meetshah1708" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-gray-900">
-                  <Github className="w-5 h-5" />
-                </a>
-                <a href="https://linkedin.com/in/meetshah1708" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-gray-900">
-                  <Linkedin className="w-5 h-5" />
-                </a>
-              </div>
+    <>
+      <nav className="bg-gradient-to-r from-[#0A192F] to-[#8892B0] shadow-lg fixed w-full z-10 border-b border-[#CCD6F6]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex">
+              {/* Update nav links to use white text for better contrast */}
+              <Link to="/" className="flex items-center px-4 text-white hover:text-gray-200">
+                <Home className="w-5 h-5 mr-2" />
+                Home
+              </Link>
+              <Link to="/works" className="flex items-center px-4 text-white hover:text-gray-200">
+                <Briefcase className="w-5 h-5 mr-2" />
+                Works
+              </Link>
+              <Link to="/resume" className="flex items-center px-4 text-white hover:text-gray-200">
+                <FileText className="w-5 h-5 mr-2" />
+                Resume
+              </Link>
+              <Link to="/about" className="flex items-center px-4 text-white hover:text-gray-200">
+                About
+              </Link>
+              <Link to="/contact" className="flex items-center px-4 text-white hover:text-gray-200">
+                Contact
+              </Link>
+            </div>
+            <div className="flex items-center space-x-4">
+              {/* Removed dark/light mode toggle button remains removed */}
+              <a href="mailto:meetshah1785@gmail.com" className="text-white hover:text-gray-200">
+                <Mail className="w-5 h-5" />
+              </a>
+              <a href="https://github.com/meetshah1708" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-200">
+                <Github className="w-5 h-5" />
+              </a>
+              <a href="https://linkedin.com/in/meetshah1708" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-200">
+                <Linkedin className="w-5 h-5" />
+              </a>
             </div>
           </div>
-        </nav>
-
+        </div>
+      </nav>
+      <AnimatePresence mode="wait">
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/works" element={<WorksPage />} />
@@ -87,49 +89,113 @@ const App: React.FC = () => {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
-      </div>
-    </Router>
+      </AnimatePresence>
+    </>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <ThemeProvider>
+      <Router>
+        <div className="min-h-screen transition-colors duration-500 bg-gradient-to-br from-[#0A192F] via-[#CCD6F6] to-[#8892B0] dark:from-[#0A192F] dark:via-[#CCD6F6] dark:to-[#8892B0]">
+          {/* Modern drop shadow and padding */}
+          <div className="p-4 md:p-8 shadow-xl">
+            <AppContent />
+          </div>
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 };
 
 const LandingPage: React.FC = () => {
   return (
-    <div className="pt-16">
-      <div
-        className="relative h-screen flex items-center justify-center text-white"
-        style={{
-          backgroundImage:
-            "linear-gradient(135deg, #0f172a, #1e293b 50%, #334155), url('https://source.unsplash.com/featured/?programming,developer')",
-          backgroundBlendMode: "overlay",
-          backgroundSize: "cover",
-          backgroundPosition: "center"
-        }}
-      >
-        <div className="text-center px-4">
-          <h1 className="text-6xl font-bold mb-6 animate-fade-in">Meet Timir Shah</h1>
-          <p className="text-2xl mb-8 animate-slide-up">Full Stack Developer & Problem Solver</p>
-          <div className="space-x-4">
-            <Link to="/works" className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
-              View My Work
-            </Link>
-            <Link to="/resume" className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition">
-              Resume
-            </Link>
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageTransition}
+      className="pt-16 relative overflow-hidden"
+    >
+      {/* Background overlay with blurred shapes */}
+      <div className="absolute inset-0">
+        <div className="absolute top-10 left-10 w-48 h-48 bg-gradient-to-br from-purple-500 to-transparent rounded-full filter blur-3xl opacity-50"></div>
+        <div className="absolute bottom-10 right-10 w-48 h-48 bg-gradient-to-tl from-blue-500 to-transparent rounded-full filter blur-3xl opacity-50"></div>
+      </div>
+      <div className="relative z-10">
+        <div
+          className="h-screen flex items-center justify-center text-white bg-gradient-to-br from-blue-600 to-purple-700 dark:from-gray-900 dark:to-gray-800"
+        >
+          <div className="text-center px-4">
+            <motion.h1
+              className="text-6xl font-bold mb-6"
+              variants={fadeInUp}
+              initial="initial"
+              animate="animate"
+            >
+              Meet Timir Shah
+            </motion.h1>
+            <motion.p
+              className="text-2xl mb-8"
+              variants={fadeInUp}
+              initial="initial"
+              animate="animate"
+            >
+              Full Stack Developer &amp; Problem Solver
+            </motion.p>
+            <motion.div
+              className="space-x-4"
+              variants={scaleIn}
+              initial="initial"
+              animate="animate"
+            >
+              <Link to="/works" className="bg-[#64FFDA] text-[#0A192F] px-6 py-3 rounded-lg font-semibold hover:bg-[#5EE0C1] transition">
+                View My Work
+              </Link>
+              <Link to="/resume" className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition">
+                Resume
+              </Link>
+            </motion.div>
           </div>
         </div>
-      </div>
-      <div className="mt-16 text-center max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold text-white mb-6">Testimonials</h2>
-        <div className="flex flex-col space-y-4">
-          <blockquote className="bg-white rounded-lg p-4 text-gray-700">
-            "Great to work with! Highly recommended."
-          </blockquote>
-          <blockquote className="bg-white rounded-lg p-4 text-gray-700">
-            "Delivers quality code on tight deadlines."
-          </blockquote>
+        {/* New "Stay Connected" call-to-action section */}
+        <div id="follow" className="mt-16 text-center max-w-4xl mx-auto relative z-10">
+          <motion.h2 
+            className="text-3xl font-bold text-white mb-4"
+            variants={fadeInUp}
+            initial="initial"
+            animate="animate"
+          >
+            Stay Connected
+          </motion.h2>
+          <motion.p 
+            className="text-lg text-white mb-6"
+            variants={fadeInUp}
+            initial="initial"
+            animate="animate"
+          >
+            Follow me on social media to get the latest updates.
+          </motion.p>
+          <motion.div 
+            className="flex justify-center space-x-6"
+            variants={fadeInUp}
+            initial="initial"
+            animate="animate"
+          >
+            <a href="https://linkedin.com/in/meetshah1708" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-300">
+              <Linkedin className="w-6 h-6" />
+            </a>
+            <a href="https://github.com/meetshah1708" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-300">
+              <Github className="w-6 h-6" />
+            </a>
+            <a href="mailto:meetshah1785@gmail.com" className="text-white hover:text-gray-300">
+              <Mail className="w-6 h-6" />
+            </a>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -173,12 +239,7 @@ const WorksPage: React.FC = () => {
       tech: ['Next.js', 'Tailwind CSS', 'TypeScript']
     },
    
-    {
-      title: "E-commerce Platform",
-      description: "Feature-rich e-commerce application with product management, cart functionality, and payment integration.",
-      github: "https://github.com/meetshah1708/ecommerce",
-      tech: ['React', 'Node.js', 'MongoDB']
-    }
+
   ];
 
   return (
@@ -243,8 +304,7 @@ const AboutPage: React.FC = () => {
     <div className="pt-24 pb-16 max-w-4xl mx-auto px-4">
       <h2 className="text-3xl font-bold text-gray-900 mb-4">About Me</h2>
       <p className="text-gray-700 leading-relaxed">
-        I am a dedicated Full Stack Developer with a strong passion for building scalable and efficient applications. 
-        My interests span web development, problem-solving, and exploring new technologies to craft innovative solutions.
+      I'm Meet Timir Shah, a Computer Engineering student at TCET, University of Mumbai, passionate about creating innovative digital solutions. With expertise in full-stack development using MERN Stack and proficiency in languages like Java, C++, Javascript, and Python, I've successfully developed projects including a YouTube clone using React JS and Rapid API. My experience extends to working with databases (MySQL, MongoDB), modern development tools (Docker, Git, RESTful APIs), and frameworks (React, Next.js, Express.js). As an AI PE intern at Vault of Codes and a participant in prestigious competitions like SIH 2023-24 and Flipkart Grid 6.0, I've demonstrated my problem-solving abilities through 300+ coding challenges across platforms. I'm constantly building personal projects while maintaining a balance with interests in table tennis and community volunteering. Currently seeking opportunities to leverage my technical skills and creative approach to contribute to innovative projects
       </p>
     </div>
   );
@@ -291,11 +351,16 @@ interface ProjectCardProps {
   tech: string[];
 }
 
-function ProjectCard({ title, description, link, github, tech }: ProjectCardProps) {
+const ProjectCard = ({ title, description, link, github, tech }: ProjectCardProps) => {
   return (
-    <div className="bg-gradient-to-br from-white to-blue-50 rounded-lg shadow-lg p-6 hover:shadow-xl transition">
-      <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
-      <p className="mt-2 text-gray-600">{description}</p>
+    <motion.div
+      variants={fadeInUp}
+      initial="initial"
+      animate="animate"
+      className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition transform hover:-translate-y-1"
+    >
+      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h3>
+      <p className="mt-2 text-gray-600 dark:text-gray-300">{description}</p>
       <div className="mt-4 flex flex-wrap gap-2">
         {tech.map(t => (
           <div key={t} className="flex items-center space-x-2">
@@ -322,13 +387,18 @@ function ProjectCard({ title, description, link, github, tech }: ProjectCardProp
           View Code
         </a>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function SkillCategory({ title, skills }: SkillCategoryProps) {
   return (
-    <div className="bg-gray-50 rounded-xl p-4 shadow-sm">
+    <motion.div
+      variants={fadeInUp}
+      initial="initial"
+      animate="animate"
+      className="bg-gray-50 rounded-xl p-4 shadow-sm"
+    >
       <h3 className="text-lg font-semibold text-gray-800 mb-3">{title}</h3>
       <div className="flex flex-wrap gap-3">
         {skills.map(skill => (
@@ -344,7 +414,7 @@ function SkillCategory({ title, skills }: SkillCategoryProps) {
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
