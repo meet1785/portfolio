@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ThemeProvider} from './context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { pageTransition, fadeInUp, scaleIn} from './utils/animations';
-
+import img from '/meet.jpeg'; 
 interface SkillCategoryProps {
   title: string;
   skills: string[];
@@ -18,7 +18,7 @@ interface ProfileCardProps {
 const profileIcons: Record<string, string> = {
   LeetCode: "https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png",
   GeeksForGeeks: "https://upload.wikimedia.org/wikipedia/commons/4/43/GeeksforGeeks.svg",
-  CodeChef:" data:image/jpeg;base64,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"
+  CodeChef:" data:image/jpeg;base64,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"
 };
 
 const skillIcons: Record<string, string> = {
@@ -36,13 +36,38 @@ const skillIcons: Record<string, string> = {
   JavaScript: "https://cdn.worldvectorlogo.com/logos/javascript-1.svg",     
   "C++": "https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg",
   Python: "https://cdn.worldvectorlogo.com/logos/python-5.svg",
-  Java: "https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg"
+  Java: "https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg",
+  Vite: "https://vitejs.dev/logo.svg",
+  'vite': "https://cdn.worldvectorlogo.com/logos/vitejs.svg"
+};
+
+// Update the color scheme constants
+const colors = {
+  primary: '#64FFDA',
+  secondary: '#0A192F',
+  accent: '#8892B0',
+  text: {
+    primary: '#CCD6F6',
+    secondary: '#8892B0',
+    dark: '#233554'
+  },
+  background: {
+    primary: '#0A192F',
+    secondary: '#112240',
+    accent: '#233554'
+  }
+};
+
+// Add modern fonts
+const typography = {
+  primary: "'Inter', sans-serif",
+  secondary: "'Fira Code', monospace"
 };
 
 const AppContent: React.FC = () => {
   return (
     <>
-      <nav className="bg-gradient-to-r from-[#0A192F] to-[#8892B0] shadow-lg fixed w-full z-10 border-b border-[#CCD6F6]">
+      <nav className="bg-background-primary backdrop-blur-md bg-opacity-90 shadow-lg fixed w-full z-10 border-b border-accent/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex">
@@ -116,47 +141,67 @@ const LandingPage: React.FC = () => {
       animate="animate"
       exit="exit"
       variants={pageTransition}
-      className="pt-16 relative overflow-hidden"
+      className="pt-16 relative overflow-hidden bg-background-primary"
     >
-      {/* Background overlay with blurred shapes */}
-      <div className="absolute inset-0">
-        <div className="absolute top-10 left-10 w-48 h-48 bg-gradient-to-br from-purple-500 to-transparent rounded-full filter blur-3xl opacity-50"></div>
-        <div className="absolute bottom-10 right-10 w-48 h-48 bg-gradient-to-tl from-blue-500 to-transparent rounded-full filter blur-3xl opacity-50"></div>
-      </div>
+      {/* Modern gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background-primary via-background-secondary to-background-accent opacity-90" />
       <div className="relative z-10">
-        <div
-          className="h-screen flex items-center justify-center text-white bg-gradient-to-br from-blue-600 to-purple-700 dark:from-gray-900 dark:to-gray-800"
-        >
-          <div className="text-center px-4">
-            <motion.h1
-              className="text-6xl font-bold mb-6"
-              variants={fadeInUp}
-              initial="initial"
-              animate="animate"
-            >
-              Meet Timir Shah
-            </motion.h1>
-            <motion.p
-              className="text-2xl mb-8"
-              variants={fadeInUp}
-              initial="initial"
-              animate="animate"
-            >
-              Full Stack Developer &amp; Problem Solver
-            </motion.p>
+        <div className="h-screen flex items-center justify-center text-white bg-gradient-to-br from-blue-600 to-purple-700 dark:from-gray-900 dark:to-gray-800">
+          <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-8">
+            {/* Profile Image */}
             <motion.div
-              className="space-x-4"
               variants={scaleIn}
               initial="initial"
               animate="animate"
+              className="w-64 h-64 relative overflow-hidden"
             >
-              <Link to="/works" className="bg-[#64FFDA] text-[#0A192F] px-6 py-3 rounded-lg font-semibold hover:bg-[#5EE0C1] transition">
-                View My Work
-              </Link>
-              <Link to="/resume" className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition">
-                Resume
-              </Link>
+              <img
+                src={img} 
+                alt="Meet Timir Shah"
+                className="w-full h-full object-cover rounded-full border-4 border-white shadow-2xl"
+                style={{
+                  objectPosition: 'center top',
+                  objectFit: 'cover'
+                }}
+              />
             </motion.div>
+
+            {/* Text Content */}
+            <div className="text-center md:text-left">
+              <motion.h1
+                className="text-6xl font-bold mb-6"
+                variants={fadeInUp}
+              >
+                Meet Timir Shah
+              </motion.h1>
+              <motion.p
+                className="text-2xl mb-8"
+                variants={fadeInUp}
+              >
+                Full Stack Developer &amp; Problem Solver
+              </motion.p>
+              <motion.div
+                className="space-x-4"
+                variants={scaleIn}
+              >
+                <Link 
+                  to="/works" 
+                  className="inline-flex items-center px-8 py-3 rounded-lg bg-primary text-background-primary font-medium 
+                             transition-all duration-300 hover:bg-primary/90 hover:translate-y-[-2px] focus:ring-2 
+                             focus:ring-primary/50 focus:outline-none"
+                >
+                  View My Work
+                </Link>
+                <Link 
+                  to="/resume" 
+                  className="inline-flex items-center px-8 py-3 rounded-lg border-2 border-text-primary text-text-primary 
+                             font-medium transition-all duration-300 hover:bg-text-primary/10 hover:translate-y-[-2px] 
+                             focus:ring-2 focus:ring-text-primary/50 focus:outline-none"
+                >
+                  Resume
+                </Link>
+              </motion.div>
+            </div>
           </div>
         </div>
         {/* New "Stay Connected" call-to-action section */}
@@ -212,7 +257,7 @@ const WorksPage: React.FC = () => {
       title: "Netflix-Clone",
       description: "A Netflix clone built with React and vite, featuring user authentication, movie browsing, and a responsive design.",
       github: "https://github.com/meetshah1708/Netflix-Clone",
-      tech: ['React', 'vite', 'Tailwind CSS']
+      tech: ['React', 'vite', 'Tailwind CSS']  // 'vite' matches the key in skillIcons
     },
     {
       title: "Blog App",
@@ -230,7 +275,7 @@ const WorksPage: React.FC = () => {
       title: "QuizApp",
       description: "Interactive quiz application with multiple question categories, user scoring, and responsive UI.",
       github: "https://github.com/meetshah1708/quizapp",
-      tech: ['React', 'vite', 'CSS']
+      tech: ['React', 'vite', 'CSS']  // 'vite' matches the key in skillIcons
     },
     {
       title: "PromptDunia",
@@ -314,24 +359,32 @@ const ContactPage: React.FC = () => {
   return (
     <div className="pt-24 pb-16 max-w-4xl mx-auto px-4">
       <h2 className="text-3xl font-bold text-gray-900 mb-6">Contact Me</h2>
-      <form className="bg-white shadow-lg rounded-lg p-6 space-y-4">
+      <form className="bg-background-secondary rounded-xl p-8 shadow-xl border border-accent/10">
         <input
           type="text"
           placeholder="Name"
-          className="border w-full p-2 rounded"
+          className="w-full px-4 py-3 rounded-lg bg-background-primary border border-accent/20 
+                     text-text-primary placeholder-text-secondary/50 focus:ring-2 focus:ring-primary/50 
+                     focus:border-transparent focus:outline-none transition-all duration-300"
         />
         <input
           type="email"
           placeholder="Email"
-          className="border w-full p-2 rounded"
+          className="w-full px-4 py-3 rounded-lg bg-background-primary border border-accent/20 
+                     text-text-primary placeholder-text-secondary/50 focus:ring-2 focus:ring-primary/50 
+                     focus:border-transparent focus:outline-none transition-all duration-300"
         />
         <textarea
           placeholder="Your message..."
-          className="border w-full p-2 rounded h-32"
+          className="w-full px-4 py-3 rounded-lg bg-background-primary border border-accent/20 
+                     text-text-primary placeholder-text-secondary/50 focus:ring-2 focus:ring-primary/50 
+                     focus:border-transparent focus:outline-none transition-all duration-300 h-32"
         ></textarea>
         <button
           type="submit"
-          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+          className="bg-primary text-background-primary py-2 px-4 rounded-lg font-medium 
+                     transition-all duration-300 hover:bg-primary/90 hover:translate-y-[-2px] focus:ring-2 
+                     focus:ring-primary/50 focus:outline-none"
         >
           Send
         </button>
@@ -357,10 +410,17 @@ const ProjectCard = ({ title, description, link, github, tech }: ProjectCardProp
       variants={fadeInUp}
       initial="initial"
       animate="animate"
-      className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition transform hover:-translate-y-1"
+      className={`bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition transform 
+                  hover:-translate-y-1 border border-${colors.accent}/10`}
     >
-      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h3>
-      <p className="mt-2 text-gray-600 dark:text-gray-300">{description}</p>
+      <h3 className={`text-xl font-semibold text-${colors.text.dark}`}
+           style={{ fontFamily: typography.primary }}>
+        {title}
+      </h3>
+      <p className={`mt-2 text-${colors.text.secondary}`}
+         style={{ fontFamily: typography.primary }}>
+        {description}
+      </p>
       <div className="mt-4 flex flex-wrap gap-2">
         {tech.map(t => (
           <div key={t} className="flex items-center space-x-2">
@@ -377,12 +437,18 @@ const ProjectCard = ({ title, description, link, github, tech }: ProjectCardProp
       </div>
       <div className="mt-4 flex space-x-4">
         {link && (
-          <a href={link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-blue-600 hover:text-blue-800">
+          <a href={link} 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             className={`inline-flex items-center text-${colors.primary} hover:text-${colors.primary}/80`}>
             <Code className="w-4 h-4 mr-2" />
             Live Demo
           </a>
         )}
-        <a href={github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-gray-600 hover:text-gray-800">
+        <a href={github} 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           className={`inline-flex items-center text-${colors.text.secondary} hover:text-${colors.text.dark}`}>
           <Github className="w-4 h-4 mr-2" />
           View Code
         </a>
