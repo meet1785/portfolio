@@ -67,42 +67,40 @@ const typography = {
 const AppContent: React.FC = () => {
   return (
     <>
-      <nav className="bg-background-primary backdrop-blur-md bg-opacity-90 shadow-lg fixed w-full z-10 border-b border-accent/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex">
-              {/* Update nav links to use white text for better contrast */}
-              <Link to="/" className="flex items-center px-4 text-white hover:text-gray-200">
-                <Home className="w-5 h-5 mr-2" />
-                Home
-              </Link>
-              <Link to="/works" className="flex items-center px-4 text-white hover:text-gray-200">
-                <Briefcase className="w-5 h-5 mr-2" />
-                Works
-              </Link>
-              <Link to="/resume" className="flex items-center px-4 text-white hover:text-gray-200">
-                <FileText className="w-5 h-5 mr-2" />
-                Resume
-              </Link>
-              <Link to="/about" className="flex items-center px-4 text-white hover:text-gray-200">
-                About
-              </Link>
-              <Link to="/contact" className="flex items-center px-4 text-white hover:text-gray-200">
-                Contact
-              </Link>
-            </div>
-            <div className="flex items-center space-x-4">
-              {/* Removed dark/light mode toggle button remains removed */}
-              <a href="mailto:meetshah1785@gmail.com" className="text-white hover:text-gray-200">
-                <Mail className="w-5 h-5" />
-              </a>
-              <a href="https://github.com/meetshah1708" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-200">
-                <Github className="w-5 h-5" />
-              </a>
-              <a href="https://linkedin.com/in/meetshah1708" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-200">
-                <Linkedin className="w-5 h-5" />
-              </a>
-            </div>
+      <nav className="bg-background-primary backdrop-blur-md bg-opacity-95 shadow-xl fixed w-full z-50 md:h-20 h-auto py-3 px-8 md:px-12 border-b border-accent/10">
+        <div className="max-w-7xl mx-auto flex justify-between items-center w-full h-full">
+          <div className="flex">
+            {/* Update nav links to use white text for better contrast */}
+            <Link to="/" className="flex items-center px-4 text-white hover:text-gray-200">
+              <Home className="w-5 h-5 mr-2" />
+              Home
+            </Link>
+            <Link to="/works" className="flex items-center px-4 text-white hover:text-gray-200">
+              <Briefcase className="w-5 h-5 mr-2" />
+              Works
+            </Link>
+            <Link to="/resume" className="flex items-center px-4 text-white hover:text-gray-200">
+              <FileText className="w-5 h-5 mr-2" />
+              Resume
+            </Link>
+            <Link to="/about" className="flex items-center px-4 text-white hover:text-gray-200">
+              About
+            </Link>
+            <Link to="/contact" className="flex items-center px-4 text-white hover:text-gray-200">
+              Contact
+            </Link>
+          </div>
+          <div className="flex items-center space-x-4">
+            {/* Removed dark/light mode toggle button remains removed */}
+            <a href="mailto:meetshah1785@gmail.com" className="text-white hover:text-gray-200">
+              <Mail className="w-5 h-5" />
+            </a>
+            <a href="https://github.com/meetshah1708" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-200">
+              <Github className="w-5 h-5" />
+            </a>
+            <a href="https://linkedin.com/in/meetshah1708" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-200">
+              <Linkedin className="w-5 h-5" />
+            </a>
           </div>
         </div>
       </nav>
@@ -141,10 +139,10 @@ const LandingPage: React.FC = () => {
       animate="animate"
       exit="exit"
       variants={pageTransition}
-      className="pt-16 relative overflow-hidden bg-background-primary"
+      className="pt-24 relative overflow-hidden bg-background-primary"
     >
       {/* Modern gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background-primary via-background-secondary to-background-accent opacity-90" />
+      <div className="absolute inset-0 bg-gradient-to-br from-background-primary via-background-secondary to-background-accent opacity-90 z-0" />
       <div className="relative z-10">
         <div className="h-screen flex items-center justify-center text-white bg-gradient-to-br from-blue-600 to-purple-700 dark:from-gray-900 dark:to-gray-800">
           <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-8">
@@ -153,7 +151,7 @@ const LandingPage: React.FC = () => {
               variants={scaleIn}
               initial="initial"
               animate="animate"
-              className="w-64 h-64 relative overflow-hidden"
+              className="w-80 h-80 relative overflow-hidden"
             >
               <img
                 src={img} 
@@ -288,7 +286,7 @@ const WorksPage: React.FC = () => {
   ];
 
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-36 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-gray-900 mb-8">My Projects</h2>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -303,7 +301,7 @@ const WorksPage: React.FC = () => {
 
 const ResumePage: React.FC = () => {
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-36 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white shadow rounded-lg p-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">Resume</h2>
@@ -346,7 +344,7 @@ const ResumePage: React.FC = () => {
 
 const AboutPage: React.FC = () => {
   return (
-    <div className="pt-24 pb-16 max-w-4xl mx-auto px-4">
+    <div className="pt-36 pb-16 max-w-4xl mx-auto px-4">
       <h2 className="text-3xl font-bold text-gray-900 mb-4">About Me</h2>
       <p className="text-gray-700 leading-relaxed">
       I'm Meet Timir Shah, a Computer Engineering student at TCET, University of Mumbai, passionate about creating innovative digital solutions. With expertise in full-stack development using MERN Stack and proficiency in languages like Java, C++, Javascript, and Python, I've successfully developed projects including a YouTube clone using React JS and Rapid API. My experience extends to working with databases (MySQL, MongoDB), modern development tools (Docker, Git, RESTful APIs), and frameworks (React, Next.js, Express.js). As an AI PE intern at Vault of Codes and a participant in prestigious competitions like SIH 2023-24 and Flipkart Grid 6.0, I've demonstrated my problem-solving abilities through 300+ coding challenges across platforms. I'm constantly building personal projects while maintaining a balance with interests in table tennis and community volunteering. Currently seeking opportunities to leverage my technical skills and creative approach to contribute to innovative projects
