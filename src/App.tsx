@@ -86,9 +86,9 @@ const AppContent: React.FC = () => {
             <Link to="/about" className="flex items-center px-4 text-white hover:text-gray-200">
               About
             </Link>
-            <Link to="/contact" className="flex items-center px-4 text-white hover:text-gray-200">
+            {/* <Link to="/contact" className="flex items-center px-4 text-white hover:text-gray-200">
               Contact
-            </Link>
+            </Link> */}
           </div>
           <div className="flex items-center space-x-4">
             {/* Removed dark/light mode toggle button remains removed */}
@@ -110,7 +110,7 @@ const AppContent: React.FC = () => {
           <Route path="/works" element={<WorksPage />} />
           <Route path="/resume" element={<ResumePage />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
+          {/* <Route path="/contact" element={<ContactPage />} /> */}
         </Routes>
       </AnimatePresence>
     </>
@@ -353,46 +353,46 @@ const AboutPage: React.FC = () => {
   );
 };
 
-const ContactPage: React.FC = () => {
-  return (
-    <div className="pt-24 pb-16 max-w-4xl mx-auto px-4">
-      <h2 className="text-3xl font-bold text-gray-900 mb-6">Contact Me</h2>
-      <form className="bg-background-secondary rounded-xl p-8 shadow-xl border border-accent/10">
-        <input
-          type="text"
-          placeholder="Name"
-          className="w-full px-4 py-3 rounded-lg bg-background-primary border border-accent/20 
-                     text-text-primary placeholder-text-secondary/50 focus:ring-2 focus:ring-primary/50 
-                     focus:border-transparent focus:outline-none transition-all duration-300"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full px-4 py-3 rounded-lg bg-background-primary border border-accent/20 
-                     text-text-primary placeholder-text-secondary/50 focus:ring-2 focus:ring-primary/50 
-                     focus:border-transparent focus:outline-none transition-all duration-300"
-        />
-        <textarea
-          placeholder="Your message..."
-          className="w-full px-4 py-3 rounded-lg bg-background-primary border border-accent/20 
-                     text-text-primary placeholder-text-secondary/50 focus:ring-2 focus:ring-primary/50 
-                     focus:border-transparent focus:outline-none transition-all duration-300 h-32"
-        ></textarea>
-        <button
-          type="submit"
-          className="bg-primary text-background-primary py-2 px-4 rounded-lg font-medium 
-                     transition-all duration-300 hover:bg-primary/90 hover:translate-y-[-2px] focus:ring-2 
-                     focus:ring-primary/50 focus:outline-none"
-        >
-          Send
-        </button>
-      </form>
-      <p className="mt-4 text-gray-700">
-        For direct inquiries, email me at: <span className="font-semibold text-blue-600">meetshah1785@gmail.com</span>
-      </p>
-    </div>
-  );
-};
+// const ContactPage: React.FC = () => {
+//   return (
+//     <div className="pt-24 pb-16 max-w-4xl mx-auto px-4">
+//       <h2 className="text-3xl font-bold text-gray-900 mb-6">Contact Me</h2>
+//       <form className="bg-background-secondary rounded-xl p-8 shadow-xl border border-accent/10">
+//         <input
+//           type="text"
+//           placeholder="Name"
+//           className="w-full px-4 py-3 rounded-lg bg-background-primary border border-accent/20 
+//                      text-text-primary placeholder-text-secondary/50 focus:ring-2 focus:ring-primary/50 
+//                      focus:border-transparent focus:outline-none transition-all duration-300"
+//         />
+//         <input
+//           type="email"
+//           placeholder="Email"
+//           className="w-full px-4 py-3 rounded-lg bg-background-primary border border-accent/20 
+//                      text-text-primary placeholder-text-secondary/50 focus:ring-2 focus:ring-primary/50 
+//                      focus:border-transparent focus:outline-none transition-all duration-300"
+//         />
+//         <textarea
+//           placeholder="Your message..."
+//           className="w-full px-4 py-3 rounded-lg bg-background-primary border border-accent/20 
+//                      text-text-primary placeholder-text-secondary/50 focus:ring-2 focus:ring-primary/50 
+//                      focus:border-transparent focus:outline-none transition-all duration-300 h-32"
+//         ></textarea>
+//         <button
+//           type="submit"
+//           className="bg-primary text-background-primary py-2 px-4 rounded-lg font-medium 
+//                      transition-all duration-300 hover:bg-primary/90 hover:translate-y-[-2px] focus:ring-2 
+//                      focus:ring-primary/50 focus:outline-none"
+//         >
+//           Send
+//         </button>
+//       </form>
+//       <p className="mt-4 text-gray-700">
+//         For direct inquiries, email me at: <span className="font-semibold text-blue-600">meetshah1785@gmail.com</span>
+//       </p>
+//     </div>
+//   );
+// };
 
 interface ProjectCardProps {
   title: string;
