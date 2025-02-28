@@ -4,6 +4,7 @@ import { ThemeProvider} from './context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { pageTransition, fadeInUp, scaleIn} from './utils/animations';
 import img from '/meet.jpeg'; 
+import  { useState, useMemo } from 'react';
 interface SkillCategoryProps {
   title: string;
   skills: string[];
@@ -38,25 +39,15 @@ const skillIcons: Record<string, string> = {
   Python: "https://cdn.worldvectorlogo.com/logos/python-5.svg",
   Java: "https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg",
   Vite: "https://vitejs.dev/logo.svg",
-  'vite': "https://cdn.worldvectorlogo.com/logos/vitejs.svg"
+  'vite': "https://cdn.worldvectorlogo.com/logos/vitejs.svg",
+  'Next.js': "https://cdn.worldvectorlogo.com/logos/nextjs-2.svg",
+  'CSS': "https://cdn.worldvectorlogo.com/logos/css-3.svg",
+  'Chrome Extension API': "https://cdn.worldvectorlogo.com/logos/chrome-1.svg",
+  'Gemini API': "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_2.width-1300.format-webp.webp",
+  'Spring Boot': "https://cdn.worldvectorlogo.com/logos/spring-3.svg" 
 };
 
-// Update the color scheme constants
-const colors = {
-  primary: '#64FFDA',
-  secondary: '#0A192F',
-  accent: '#8892B0',
-  text: {
-    primary: '#CCD6F6',
-    secondary: '#8892B0',
-    dark: '#233554'
-  },
-  background: {
-    primary: '#0A192F',
-    secondary: '#112240',
-    accent: '#233554'
-  }
-};
+
 
 // Add modern fonts
 const typography = {
@@ -252,10 +243,16 @@ const WorksPage: React.FC = () => {
       tech: ['React', 'Tailwind CSS', 'Redux']
     },
     {
+      title: "Email Reply Generator",
+      description: "AI-powered Chrome extension that generates contextual email replies directly in Gmail. Uses Gemini API to analyze email threads and create personalized responses.",
+      github: "https://github.com/meetshah1708/email-reply-generator",
+      tech: ['JavaScript','Java', 'Chrome Extension API', 'Gemini API', 'React', 'Spring Boot']
+    },
+    {
       title: "Netflix-Clone",
       description: "A Netflix clone built with React and vite, featuring user authentication, movie browsing, and a responsive design.",
       github: "https://github.com/meetshah1708/Netflix-Clone",
-      tech: ['React', 'vite', 'Tailwind CSS']  // 'vite' matches the key in skillIcons
+      tech: ['React', 'vite', 'Tailwind CSS']  
     },
     {
       title: "Blog App",
@@ -273,7 +270,7 @@ const WorksPage: React.FC = () => {
       title: "QuizApp",
       description: "Interactive quiz application with multiple question categories, user scoring, and responsive UI.",
       github: "https://github.com/meetshah1708/quizapp",
-      tech: ['React', 'vite', 'CSS']  // 'vite' matches the key in skillIcons
+      tech: ['React', 'vite', 'CSS']
     },
     {
       title: "PromptDunia",
@@ -281,23 +278,168 @@ const WorksPage: React.FC = () => {
       github: "https://github.com/meetshah1708/PromptDunia",
       tech: ['Next.js', 'Tailwind CSS', 'TypeScript']
     },
-   
-
   ];
 
+  // Filter functionality with better UX
+  const [activeFilter, setActiveFilter] = useState<string>("All");
+  const allTechs = useMemo(() => {
+    return ["All", ...Array.from(new Set(projects.flatMap(p => p.tech)))].sort();
+  }, [projects]);
+  
+  const filteredProjects = activeFilter === "All" 
+    ? projects 
+    : projects.filter(p => p.tech.includes(activeFilter));
+
   return (
-    <div className="pt-36 pb-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">My Projects</h2>
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, index) => (
+    <motion.div 
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageTransition}
+      className="min-h-screen" // Remove top padding to use consistent padding below
+    >
+      {/* Fixed height spacer to prevent navbar overlap */}
+      <div className="h-24 md:h-28"></div>
+      
+      {/* Hero section with improved mobile styling */}
+      <div className="relative bg-gradient-to-r from-background-primary to-background-secondary py-10 md:py-16 mb-8 md:mb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.h1 
+            variants={fadeInUp}
+            className="text-3xl md:text-5xl font-bold text-white mb-3 md:mb-6"
+            style={{ fontFamily: typography.primary }}
+          >
+            My Projects
+          </motion.h1>
+          <motion.p 
+            variants={fadeInUp}
+            className="text-lg md:text-xl text-text-primary max-w-2xl"
+            style={{ fontFamily: typography.primary }}
+          >
+            A collection of web applications, tools, and experiments I've built.
+          </motion.p>
+        </div>
+        {/* Improved background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary/5 mix-blend-overlay z-0"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        {/* Filter buttons with improved mobile design */}
+        <motion.div 
+          variants={fadeInUp}
+          className="mb-10 flex flex-wrap gap-3 justify-center"
+        >
+          {allTechs.map(tech => (
+            <button
+              key={tech}
+              onClick={() => setActiveFilter(tech)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                activeFilter === tech 
+                  ? "bg-primary text-background-primary shadow-lg transform scale-105"
+                  : "bg-gray-100 text-gray-600 hover:bg-gray-200 hover:shadow"
+              }`}
+            >
+              {tech}
+            </button>
+          ))}
+        </motion.div>
+
+        {/* Projects grid with improved responsiveness */}
+        <motion.div 
+          variants={fadeInUp}
+          className="grid gap-6 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+        >
+          {filteredProjects.map((project, index) => (
             <ProjectCard key={index} {...project} />
           ))}
-        </div>
+        </motion.div>
+
+        {filteredProjects.length === 0 && (
+          <div className="text-center py-12 bg-gray-50 rounded-lg shadow-inner">
+            <p className="text-xl text-gray-500">No projects match the selected filter.</p>
+            <button 
+              onClick={() => setActiveFilter("All")}
+              className="mt-4 px-6 py-2 bg-primary text-background-primary rounded-lg shadow-md hover:bg-primary/90 transition-all"
+            >
+              Show All Projects
+            </button>
+          </div>
+        )}
       </div>
-    </div>
+    </motion.div>
   );
 };
+
+const ProjectCard = ({ title, description, link, github, tech }: ProjectCardProps) => {
+  return (
+    <motion.div
+      variants={fadeInUp}
+      whileHover={{ y: -8, transition: { duration: 0.3 } }}
+      className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 h-full flex flex-col"
+    >
+      {/* Card header with live indicator */}
+      <div className="relative bg-gradient-to-r from-background-primary to-background-secondary p-5">
+        <h3 className="text-xl font-semibold text-white pr-14"
+            style={{ fontFamily: typography.primary }}>
+          {title}
+        </h3>
+        {link && (
+          <span className="absolute top-5 right-5 flex items-center">
+            <span className="h-2 w-2 rounded-full bg-green-400 mr-1 animate-pulse"></span>
+            <span className="text-xs text-green-300">Live</span>
+          </span>
+        )}
+      </div>
+      
+      {/* Card body with flex-grow to ensure consistent height */}
+      <div className="p-6 flex-grow flex flex-col">
+        <p className="text-gray-600 mb-6 flex-grow"
+           style={{ fontFamily: typography.primary }}>
+          {description}
+        </p>
+        
+        {/* Tech tags with better spacing */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          {tech.map(t => (
+            <div key={t} className="flex items-center rounded-full bg-gray-100 px-3 py-1">
+              {skillIcons[t] && (
+                <img 
+                  src={skillIcons[t]} 
+                  alt={t} 
+                  className="w-4 h-4 mr-1 object-contain" 
+                />
+              )}
+              <span className="text-xs text-gray-700">{t}</span>
+            </div>
+          ))}
+        </div>
+        
+        {/* Action buttons */}
+        <div className="flex space-x-2">
+          {link && (
+            <a href={link} 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               className="flex-1 flex justify-center items-center py-2 px-4 rounded-lg bg-primary text-white font-medium 
+                         transition-all hover:bg-primary/90 hover:shadow-md">
+              <Code className="w-4 h-4 mr-2" />
+              Live Demo
+            </a>
+          )}
+          <a href={github} 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             className={`flex-1 flex justify-center items-center py-2 px-4 rounded-lg ${
+               link ? "bg-gray-100 hover:bg-gray-200 text-gray-800" : "bg-primary text-white hover:bg-primary/90"
+             } font-medium transition-all hover:shadow-md`}>
+            <Github className="w-4 h-4 mr-2" />
+            View Code
+          </a>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 const ResumePage: React.FC = () => {
   return (
@@ -400,59 +542,6 @@ interface ProjectCardProps {
   link?: string;
   github: string;
   tech: string[];
-}
-
-const ProjectCard = ({ title, description, link, github, tech }: ProjectCardProps) => {
-  return (
-    <motion.div
-      variants={fadeInUp}
-      initial="initial"
-      animate="animate"
-      className={`bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition transform 
-                  hover:-translate-y-1 border border-${colors.accent}/10`}
-    >
-      <h3 className={`text-xl font-semibold text-${colors.text.dark}`}
-           style={{ fontFamily: typography.primary }}>
-        {title}
-      </h3>
-      <p className={`mt-2 text-${colors.text.secondary}`}
-         style={{ fontFamily: typography.primary }}>
-        {description}
-      </p>
-      <div className="mt-4 flex flex-wrap gap-2">
-        {tech.map(t => (
-          <div key={t} className="flex items-center space-x-2">
-            {skillIcons[t] && (
-              <img 
-                src={skillIcons[t]} 
-                alt={t} 
-                className="w-5 h-5" 
-              />
-            )}
-            <span className="px-2 py-1 bg-gray-200 rounded text-sm">{t}</span>
-          </div>
-        ))}
-      </div>
-      <div className="mt-4 flex space-x-4">
-        {link && (
-          <a href={link} 
-             target="_blank" 
-             rel="noopener noreferrer" 
-             className={`inline-flex items-center text-${colors.primary} hover:text-${colors.primary}/80`}>
-            <Code className="w-4 h-4 mr-2" />
-            Live Demo
-          </a>
-        )}
-        <a href={github} 
-           target="_blank" 
-           rel="noopener noreferrer" 
-           className={`inline-flex items-center text-${colors.text.secondary} hover:text-${colors.text.dark}`}>
-          <Github className="w-4 h-4 mr-2" />
-          View Code
-        </a>
-      </div>
-    </motion.div>
-  );
 }
 
 function SkillCategory({ title, skills }: SkillCategoryProps) {
