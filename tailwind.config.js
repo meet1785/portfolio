@@ -34,8 +34,11 @@ export default {
         }
       },
       fontFamily: {
-        heading: ['Inter', 'sans-serif'],
-        body: ['Work Sans', 'sans-serif'],
+        primary: ['Inter', 'system-ui', 'sans-serif'],
+        secondary: ['Poppins', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        heading: ['Poppins', 'sans-serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         h1: ['64px', '1.2'],
@@ -71,7 +74,8 @@ export default {
         'bounce-light': 'bounce 1s ease-in-out infinite',
         'float': 'float 6s ease-in-out infinite',
         'glow': 'glow 2s ease-in-out infinite alternate',
-        'slide-in': 'slideIn 0.5s ease-out'
+        'slide-in': 'slideIn 0.5s ease-out',
+        'blob': 'blob 7s infinite'
       },
       keyframes: {
         fadeIn: {
@@ -97,6 +101,12 @@ export default {
         slideIn: {
           '0%': { transform: 'translateX(-100%)', opacity: 0 },
           '100%': { transform: 'translateX(0)', opacity: 1 }
+        },
+        blob: {
+          '0%': { transform: 'translate(0px, 0px) scale(1)' },
+          '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+          '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+          '100%': { transform: 'translate(0px, 0px) scale(1)' }
         }
       }
     }
