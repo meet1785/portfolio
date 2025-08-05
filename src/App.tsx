@@ -481,7 +481,7 @@ const WorksPage: React.FC = () => {
     {
       title: "YouTube Clone",
       description: "A modern YouTube clone built with React, featuring real-time video streaming, dynamic content fetching via RapidAPI, and responsive design.",
-      link: "https://youtube-blond-sigma.vercel.app/",
+      link: "https://youtube-meet.vercel.app/",
       github: "https://github.com/meetshah1708/youtube",
       tech: ['React', 'JavaScript', 'CSS'],
       featured: true,
