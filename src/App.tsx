@@ -1,3 +1,4 @@
+import React from 'react';
 import { Github, Linkedin, Mail, Code, FileText, Home, Briefcase, ExternalLink, Download } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ThemeProvider} from './context/ThemeContext';
@@ -23,23 +24,54 @@ const profileIcons: Record<string, string> = {
 };
 
 const skillIcons: Record<string, string> = {
-  React: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
-  TypeScript: "https://cdn.worldvectorlogo.com/logos/typescript.svg",  
-  "Tailwind CSS": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg",
-  Redux: "https://upload.wikimedia.org/wikipedia/commons/4/49/Redux.png",  
-  "Node.js": "https://cdn.worldvectorlogo.com/logos/nodejs-icon.svg",    
-  Express: "https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png",
-  MongoDB: "https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg",    
-  Git: "https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png",
-  Docker: "https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png",
-  AWS: "https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png",
-  Vercel: "https://cdn.worldvectorlogo.com/logos/vercel.svg",             
-  JavaScript: "https://cdn.worldvectorlogo.com/logos/javascript-1.svg",     
-  "C++": "https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg",
-  Python: "https://cdn.worldvectorlogo.com/logos/python-5.svg",
-  Java: "https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg",
-  Vite: "https://vitejs.dev/logo.svg",
-  'vite': "https://cdn.worldvectorlogo.com/logos/vitejs.svg"
+  // Frontend Technologies
+  React: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
+  "React.js": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
+  "Next.js": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg",
+  TypeScript: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",
+  JavaScript: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
+  "Tailwind CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
+  Redux: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redux/redux-original.svg",
+  HTML: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg",
+  CSS: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg",
+
+  // Backend Technologies
+  "Node.js": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg",
+  Express: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg",
+  "Express.js": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg",
+  "Spring Boot": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg",
+
+  // Databases
+  MongoDB: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg",
+  MySQL: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg",
+  Firebase: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg",
+
+  // Programming Languages
+  Java: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg",
+  "C++": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg",
+  Python: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
+
+  // Tools & DevOps
+  Git: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg",
+  Docker: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg",
+  AWS: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg",
+  "Google Cloud Platform": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg",
+  GCP: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg",
+  Vercel: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg",
+  Vite: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg",
+  vite: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg",
+  "VS Code": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg",
+  Postman: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg",
+
+  // Mobile Development
+  "React Native": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
+
+  // Additional Technologies
+  Webpack: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/webpack/webpack-original.svg",
+  Babel: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/babel/babel-original.svg",
+  ESLint: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/eslint/eslint-original.svg",
+  Nginx: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nginx/nginx-original.svg",
+  Linux: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg"
 };
 
 const AppContent: React.FC = () => {
@@ -136,7 +168,7 @@ const AppContent: React.FC = () => {
 const App: React.FC = () => {
   return (
     <ThemeProvider>
-      <Router>
+      <Router basename="/portfolio">
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
           {/* Animated Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
@@ -178,7 +210,7 @@ const LandingPage: React.FC = () => {
               {/* Main image */}
               <img
                 src={img} 
-                alt="Meet Timir Shah"
+                alt="Meet Shah"
                 className="relative w-full h-full object-cover rounded-full border-4 border-white/20 shadow-2xl backdrop-blur-sm"
                 style={{
                   objectPosition: 'center top',
@@ -195,15 +227,15 @@ const LandingPage: React.FC = () => {
           <div className="text-center lg:text-left space-y-8">
             <motion.div variants={fadeInUp} className="space-y-4">
               <h1 className="text-5xl lg:text-7xl font-bold text-white font-heading">
-                Meet Timir 
+                Meet 
                 <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent"> Shah</span>
               </h1>
               <p className="text-xl lg:text-2xl text-white/80 font-body">
-                Full Stack Developer & Problem Solver
+                Computer Engineering Student & Full Stack Developer
               </p>
               <p className="text-lg text-white/60 max-w-2xl font-body">
-                Passionate about creating innovative digital solutions with modern technologies. 
-                Specializing in MERN stack, React, TypeScript, and cloud deployment.
+                Passionate Computer Engineering student from Mumbai with CGPI 9.4/10.0, specializing in MERN stack development,  
+                AI/ML applications, and innovative digital solutions. Currently seeking opportunities to contribute to impactful projects.
               </p>
             </motion.div>
             
@@ -276,46 +308,121 @@ const LandingPage: React.FC = () => {
 };
 
 const WorksPage: React.FC = () => {
+  const [selectedFilter, setSelectedFilter] = React.useState<string>('All');
+  
   const projects = [
     {
       title: "YouTube Clone",
-      description: "A modern YouTube clone built with React, featuring real-time comments, streaming, and a responsive UI with modern design patterns.",
-      link: "https://youtube-meet.vercel.app/",
+      description: "A modern YouTube clone built with React, featuring real-time video streaming, dynamic content fetching via RapidAPI, and responsive design.",
+      link: "https://youtube-blond-sigma.vercel.app/",
       github: "https://github.com/meetshah1708/youtube",
-      tech: ['React', 'Tailwind CSS', 'Redux'],
-      featured: true
+      tech: ['React', 'JavaScript', 'CSS'],
+      featured: true,
+      category: 'Web App'
     },
     {
-      title: "Netflix-Clone",
-      description: "A Netflix clone built with React and Vite, featuring user authentication, movie browsing, and a responsive design.",
-      github: "https://github.com/meetshah1708/Netflix-Clone",
-      tech: ['React', 'vite', 'Tailwind CSS']
+      title: "Email Reply Generator",
+      description: "Full-stack productivity tool with Spring Boot backend and React frontend, featuring Chrome extension and AI-powered email suggestions using LLMs.",
+      github: "https://github.com/meetshah1708/email-reply-generator",
+      tech: ['Spring Boot', 'React', 'JavaScript', 'Chrome Extension'],
+      featured: true,
+      category: 'Full Stack'
     },
     {
-      title: "Blog App",
-      description: "Full-stack blog platform with user authentication, CRUD operations, and markdown support for content creation.",
-      github: "https://github.com/meetshah1708/blog-app",
-      tech: ['Next.js', 'MongoDB', 'Express', 'Node.js']
+      title: "AI Resume Screener",
+      description: "Advanced AI-powered resume screening application built with TypeScript, featuring automated candidate evaluation and scoring.",
+      github: "https://github.com/meetshah1708/ai-resume-screener",
+      tech: ['TypeScript', 'React', 'AI/ML'],
+      featured: true,
+      category: 'AI/ML'
+    },
+    {
+      title: "Blogs App",
+      description: "Modern blog platform with TypeScript, featuring content management, user authentication, and responsive design.",
+      github: "https://github.com/meetshah1708/blogsapp",
+      tech: ['TypeScript', 'React', 'CSS'],
+      category: 'Web App'
+    },
+    {
+      title: "Smart Wardrobe",
+      description: "Intelligent wardrobe management system built with JavaScript, helping users organize and coordinate their clothing.",
+      github: "https://github.com/meetshah1708/smart-wardrobe",
+      tech: ['JavaScript', 'HTML', 'CSS'],
+      category: 'Web App'
+    },
+    {
+      title: "Netflix Clone",
+      description: "Netflix-inspired streaming platform clone with user authentication, movie browsing, and responsive design.",
+      github: "https://github.com/meetshah1708/netflix-clone",
+      tech: ['JavaScript', 'React', 'CSS'],
+      category: 'Web App'
+    },
+    {
+      title: "Cultural Fest Website",
+      description: "Event management website for cultural festivals, featuring event listings, registrations, and interactive design.",
+      github: "https://github.com/meetshah1708/culturalFest",
+      tech: ['HTML', 'CSS', 'JavaScript'],
+      category: 'Website'
     },
     {
       title: "MERN Stack Template",
-      description: "A comprehensive MERN stack template demonstrating CRUD operations, user authentication, and clean project structure.",
+      description: "Comprehensive full-stack template demonstrating CRUD operations, authentication, and modern development practices.",
       github: "https://github.com/meetshah1708/mern",
-      tech: ['MongoDB', 'Express', 'React', 'Node.js']
-    },
-    {
-      title: "QuizApp",
-      description: "Interactive quiz application with multiple question categories, user scoring, and responsive UI with modern animations.",
-      github: "https://github.com/meetshah1708/quizapp",
-      tech: ['React', 'vite', 'CSS']
+      tech: ['MongoDB', 'Express', 'React', 'Node.js'],
+      category: 'Full Stack'
     },
     {
       title: "PromptDunia",
-      description: "A platform to explore and share AI prompts, complete with community-driven content and rating features.",
-      github: "https://github.com/meetshah1708/PromptDunia",
-      tech: ['Next.js', 'Tailwind CSS', 'TypeScript']
+      description: "AI prompt sharing platform for exploring and discovering creative prompts, with community features and rating system.",
+      github: "https://github.com/meetshah1708/Promptdunia",
+      tech: ['CSS', 'JavaScript', 'HTML'],
+      category: 'Web App'
     },
+    {
+      title: "QuizApp",
+      description: "Interactive quiz application with multiple categories, scoring system, and modern animations for engaging user experience.",
+      github: "https://github.com/meetshah1708/Quizapp",
+      tech: ['JavaScript', 'React', 'CSS'],
+      category: 'Web App'
+    },
+    {
+      title: "Food App",
+      description: "Restaurant and food delivery application with menu browsing, ordering system, and responsive mobile-first design.",
+      github: "https://github.com/meetshah1708/food-app",
+      tech: ['JavaScript', 'React', 'CSS'],
+      category: 'Web App'
+    },
+    {
+      title: "Fitness Tracker",
+      description: "Personal fitness tracking application with workout logging, progress monitoring, and health analytics.",
+      github: "https://github.com/meetshah1708/fitness",
+      tech: ['JavaScript', 'HTML', 'CSS'],
+      category: 'Web App'
+    },
+    {
+      title: "Meet Grocery",
+      description: "E-commerce grocery platform with product catalog, shopping cart functionality, and order management system.",
+      github: "https://github.com/meetshah1708/Proj2-MEET-GROCERY",
+      tech: ['HTML', 'CSS', 'JavaScript'],
+      category: 'E-commerce'
+    },
+    {
+      title: "Calculator App",
+      description: "Advanced calculator application with scientific functions, memory operations, and responsive design.",
+      github: "https://github.com/meetshah1708/calculator",
+      tech: ['JavaScript', 'HTML', 'CSS'],
+      category: 'Utility'
+    }
   ];
+
+  // Get unique technologies for filter
+  const allTechs = Array.from(new Set(projects.flatMap(project => project.tech)));
+  const filterOptions = ['All', ...allTechs];
+
+  // Filter projects based on selected technology
+  const filteredProjects = selectedFilter === 'All' 
+    ? projects 
+    : projects.filter(project => project.tech.includes(selectedFilter));
 
   return (
     <motion.div
@@ -335,9 +442,47 @@ const WorksPage: React.FC = () => {
           <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 font-heading">
             My <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Projects</span>
           </h1>
-          <p className="text-xl text-white/70 max-w-3xl mx-auto font-body">
+          <p className="text-xl text-white/70 max-w-3xl mx-auto mb-8 font-body">
             A collection of projects showcasing my skills in full-stack development, modern frameworks, and innovative solutions.
           </p>
+          
+          {/* Technology Filter */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex flex-wrap justify-center gap-3 mb-8"
+          >
+            {filterOptions.map((tech, index) => (
+              <motion.button
+                key={tech}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setSelectedFilter(tech)}
+                className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 font-body ${
+                  selectedFilter === tech
+                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
+                    : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white backdrop-blur-sm'
+                }`}
+              >
+                {tech}
+              </motion.button>
+            ))}
+          </motion.div>
+          
+          {/* Project count */}
+          <motion.p 
+            key={selectedFilter}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className="text-white/60 font-body"
+          >
+            {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} found
+          </motion.p>
         </motion.div>
         
         <motion.div 
@@ -346,10 +491,31 @@ const WorksPage: React.FC = () => {
           animate="animate"
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
-          {projects.map((project, index) => (
-            <ProjectCard key={index} {...project} />
-          ))}
+          <AnimatePresence mode="wait">
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={`${project.title}-${selectedFilter}`}
+                initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -50, scale: 0.9 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                layout
+              >
+                <ProjectCard {...project} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </motion.div>
+        
+        {filteredProjects.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-20"
+          >
+            <p className="text-white/60 text-xl font-body">No projects found with the selected technology.</p>
+          </motion.div>
+        )}
       </div>
     </motion.div>
   );
@@ -364,7 +530,7 @@ const ResumePage: React.FC = () => {
       variants={pageTransition}
       className="pt-28 pb-16 min-h-screen"
     >
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -374,31 +540,207 @@ const ResumePage: React.FC = () => {
           <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 font-heading">
             My <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Resume</span>
           </h1>
-          <p className="text-xl text-white/70 max-w-3xl mx-auto font-body">
-            Skills, experience, and coding achievements that define my journey as a developer.
+          <p className="text-xl text-white/70 max-w-3xl mx-auto mb-8 font-body">
+            Computer Engineering Student | Full Stack Developer | Problem Solver
           </p>
+          <div className="flex justify-center">
+            <motion.a 
+              href="/resume.pdf" 
+              download
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
+            >
+              <Download className="w-5 h-5" />
+              <span>Download Resume</span>
+            </motion.a>
+          </div>
         </motion.div>
 
-        <div className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl">
+        <div className="space-y-12">
+          {/* Education Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
+          >
+            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 font-heading">Education</h2>
+            <div className="space-y-6">
+              <div className="border-l-4 border-blue-500 pl-6">
+                <h3 className="text-xl font-bold text-white font-heading">Bachelor of Engineering, Computer Engineering</h3>
+                <p className="text-blue-400 font-semibold">Thakur College of Engineering and Technology, University of Mumbai</p>
+                <p className="text-white/60">CGPI: 9.4/10.0</p>
+              </div>
+              <div className="border-l-4 border-purple-500 pl-6">
+                <h3 className="text-xl font-bold text-white font-heading">Higher Secondary Certificate (H.S.C.)</h3>
+                <p className="text-purple-400 font-semibold">Maharashtra State Board</p>
+                <p className="text-white/60">Score: 82% | JEE Mains & CET Percentile: 96%ile</p>
+              </div>
+              <div className="border-l-4 border-green-500 pl-6">
+                <h3 className="text-xl font-bold text-white font-heading">Secondary School Certificate (S.S.C.)</h3>
+                <p className="text-green-400 font-semibold">Maharashtra State Board</p>
+                <p className="text-white/60">Score: 94.8%</p>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Work Experience Section */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-12"
+            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
           >
-            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 font-heading">Technical Skills</h2>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <SkillCategory title="Frontend" skills={['React', 'TypeScript', 'Tailwind CSS', 'Redux']} />
-              <SkillCategory title="Backend" skills={['Node.js', 'Express', 'MongoDB']} />
-              <SkillCategory title="Tools" skills={['Git', 'Docker', 'AWS', 'Vercel']} />
-              <SkillCategory title="Languages" skills={['JavaScript', 'C++', 'Python', 'Java']} />
+            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 font-heading">Work Experience</h2>
+            <div className="space-y-8">
+              <div className="border-l-4 border-blue-500 pl-6">
+                <h3 className="text-xl font-bold text-white font-heading">Business Analyst Intern</h3>
+                <p className="text-blue-400 font-semibold mb-2">Neoprism Consultancy And Services</p>
+                <ul className="text-white/70 space-y-2 font-body">
+                  <li>• Authored 20+ white papers for SMEs, driving data-informed digital marketing strategies</li>
+                  <li>• Collaborated with cross-functional teams to analyze KPIs and recommend growth solutions</li>
+                </ul>
+              </div>
+              <div className="border-l-4 border-purple-500 pl-6">
+                <h3 className="text-xl font-bold text-white font-heading">AI Prompt Engineering Intern</h3>
+                <p className="text-purple-400 font-semibold mb-2">VaultOfCodes (Remote)</p>
+                <ul className="text-white/70 space-y-2 font-body">
+                  <li>• Designed and fine-tuned prompts for LLMs to improve NLP model accuracy in text generation tasks</li>
+                  <li>• Explored generative AI tools for behavior modeling and iterative prompt optimization</li>
+                </ul>
+              </div>
             </div>
           </motion.section>
 
+          {/* University Projects Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
+          >
+            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 font-heading">University Projects</h2>
+            <div className="space-y-8">
+              <div className="border-l-4 border-green-500 pl-6">
+                <h3 className="text-xl font-bold text-white font-heading">YouTube Clone – React Webapp</h3>
+                <ul className="text-white/70 space-y-2 font-body mt-2">
+                  <li>• Designed and implemented a responsive video streaming platform using React.js and RapidAPI</li>
+                  <li>• Enabled real-time content fetching and dynamic video playback functionality</li>
+                  <li>• Deployed on Vercel with production-ready configuration, ensuring high performance and intuitive UI/UX</li>
+                </ul>
+              </div>
+              <div className="border-l-4 border-orange-500 pl-6">
+                <h3 className="text-xl font-bold text-white font-heading">Email Reply Generator – Spring Boot, React, Chrome Extension</h3>
+                <ul className="text-white/70 space-y-2 font-body mt-2">
+                  <li>• Developed a full-stack productivity tool integrating Spring Boot and React to automate professional email replies using LLMs</li>
+                  <li>• Engineered a custom Chrome extension to embed AI-powered suggestions directly into the user's email interface</li>
+                  <li>• Reduced average response time by over 40%</li>
+                </ul>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Technical Skills Section */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
+            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
+          >
+            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 font-heading">Technical Skills</h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+              <SkillCategory title="Languages" skills={['Java', 'C++', 'JavaScript', 'Python']} />
+              <SkillCategory title="Frontend" skills={['React.js', 'Next.js', 'HTML', 'CSS']} />
+              <SkillCategory title="Backend" skills={['Node.js', 'Express.js', 'Spring Boot']} />
+              <SkillCategory title="Database" skills={['MySQL', 'MongoDB', 'Firebase']} />
+            </div>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-6">
+              <SkillCategory title="Tools" skills={['Git', 'VS Code', 'Postman']} />
+              <SkillCategory title="Cloud" skills={['Google Cloud Platform', 'Firebase', 'Vercel']} />
+              <SkillCategory title="Concepts" skills={['REST APIs', 'MERN Stack', 'AI/ML']} />
+            </div>
+          </motion.section>
+
+          {/* Virtual Experience Programs Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
+          >
+            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 font-heading">Virtual Experience Programs</h2>
+            <div className="space-y-6">
+              <div className="border-l-4 border-blue-600 pl-6">
+                <h3 className="text-lg font-bold text-white font-heading">JP Morgan – Advanced Software Engineering | Forage</h3>
+                <p className="text-white/70 font-body">Created a live stock dashboard using Python and JPM's Perspective library</p>
+              </div>
+              <div className="border-l-4 border-yellow-500 pl-6">
+                <h3 className="text-lg font-bold text-white font-heading">Goldman Sachs – Software Engineering | Forage</h3>
+                <p className="text-white/70 font-body">Optimized Python code and implemented unit tests to improve performance</p>
+              </div>
+              <div className="border-l-4 border-green-600 pl-6">
+                <h3 className="text-lg font-bold text-white font-heading">Deloitte Australia – Data Analytics | Forage</h3>
+                <p className="text-white/70 font-body">Built Tableau dashboards and analyzed data to support decisions</p>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Activities & Achievements Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
+          >
+            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 font-heading">Activities & Achievements</h2>
+            <div className="space-y-6">
+              <div className="border-l-4 border-red-500 pl-6">
+                <h3 className="text-lg font-bold text-white font-heading">SMART INDIA HACKATHON – Team Lead</h3>
+                <p className="text-white/70 font-body">Led end-to-end project planning and coordination during national-level hackathon events (2023–2024)</p>
+              </div>
+              <div className="border-l-4 border-blue-500 pl-6">
+                <h3 className="text-lg font-bold text-white font-heading">NSS VOLUNTEER</h3>
+                <p className="text-white/70 font-body">Organized and executed social initiatives benefiting 50+ individuals through community outreach</p>
+              </div>
+              <div className="border-l-4 border-purple-500 pl-6">
+                <h3 className="text-lg font-bold text-white font-heading">TSDW SPORTS TEAM</h3>
+                <p className="text-white/70 font-body">Coordinated 10+ inter-college sports and tech events with 200+ participants across campuses</p>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Certifications & Training Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
+          >
+            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 font-heading">Certifications & Training</h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="bg-white/5 rounded-xl p-4">
+                <h3 className="text-white font-semibold">Google Cybersecurity Certificate (Coursera)</h3>
+              </div>
+              <div className="bg-white/5 rounded-xl p-4">
+                <h3 className="text-white font-semibold">Google Arcade Facilitator (50+ GCP Skill Badges)</h3>
+              </div>
+              <div className="bg-white/5 rounded-xl p-4">
+                <h3 className="text-white font-semibold">TCS CodeVita 2024 (Round 2 Qualifier)</h3>
+              </div>
+              <div className="bg-white/5 rounded-xl p-4">
+                <h3 className="text-white font-semibold">300+ DSA Problems Solved</h3>
+                <p className="text-white/60 text-sm">LeetCode, GeeksforGeeks, CodeChef</p>
+              </div>
+            </div>
+          </motion.section>
+
+          {/* Coding Profiles Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
           >
             <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 font-heading">Coding Profiles</h2>
             <div className="grid gap-6 md:grid-cols-3">
@@ -444,26 +786,121 @@ const AboutPage: React.FC = () => {
           <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 font-heading">
             About <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Me</span>
           </h1>
+          <p className="text-xl text-white/70 max-w-2xl mx-auto font-body">
+            Computer Engineering Student | CGPI: 9.4/10.0 | Mumbai
+          </p>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
-        >
-          <div className="prose prose-lg prose-invert max-w-none">
-            <p className="text-lg leading-relaxed text-white/80 font-body">
-              I'm Meet Timir Shah, a Computer Engineering student at TCET, University of Mumbai, passionate about creating innovative digital solutions. With expertise in full-stack development using MERN Stack and proficiency in languages like Java, C++, Javascript, and Python, I've successfully developed projects including a YouTube clone using React JS and Rapid API.
-            </p>
-            <p className="text-lg leading-relaxed text-white/80 font-body mt-6">
-              My experience extends to working with databases (MySQL, MongoDB), modern development tools (Docker, Git, RESTful APIs), and frameworks (React, Next.js, Express.js). As an AI PE intern at Vault of Codes and a participant in prestigious competitions like SIH 2023-24 and Flipkart Grid 6.0, I've demonstrated my problem-solving abilities through 300+ coding challenges across platforms.
-            </p>
-            <p className="text-lg leading-relaxed text-white/80 font-body mt-6">
-              I'm constantly building personal projects while maintaining a balance with interests in table tennis and community volunteering. Currently seeking opportunities to leverage my technical skills and creative approach to contribute to innovative projects.
-            </p>
-          </div>
-        </motion.div>
+        <div className="space-y-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
+          >
+            <div className="prose prose-lg prose-invert max-w-none">
+              <p className="text-lg leading-relaxed text-white/80 font-body">
+                I'm Meet Shah, a Computer Engineering student at Thakur College of Engineering and Technology, University of Mumbai, 
+                with a stellar CGPI of 9.4/10.0. Based in Mumbai, I'm passionate about creating innovative digital solutions and 
+                solving complex problems through technology.
+              </p>
+              <p className="text-lg leading-relaxed text-white/80 font-body mt-6">
+                With expertise in the MERN Stack and proficiency in languages like Java, C++, JavaScript, and Python, I've successfully 
+                developed multiple projects including a YouTube clone using React.js and RapidAPI, and an Email Reply Generator with 
+                Spring Boot and Chrome extension integration.
+              </p>
+              <p className="text-lg leading-relaxed text-white/80 font-body mt-6">
+                My professional experience includes working as a Business Analyst Intern at Neoprism Consultancy, where I authored 20+ 
+                white papers for SMEs and collaborated on data-driven marketing strategies. As an AI Prompt Engineering Intern at 
+                VaultOfCodes, I designed and fine-tuned prompts for LLMs to improve NLP model accuracy.
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
+          >
+            <h2 className="text-2xl font-bold text-white mb-6 font-heading">Leadership & Activities</h2>
+            <div className="prose prose-lg prose-invert max-w-none">
+              <p className="text-lg leading-relaxed text-white/80 font-body">
+                Beyond academics, I actively participate in leadership roles and community service. As a Team Lead for Smart India 
+                Hackathon (2023-24), I coordinated end-to-end project planning during national-level events. My involvement as an 
+                NSS Volunteer has enabled me to organize social initiatives benefiting 50+ individuals through community outreach.
+              </p>
+              <p className="text-lg leading-relaxed text-white/80 font-body mt-6">
+                I also contribute to the TSDW Sports Team, where I've coordinated 10+ inter-college sports and tech events with 
+                200+ participants across campuses, demonstrating my ability to manage large-scale events and work with diverse teams.
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
+          >
+            <h2 className="text-2xl font-bold text-white mb-6 font-heading">Achievements & Certifications</h2>
+            <div className="prose prose-lg prose-invert max-w-none">
+              <p className="text-lg leading-relaxed text-white/80 font-body">
+                My commitment to continuous learning is reflected in my achievements: Google Cybersecurity Certificate (Coursera), 
+                Google Arcade Facilitator with 50+ GCP Skill Badges, and qualifying for TCS CodeVita 2024 Round 2. I've demonstrated 
+                my problem-solving abilities through solving 300+ DSA problems across platforms like LeetCode, GeeksforGeeks, and CodeChef.
+              </p>
+              <p className="text-lg leading-relaxed text-white/80 font-body mt-6">
+                I've also participated in prestigious competitions like Flipkart Grid 6.0 and gained valuable industry exposure through 
+                virtual experience programs with JP Morgan (Advanced Software Engineering), Goldman Sachs (Software Engineering), and 
+                Deloitte Australia (Data Analytics).
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
+          >
+            <h2 className="text-2xl font-bold text-white mb-6 font-heading">Looking Forward</h2>
+            <div className="prose prose-lg prose-invert max-w-none">
+              <p className="text-lg leading-relaxed text-white/80 font-body">
+                I'm constantly building personal projects while maintaining a balance with interests in table tennis and community 
+                volunteering. Currently seeking opportunities to leverage my technical skills and creative approach to contribute 
+                to innovative projects and make a meaningful impact in the technology industry.
+              </p>
+              <p className="text-lg leading-relaxed text-white/80 font-body mt-6">
+                My experience with modern development tools (Docker, Git, RESTful APIs), cloud platforms (Google Cloud Platform, Firebase), 
+                and frameworks (React, Next.js, Express.js) positions me well for tackling complex technological challenges and building 
+                scalable solutions.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Contact Information */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.0 }}
+            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl text-center"
+          >
+            <h2 className="text-2xl font-bold text-white mb-6 font-heading">Let's Connect</h2>
+            <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8">
+              <div className="flex items-center space-x-2">
+                <Mail className="w-5 h-5 text-blue-400" />
+                <span className="text-white/80">meetshah1785@gmail.com</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span className="text-white/80">📱 8591744570</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span className="text-white/80">📍 Mumbai, India</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </motion.div>
   );
@@ -476,66 +913,92 @@ interface ProjectCardProps {
   github: string;
   tech: string[];
   featured?: boolean;
+  category?: string;
 }
 
-const ProjectCard = ({ title, description, link, github, tech, featured }: ProjectCardProps) => {
+const ProjectCard = ({ title, description, link, github, tech, featured, category }: ProjectCardProps) => {
   return (
     <motion.div
       variants={fadeInUp}
-      className={`group relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 transition-all duration-300 hover:bg-white/10 hover:scale-105 hover:shadow-2xl ${featured ? 'md:col-span-2 lg:col-span-1' : ''}`}
+      whileHover={{ y: -10, scale: 1.02 }}
+      transition={{ duration: 0.3 }}
+      className={`group relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 transition-all duration-300 hover:bg-white/10 hover:shadow-2xl hover:border-white/20 ${featured ? 'md:col-span-2 lg:col-span-1 ring-2 ring-blue-500/20' : ''}`}
     >
       {/* Featured badge */}
       {featured && (
-        <div className="absolute -top-3 -right-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+        <motion.div 
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.2 }}
+          className="absolute -top-3 -right-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg"
+        >
           Featured
+        </motion.div>
+      )}
+      
+      {/* Category badge */}
+      {category && (
+        <div className="absolute top-4 left-4 bg-white/20 backdrop-blur-sm text-white/80 text-xs font-medium px-2 py-1 rounded-full">
+          {category}
         </div>
       )}
       
-      <div className="space-y-4">
+      <div className="space-y-4 mt-2">
         <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors font-heading">
           {title}
         </h3>
         
-        <p className="text-white/70 font-body">
+        <p className="text-white/70 font-body line-clamp-3">
           {description}
         </p>
         
         <div className="flex flex-wrap gap-2">
           {tech.map(t => (
-            <div key={t} className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full">
+            <motion.div 
+              key={t} 
+              className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full group-hover:bg-white/20 transition-colors"
+              whileHover={{ scale: 1.05 }}
+            >
               {skillIcons[t] && (
                 <img 
                   src={skillIcons[t]} 
                   alt={t} 
                   className="w-4 h-4" 
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = 'none';
+                  }}
                 />
               )}
               <span className="text-sm text-white/80 font-body">{t}</span>
-            </div>
+            </motion.div>
           ))}
         </div>
         
         <div className="flex space-x-4 pt-4">
           {link && (
-            <a 
+            <motion.a 
               href={link} 
               target="_blank" 
               rel="noopener noreferrer" 
               className="inline-flex items-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors font-body"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <ExternalLink className="w-4 h-4" />
               <span>Live Demo</span>
-            </a>
+            </motion.a>
           )}
-          <a 
+          <motion.a 
             href={github} 
             target="_blank" 
             rel="noopener noreferrer" 
             className="inline-flex items-center space-x-2 text-white/70 hover:text-white transition-colors font-body"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             <Github className="w-4 h-4" />
             <span>View Code</span>
-          </a>
+          </motion.a>
         </div>
       </div>
     </motion.div>
