@@ -295,7 +295,7 @@ const LandingPage: React.FC = () => {
             animate="animate"
             className="relative"
           >
-            <div className="relative w-80 h-80 lg:w-96 lg:h-96">
+            <div className="relative w-96 h-96 lg:w-[30rem] lg:h-[30rem]">
               {/* Enhanced glowing background with pulsing animation */}
               <motion.div 
                 variants={pulseGlow}
@@ -477,7 +477,7 @@ const LandingPage: React.FC = () => {
 
 const WorksPage: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = React.useState<string>('All');
-  const debouncedFilter = useDebounce(selectedFilter, 150);
+  const debouncedFilter = useDebounce(selectedFilter, 100);
   
   const projects = React.useMemo(() => [
     {
@@ -584,19 +584,20 @@ const WorksPage: React.FC = () => {
     }
   ], []);
 
-  // Get unique technologies for filter
+  // Get unique technologies for filter with better memoization
   const filterOptions = React.useMemo(() => {
-    const allTechs = Array.from(new Set(projects.flatMap(project => project.tech)));
-    return ['All', ...allTechs];
+    const techSet = new Set<string>();
+    projects.forEach(project => {
+      project.tech.forEach(tech => techSet.add(tech));
+    });
+    return ['All', ...Array.from(techSet).sort()];
   }, [projects]);
 
-  // Filter projects based on debounced filter value
-  const filteredProjects = React.useMemo(() => 
-    debouncedFilter === 'All' 
-      ? projects 
-      : projects.filter(project => project.tech.includes(debouncedFilter)),
-    [projects, debouncedFilter]
-  );
+  // Filter projects based on debounced filter value with optimized logic
+  const filteredProjects = React.useMemo(() => {
+    if (debouncedFilter === 'All') return projects;
+    return projects.filter(project => project.tech.includes(debouncedFilter));
+  }, [projects, debouncedFilter]);
 
   return (
     <motion.div
@@ -665,14 +666,14 @@ const WorksPage: React.FC = () => {
           animate="animate"
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence mode="wait">
             {filteredProjects.map((project) => (
               <motion.div
                 key={project.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
                 layout
               >
                 <ProjectCard {...project} />
