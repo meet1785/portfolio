@@ -6,7 +6,7 @@ export const pageTransition: Variants = {
     opacity: 1, 
     y: 0,
     transition: {
-      duration: 0.3,
+      duration: 0.2,
       ease: "easeOut"
     }
   },
@@ -14,7 +14,7 @@ export const pageTransition: Variants = {
     opacity: 0, 
     y: -20,
     transition: {
-      duration: 0.2,
+      duration: 0.15,
       ease: "easeIn"
     }
   }
@@ -24,8 +24,8 @@ export const staggerContainer: Variants = {
   initial: {},
   animate: {
     transition: { 
-      staggerChildren: 0.05,
-      delayChildren: 0.1
+      staggerChildren: 0.03,
+      delayChildren: 0.05
     }
   }
 };
