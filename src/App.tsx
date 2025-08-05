@@ -1186,13 +1186,13 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
         transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
       />
 
-      {/* Featured badge */}
+      {/* Featured badge - positioned at top-right with higher z-index */}
       {featured && (
         <motion.div 
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1, duration: 0.3, type: "spring" }}
-          className="absolute -top-3 -right-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg z-10"
+          className="absolute -top-1 -right-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-xl z-20 border border-white/20"
         >
           <motion.span
             animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
@@ -1203,17 +1203,21 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
         </motion.div>
       )}
       
-      {/* Category badge */}
+      {/* Category badge - positioned at top-left with better visibility */}
       {category && (
         <motion.div 
-          className="absolute top-4 left-4 bg-white/20 backdrop-blur-sm text-white/80 text-xs font-medium px-3 py-1 rounded-full z-10"
-          whileHover={{ scale: 1.05 }}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.05, duration: 0.3, type: "spring" }}
+          className="absolute top-4 left-4 bg-gradient-to-r from-gray-800/90 to-gray-700/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-2 rounded-full z-15 border border-white/30 shadow-lg"
+          whileHover={{ scale: 1.08, y: -1 }}
         >
           {category}
         </motion.div>
       )}
       
-      <div className="space-y-4 mt-2 relative z-10">
+      {/* Content container with proper top margin to avoid overlap */}
+      <div className={`space-y-4 relative z-10 ${category || featured ? 'mt-10' : 'mt-3'}`}>
         <motion.h3 
           className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors font-heading"
           animate={isHovered ? { x: 4 } : { x: 0 }}
@@ -1234,7 +1238,7 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
           {tech.map((t, index) => (
             <motion.div 
               key={t} 
-              className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full group-hover:bg-white/20 transition-colors"
+              className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full group-hover:bg-white/20 transition-colors border border-white/10"
               whileHover={{ scale: 1.05, y: -2 }}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
