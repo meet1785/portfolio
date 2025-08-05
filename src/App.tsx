@@ -261,11 +261,40 @@ const App: React.FC = () => {
     <ThemeProvider>
       <Router basename="/portfolio">
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-          {/* Animated Background Elements */}
+          {/* Enhanced Animated Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute -top-4 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-            <div className="absolute -top-4 -right-4 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-            <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+            <div className="absolute -top-4 -left-4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+            <div className="absolute -top-4 -right-4 w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+            <div className="absolute -bottom-8 left-20 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+            <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-15 animate-blob animation-delay-2000"></div>
+            <div className="absolute bottom-1/4 left-1/3 w-64 h-64 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-15 animate-blob animation-delay-4000"></div>
+          </div>
+
+          {/* Modern grid pattern overlay */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `
+                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
+              `,
+              backgroundSize: '50px 50px',
+            }}></div>
+          </div>
+
+          {/* Floating particles */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {Array.from({ length: 20 }).map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-1 h-1 bg-white/20 rounded-full animate-float"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 6}s`,
+                  animationDuration: `${4 + Math.random() * 4}s`
+                }}
+              />
+            ))}
           </div>
           
           <div className="relative z-10">
@@ -477,7 +506,8 @@ const LandingPage: React.FC = () => {
 
 const WorksPage: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = React.useState<string>('All');
-  const debouncedFilter = useDebounce(selectedFilter, 100);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const debouncedFilter = useDebounce(selectedFilter, 50);
   
   const projects = React.useMemo(() => [
     {
@@ -599,6 +629,14 @@ const WorksPage: React.FC = () => {
     return projects.filter(project => project.tech.includes(debouncedFilter));
   }, [projects, debouncedFilter]);
 
+  // Handle filter change with immediate visual feedback
+  const handleFilterChange = React.useCallback((tech: string) => {
+    setIsLoading(true);
+    setSelectedFilter(tech);
+    // Reset loading state after a short delay to show immediate feedback
+    setTimeout(() => setIsLoading(false), 200);
+  }, []);
+
   return (
     <motion.div
       initial="initial"
@@ -636,44 +674,72 @@ const WorksPage: React.FC = () => {
                 transition={{ duration: 0.2, delay: index * 0.02 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setSelectedFilter(tech)}
-                className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 font-body ${
+                onClick={() => handleFilterChange(tech)}
+                className={`relative px-4 py-2 rounded-xl font-medium transition-all duration-200 font-body overflow-hidden group ${
                   selectedFilter === tech
                     ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
                     : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white backdrop-blur-sm'
                 }`}
               >
-                {tech}
+                <span className="relative z-10 flex items-center space-x-2">
+                  {selectedFilter === tech && isLoading && (
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      className="w-3 h-3 border border-white/30 border-t-white rounded-full"
+                    />
+                  )}
+                  <span>{tech}</span>
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
               </motion.button>
             ))}
           </motion.div>
           
-          {/* Project count */}
-          <motion.p 
-            key={selectedFilter}
+          {/* Project count with loading state */}
+          <motion.div 
+            key={`${selectedFilter}-${isLoading}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.2 }}
-            className="text-white/60 font-body"
+            className="text-white/60 font-body flex items-center justify-center space-x-2"
           >
-            {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} found
-          </motion.p>
+            {isLoading ? (
+              <>
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  className="w-4 h-4 border border-white/30 border-t-white/60 rounded-full"
+                />
+                <span>Filtering projects...</span>
+              </>
+            ) : (
+              <span>
+                {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} found
+              </span>
+            )}
+          </motion.div>
         </motion.div>
         
         <motion.div 
+          key={debouncedFilter}
           variants={staggerContainer}
           initial="initial"
           animate="animate"
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (
               <motion.div
                 key={project.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
+                initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9, y: -20 }}
+                transition={{ 
+                  duration: 0.3, 
+                  ease: "easeOut",
+                  layout: { duration: 0.2 }
+                }}
                 layout
               >
                 <ProjectCard {...project} />
@@ -1092,53 +1158,95 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = React.memo(({ title, description, link, github, tech, featured, category }: ProjectCardProps) => {
+  const [isHovered, setIsHovered] = React.useState(false);
+  
   return (
     <motion.div
       variants={fadeInUp}
-      whileHover={{ y: -5, scale: 1.01 }}
-      transition={{ duration: 0.2 }}
-      className={`group relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 transition-all duration-200 hover:bg-white/10 hover:shadow-2xl hover:border-white/20 ${featured ? 'md:col-span-2 lg:col-span-1 ring-2 ring-blue-500/20' : ''}`}
+      whileHover={{ y: -8, scale: 1.02 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className={`group relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-6 transition-all duration-300 hover:bg-white/10 hover:shadow-2xl hover:border-white/20 overflow-hidden ${featured ? 'md:col-span-2 lg:col-span-1 ring-2 ring-blue-500/20' : ''}`}
     >
+      {/* Enhanced background gradient effect */}
+      <motion.div 
+        className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        animate={isHovered ? { scale: 1.05 } : { scale: 1 }}
+        transition={{ duration: 0.3 }}
+      />
+      
+      {/* Animated border gradient */}
+      <motion.div 
+        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{
+          background: 'linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent)',
+        }}
+        animate={isHovered ? { rotate: 360 } : { rotate: 0 }}
+        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+      />
+
       {/* Featured badge */}
       {featured && (
         <motion.div 
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.1, duration: 0.2 }}
-          className="absolute -top-3 -right-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg"
+          transition={{ delay: 0.1, duration: 0.3, type: "spring" }}
+          className="absolute -top-3 -right-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg z-10"
         >
-          Featured
+          <motion.span
+            animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
+            transition={{ duration: 0.2 }}
+          >
+            ✨ Featured
+          </motion.span>
         </motion.div>
       )}
       
       {/* Category badge */}
       {category && (
-        <div className="absolute top-4 left-4 bg-white/20 backdrop-blur-sm text-white/80 text-xs font-medium px-2 py-1 rounded-full">
+        <motion.div 
+          className="absolute top-4 left-4 bg-white/20 backdrop-blur-sm text-white/80 text-xs font-medium px-3 py-1 rounded-full z-10"
+          whileHover={{ scale: 1.05 }}
+        >
           {category}
-        </div>
+        </motion.div>
       )}
       
-      <div className="space-y-4 mt-2">
-        <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors font-heading">
+      <div className="space-y-4 mt-2 relative z-10">
+        <motion.h3 
+          className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors font-heading"
+          animate={isHovered ? { x: 4 } : { x: 0 }}
+          transition={{ duration: 0.2 }}
+        >
           {title}
-        </h3>
+        </motion.h3>
         
-        <p className="text-white/70 font-body line-clamp-3">
+        <motion.p 
+          className="text-white/70 font-body line-clamp-3"
+          animate={isHovered ? { color: "rgba(255, 255, 255, 0.9)" } : { color: "rgba(255, 255, 255, 0.7)" }}
+          transition={{ duration: 0.2 }}
+        >
           {description}
-        </p>
+        </motion.p>
         
         <div className="flex flex-wrap gap-2">
-          {tech.map(t => (
+          {tech.map((t, index) => (
             <motion.div 
               key={t} 
               className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full group-hover:bg-white/20 transition-colors"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05, duration: 0.2 }}
             >
               {skillIcons[t] && (
-                <img 
+                <motion.img 
                   src={skillIcons[t]} 
                   alt={t} 
                   className="w-4 h-4" 
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.5 }}
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = 'none';
                   }}
@@ -1149,17 +1257,26 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
           ))}
         </div>
         
-        <div className="flex space-x-4 pt-4">
+        <motion.div
+          className="flex space-x-4 pt-4"
+          animate={isHovered ? { y: -2 } : { y: 0 }}
+          transition={{ duration: 0.2 }}
+        >
           {link && (
             <motion.a 
               href={link} 
               target="_blank" 
               rel="noopener noreferrer" 
               className="inline-flex items-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors font-body"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, x: 4 }}
               whileTap={{ scale: 0.95 }}
             >
-              <ExternalLink className="w-4 h-4" />
+              <motion.div
+                whileHover={{ rotate: 45 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ExternalLink className="w-4 h-4" />
+              </motion.div>
               <span>Live Demo</span>
             </motion.a>
           )}
@@ -1168,13 +1285,18 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
             target="_blank" 
             rel="noopener noreferrer" 
             className="inline-flex items-center space-x-2 text-white/70 hover:text-white transition-colors font-body"
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, x: 4 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Github className="w-4 h-4" />
+            <motion.div
+              whileHover={{ scale: 1.2 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Github className="w-4 h-4" />
+            </motion.div>
             <span>View Code</span>
           </motion.a>
-        </div>
+        </motion.div>
       </div>
     </motion.div>
   );
