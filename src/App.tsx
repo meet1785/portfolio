@@ -1,9 +1,10 @@
 import React from 'react';
-import { Github, Linkedin, Mail, Code, FileText, Home, Briefcase, ExternalLink, Download, Menu, X } from 'lucide-react';
+import { Github, Linkedin, Mail, FileText, Home, Briefcase, ExternalLink, Download, Menu, X } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ThemeProvider} from './context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { pageTransition, fadeInUp, scaleIn, staggerContainer, typewriter, floatUpDown, pulseGlow} from './utils/animations';
+import { useDebounce } from './utils/useDebounce';
 import img from '/meet.jpeg'; 
 
 interface SkillCategoryProps {
@@ -476,8 +477,9 @@ const LandingPage: React.FC = () => {
 
 const WorksPage: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = React.useState<string>('All');
+  const debouncedFilter = useDebounce(selectedFilter, 150);
   
-  const projects = [
+  const projects = React.useMemo(() => [
     {
       title: "YouTube Clone",
       description: "A modern YouTube clone built with React, featuring real-time video streaming, dynamic content fetching via RapidAPI, and responsive design.",
@@ -580,16 +582,21 @@ const WorksPage: React.FC = () => {
       tech: ['JavaScript', 'HTML', 'CSS'],
       category: 'Utility'
     }
-  ];
+  ], []);
 
   // Get unique technologies for filter
-  const allTechs = Array.from(new Set(projects.flatMap(project => project.tech)));
-  const filterOptions = ['All', ...allTechs];
+  const filterOptions = React.useMemo(() => {
+    const allTechs = Array.from(new Set(projects.flatMap(project => project.tech)));
+    return ['All', ...allTechs];
+  }, [projects]);
 
-  // Filter projects based on selected technology
-  const filteredProjects = selectedFilter === 'All' 
-    ? projects 
-    : projects.filter(project => project.tech.includes(selectedFilter));
+  // Filter projects based on debounced filter value
+  const filteredProjects = React.useMemo(() => 
+    debouncedFilter === 'All' 
+      ? projects 
+      : projects.filter(project => project.tech.includes(debouncedFilter)),
+    [projects, debouncedFilter]
+  );
 
   return (
     <motion.div
@@ -623,13 +630,13 @@ const WorksPage: React.FC = () => {
             {filterOptions.map((tech, index) => (
               <motion.button
                 key={tech}
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
+                transition={{ duration: 0.2, delay: index * 0.02 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setSelectedFilter(tech)}
-                className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 font-body ${
+                className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 font-body ${
                   selectedFilter === tech
                     ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
                     : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white backdrop-blur-sm'
@@ -645,7 +652,7 @@ const WorksPage: React.FC = () => {
             key={selectedFilter}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.2 }}
             className="text-white/60 font-body"
           >
             {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} found
@@ -658,14 +665,14 @@ const WorksPage: React.FC = () => {
           animate="animate"
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
-          <AnimatePresence mode="wait">
-            {filteredProjects.map((project, index) => (
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project) => (
               <motion.div
-                key={`${project.title}-${selectedFilter}`}
-                initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -50, scale: 0.9 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                key={project.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
                 layout
               >
                 <ProjectCard {...project} />
@@ -1083,20 +1090,20 @@ interface ProjectCardProps {
   category?: string;
 }
 
-const ProjectCard = ({ title, description, link, github, tech, featured, category }: ProjectCardProps) => {
+const ProjectCard = React.memo(({ title, description, link, github, tech, featured, category }: ProjectCardProps) => {
   return (
     <motion.div
       variants={fadeInUp}
-      whileHover={{ y: -10, scale: 1.02 }}
-      transition={{ duration: 0.3 }}
-      className={`group relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 transition-all duration-300 hover:bg-white/10 hover:shadow-2xl hover:border-white/20 ${featured ? 'md:col-span-2 lg:col-span-1 ring-2 ring-blue-500/20' : ''}`}
+      whileHover={{ y: -5, scale: 1.01 }}
+      transition={{ duration: 0.2 }}
+      className={`group relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 transition-all duration-200 hover:bg-white/10 hover:shadow-2xl hover:border-white/20 ${featured ? 'md:col-span-2 lg:col-span-1 ring-2 ring-blue-500/20' : ''}`}
     >
       {/* Featured badge */}
       {featured && (
         <motion.div 
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.2 }}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.1, duration: 0.2 }}
           className="absolute -top-3 -right-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg"
         >
           Featured
@@ -1170,7 +1177,7 @@ const ProjectCard = ({ title, description, link, github, tech, featured, categor
       </div>
     </motion.div>
   );
-}
+});
 
 function SkillCategory({ title, skills }: SkillCategoryProps) {
   return (

@@ -6,16 +6,16 @@ export const pageTransition: Variants = {
     opacity: 1, 
     y: 0,
     transition: {
-      duration: 0.6,
-      ease: [0.4, 0, 0.2, 1]
+      duration: 0.3,
+      ease: "easeOut"
     }
   },
   exit: { 
     opacity: 0, 
     y: -20,
     transition: {
-      duration: 0.3,
-      ease: [0.4, 0, 0.2, 1]
+      duration: 0.2,
+      ease: "easeIn"
     }
   }
 };
@@ -24,8 +24,8 @@ export const staggerContainer: Variants = {
   initial: {},
   animate: {
     transition: { 
-      staggerChildren: 0.1,
-      delayChildren: 0.2
+      staggerChildren: 0.05,
+      delayChildren: 0.1
     }
   }
 };
@@ -33,16 +33,14 @@ export const staggerContainer: Variants = {
 export const fadeInUp: Variants = {
   initial: { 
     opacity: 0, 
-    y: 30,
-    scale: 0.95
+    y: 20
   },
   animate: { 
     opacity: 1, 
     y: 0,
-    scale: 1,
     transition: {
-      duration: 0.5,
-      ease: [0.4, 0, 0.2, 1]
+      duration: 0.3,
+      ease: "easeOut"
     }
   }
 };
@@ -50,16 +48,14 @@ export const fadeInUp: Variants = {
 export const scaleIn: Variants = {
   initial: { 
     opacity: 0, 
-    scale: 0.8,
-    rotateY: -10
+    scale: 0.9
   },
   animate: { 
     opacity: 1, 
     scale: 1,
-    rotateY: 0,
     transition: {
-      duration: 0.7,
-      ease: [0.4, 0, 0.2, 1]
+      duration: 0.3,
+      ease: "easeOut"
     }
   }
 };
@@ -67,16 +63,14 @@ export const scaleIn: Variants = {
 export const slideInFromLeft: Variants = {
   initial: { 
     opacity: 0, 
-    x: -50,
-    scale: 0.95
+    x: -30
   },
   animate: { 
     opacity: 1, 
     x: 0,
-    scale: 1,
     transition: {
-      duration: 0.6,
-      ease: [0.4, 0, 0.2, 1]
+      duration: 0.3,
+      ease: "easeOut"
     }
   }
 };
@@ -84,16 +78,14 @@ export const slideInFromLeft: Variants = {
 export const slideInFromRight: Variants = {
   initial: { 
     opacity: 0, 
-    x: 50,
-    scale: 0.95
+    x: 30
   },
   animate: { 
     opacity: 1, 
     x: 0,
-    scale: 1,
     transition: {
-      duration: 0.6,
-      ease: [0.4, 0, 0.2, 1]
+      duration: 0.3,
+      ease: "easeOut"
     }
   }
 };
@@ -101,16 +93,14 @@ export const slideInFromRight: Variants = {
 export const rotateIn: Variants = {
   initial: { 
     opacity: 0, 
-    rotate: -10,
-    scale: 0.9
+    scale: 0.95
   },
   animate: { 
     opacity: 1, 
-    rotate: 0,
     scale: 1,
     transition: {
-      duration: 0.7,
-      ease: [0.4, 0, 0.2, 1]
+      duration: 0.3,
+      ease: "easeOut"
     }
   }
 };
@@ -118,8 +108,8 @@ export const rotateIn: Variants = {
 export const bounceIn: Variants = {
   initial: { 
     opacity: 0, 
-    y: -100,
-    scale: 0.3
+    y: -20,
+    scale: 0.9
   },
   animate: { 
     opacity: 1, 
@@ -128,8 +118,8 @@ export const bounceIn: Variants = {
     transition: {
       type: "spring",
       stiffness: 400,
-      damping: 10,
-      duration: 0.8
+      damping: 25,
+      duration: 0.4
     }
   }
 };
@@ -137,13 +127,13 @@ export const bounceIn: Variants = {
 export const typewriter: Variants = {
   initial: { 
     opacity: 0,
-    x: -50
+    x: -20
   },
   animate: { 
     opacity: 1, 
     x: 0,
     transition: {
-      duration: 0.8,
+      duration: 0.4,
       ease: "easeOut"
     }
   }
@@ -155,11 +145,11 @@ export const floatUpDown: Variants = {
     opacity: 1
   },
   animate: { 
-    y: [-10, 10, -10],
+    y: [-5, 5, -5],
     opacity: 1,
     transition: {
       y: {
-        duration: 3,
+        duration: 4,
         repeat: Infinity,
         ease: "easeInOut"
       }
@@ -169,14 +159,14 @@ export const floatUpDown: Variants = {
 
 export const pulseGlow: Variants = {
   initial: { 
-    opacity: 0.5,
+    opacity: 0.3,
     scale: 1
   },
   animate: { 
-    opacity: [0.5, 1, 0.5],
-    scale: [1, 1.05, 1],
+    opacity: [0.3, 0.6, 0.3],
+    scale: [1, 1.02, 1],
     transition: {
-      duration: 2,
+      duration: 3,
       repeat: Infinity,
       ease: "easeInOut"
     }
