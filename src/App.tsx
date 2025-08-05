@@ -1,9 +1,9 @@
 import React from 'react';
-import { Github, Linkedin, Mail, Code, FileText, Home, Briefcase, ExternalLink, Download } from 'lucide-react';
+import { Github, Linkedin, Mail, Code, FileText, Home, Briefcase, ExternalLink, Download, Menu, X } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ThemeProvider} from './context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { pageTransition, fadeInUp, scaleIn, staggerContainer} from './utils/animations';
+import { pageTransition, fadeInUp, scaleIn, staggerContainer, typewriter, floatUpDown, pulseGlow} from './utils/animations';
 import img from '/meet.jpeg'; 
 
 interface SkillCategoryProps {
@@ -75,6 +75,16 @@ const skillIcons: Record<string, string> = {
 };
 
 const AppContent: React.FC = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <>
       {/* Modern Glassmorphism Navigation */}
@@ -89,13 +99,15 @@ const AppContent: React.FC = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">M</span>
-                </div>
-                <span className="text-white font-semibold text-xl font-primary">Meet Shah</span>
+                <Link to="/" className="flex items-center space-x-2 group" onClick={closeMobileMenu}>
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-white font-bold text-lg">M</span>
+                  </div>
+                  <span className="text-white font-semibold text-xl font-primary group-hover:text-blue-300 transition-colors duration-300">Meet Shah</span>
+                </Link>
               </motion.div>
               
-              {/* Navigation Links */}
+              {/* Desktop Navigation Links */}
               <div className="hidden md:flex items-center space-x-1">
                 {[
                   { to: "/", label: "Home", icon: Home },
@@ -123,33 +135,111 @@ const AppContent: React.FC = () => {
                 ))}
               </div>
 
-              {/* Social Links */}
-              <motion.div 
-                className="flex items-center space-x-3"
+              {/* Desktop Social Links */}
+              <div className="hidden md:flex items-center space-x-3">
+                <motion.div 
+                  className="flex items-center space-x-3"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                >
+                  {[
+                    { href: "mailto:meetshah1785@gmail.com", icon: Mail, label: "Email" },
+                    { href: "https://github.com/meetshah1708", icon: Github, label: "GitHub" },
+                    { href: "https://linkedin.com/in/meetshah1708", icon: Linkedin, label: "LinkedIn" },
+                  ].map((social) => (
+                    <a
+                      key={social.href}
+                      href={social.href}
+                      target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
+                      rel="noopener noreferrer"
+                      className="group relative p-2 rounded-xl text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 hover:scale-110"
+                      aria-label={social.label}
+                    >
+                      <social.icon className="w-5 h-5" />
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </a>
+                  ))}
+                </motion.div>
+              </div>
+
+              {/* Mobile Menu Button */}
+              <motion.button
+                className="md:hidden p-2 rounded-xl text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10"
+                onClick={toggleMobileMenu}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
+                aria-label="Toggle mobile menu"
               >
-                {[
-                  { href: "mailto:meetshah1785@gmail.com", icon: Mail, label: "Email" },
-                  { href: "https://github.com/meetshah1708", icon: Github, label: "GitHub" },
-                  { href: "https://linkedin.com/in/meetshah1708", icon: Linkedin, label: "LinkedIn" },
-                ].map((social) => (
-                  <a
-                    key={social.href}
-                    href={social.href}
-                    target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
-                    rel="noopener noreferrer"
-                    className="group relative p-2 rounded-xl text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10 hover:scale-110"
-                    aria-label={social.label}
-                  >
-                    <social.icon className="w-5 h-5" />
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </a>
-                ))}
-              </motion.div>
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </motion.button>
             </div>
           </div>
+
+          {/* Mobile Menu */}
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="md:hidden backdrop-blur-xl bg-white/10 border-t border-white/10"
+              >
+                <div className="px-6 py-4 space-y-2">
+                  {[
+                    { to: "/", label: "Home", icon: Home },
+                    { to: "/works", label: "Works", icon: Briefcase },
+                    { to: "/resume", label: "Resume", icon: FileText },
+                    { to: "/about", label: "About", icon: null },
+                  ].map((item, index) => (
+                    <motion.div
+                      key={item.to}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                    >
+                      <Link 
+                        to={item.to}
+                        onClick={closeMobileMenu}
+                        className="flex items-center space-x-3 px-4 py-3 rounded-xl text-white/80 hover:text-white transition-all duration-300 hover:bg-white/10 font-body"
+                      >
+                        {item.icon && <item.icon className="w-5 h-5" />}
+                        <span>{item.label}</span>
+                      </Link>
+                    </motion.div>
+                  ))}
+                  
+                  {/* Mobile Social Links */}
+                  <motion.div 
+                    className="flex justify-center space-x-4 pt-4 border-t border-white/10"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.4 }}
+                  >
+                    {[
+                      { href: "mailto:meetshah1785@gmail.com", icon: Mail, label: "Email" },
+                      { href: "https://github.com/meetshah1708", icon: Github, label: "GitHub" },
+                      { href: "https://linkedin.com/in/meetshah1708", icon: Linkedin, label: "LinkedIn" },
+                    ].map((social) => (
+                      <a
+                        key={social.href}
+                        href={social.href}
+                        target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
+                        rel="noopener noreferrer"
+                        className="p-3 rounded-xl text-white/70 hover:text-white transition-all duration-300 hover:bg-white/10"
+                        aria-label={social.label}
+                        onClick={closeMobileMenu}
+                      >
+                        <social.icon className="w-5 h-5" />
+                      </a>
+                    ))}
+                  </motion.div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </nav>
 
@@ -205,64 +295,115 @@ const LandingPage: React.FC = () => {
             className="relative"
           >
             <div className="relative w-80 h-80 lg:w-96 lg:h-96">
-              {/* Glowing background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-2xl opacity-20 animate-pulse"></div>
-              {/* Main image */}
-              <img
+              {/* Enhanced glowing background with pulsing animation */}
+              <motion.div 
+                variants={pulseGlow}
+                initial="initial"
+                animate="animate"
+                className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-2xl opacity-20"
+              ></motion.div>
+              {/* Main image with enhanced hover effects */}
+              <motion.img
                 src={img} 
                 alt="Meet Shah"
-                className="relative w-full h-full object-cover rounded-full border-4 border-white/20 shadow-2xl backdrop-blur-sm"
+                className="relative w-full h-full object-cover rounded-full border-4 border-white/20 shadow-2xl backdrop-blur-sm transition-transform duration-500 hover:scale-105"
                 style={{
                   objectPosition: 'center top',
                   objectFit: 'cover'
                 }}
+                whileHover={{ 
+                  scale: 1.05,
+                  rotateY: 5,
+                  transition: { duration: 0.3 }
+                }}
               />
-              {/* Floating elements */}
-              <div className="absolute -top-6 -right-6 w-12 h-12 bg-blue-500/20 rounded-full backdrop-blur-sm animate-float"></div>
-              <div className="absolute -bottom-4 -left-4 w-8 h-8 bg-purple-500/20 rounded-full backdrop-blur-sm animate-float animation-delay-2000"></div>
+              {/* Enhanced floating elements */}
+              <motion.div 
+                variants={floatUpDown}
+                initial="initial"
+                animate="animate"
+                className="absolute -top-6 -right-6 w-12 h-12 bg-blue-500/30 rounded-full backdrop-blur-sm border border-white/20"
+              ></motion.div>
+              <motion.div 
+                variants={floatUpDown}
+                initial="initial"
+                animate="animate"
+                transition={{ delay: 1 }}
+                className="absolute -bottom-4 -left-4 w-8 h-8 bg-purple-500/30 rounded-full backdrop-blur-sm border border-white/20"
+              ></motion.div>
+              <motion.div 
+                variants={floatUpDown}
+                initial="initial"
+                animate="animate"
+                transition={{ delay: 0.5 }}
+                className="absolute top-1/2 -left-8 w-6 h-6 bg-yellow-500/30 rounded-full backdrop-blur-sm border border-white/20"
+              ></motion.div>
             </div>
           </motion.div>
 
           {/* Text Content */}
           <div className="text-center lg:text-left space-y-8">
-            <motion.div variants={fadeInUp} className="space-y-4">
-              <h1 className="text-5xl lg:text-7xl font-bold text-white font-heading">
+            <motion.div variants={staggerContainer} initial="initial" animate="animate" className="space-y-4">
+              <motion.h1 
+                variants={typewriter}
+                className="text-5xl lg:text-7xl font-bold text-white font-heading"
+              >
                 Meet 
-                <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent"> Shah</span>
-              </h1>
-              <p className="text-xl lg:text-2xl text-white/80 font-body">
+                <motion.span 
+                  variants={typewriter}
+                  transition={{ delay: 0.3 }}
+                  className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent"
+                > Shah</motion.span>
+              </motion.h1>
+              <motion.p 
+                variants={fadeInUp}
+                transition={{ delay: 0.4 }}
+                className="text-xl lg:text-2xl text-white/80 font-body"
+              >
                 Computer Engineering Student & Full Stack Developer
-              </p>
-              <p className="text-lg text-white/60 max-w-2xl font-body">
+              </motion.p>
+              <motion.p 
+                variants={fadeInUp}
+                transition={{ delay: 0.6 }}
+                className="text-lg text-white/60 max-w-2xl font-body leading-relaxed"
+              >
                 Passionate Computer Engineering student from Mumbai with CGPI 9.4/10.0, specializing in MERN stack development,  
                 AI/ML applications, and innovative digital solutions. Currently seeking opportunities to contribute to impactful projects.
-              </p>
+              </motion.p>
             </motion.div>
             
             <motion.div
-              variants={scaleIn}
+              variants={staggerContainer}
+              initial="initial"
+              animate="animate"
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <Link 
-                to="/works" 
-                className="group relative inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-2xl font-body"
-              >
-                <span className="flex items-center space-x-2">
-                  <Briefcase className="w-5 h-5" />
-                  <span>View My Work</span>
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </Link>
+              <motion.div variants={scaleIn} transition={{ delay: 0.8 }}>
+                <Link 
+                  to="/works" 
+                  className="group relative inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-2xl font-body overflow-hidden"
+                >
+                  <span className="flex items-center space-x-2 relative z-10">
+                    <Briefcase className="w-5 h-5" />
+                    <span>View My Work</span>
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-white/10 rounded-2xl scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                </Link>
+              </motion.div>
               
-              <Link 
-                to="/resume" 
-                className="group relative inline-flex items-center justify-center px-8 py-4 border-2 border-white/20 text-white font-semibold rounded-2xl backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:scale-105 font-body"
-              >
-                <span className="flex items-center space-x-2">
-                  <Download className="w-5 h-5" />
-                  <span>Resume</span>
-                </span>
-              </Link>
+              <motion.div variants={scaleIn} transition={{ delay: 1 }}>
+                <Link 
+                  to="/resume" 
+                  className="group relative inline-flex items-center justify-center px-8 py-4 border-2 border-white/20 text-white font-semibold rounded-2xl backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:scale-105 font-body overflow-hidden"
+                >
+                  <span className="flex items-center space-x-2 relative z-10">
+                    <Download className="w-5 h-5 group-hover:animate-bounce" />
+                    <span>Resume</span>
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-2xl scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-right"></div>
+                </Link>
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -273,34 +414,60 @@ const LandingPage: React.FC = () => {
         className="py-20 bg-gradient-to-t from-black/20 to-transparent"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
+        transition={{ duration: 0.8, delay: 1.2 }}
       >
         <div className="max-w-4xl mx-auto text-center px-6">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6 font-heading">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.4 }}
+            className="text-3xl lg:text-4xl font-bold text-white mb-6 font-heading"
+          >
             Let's Connect
-          </h2>
-          <p className="text-lg text-white/70 mb-8 font-body">
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.6 }}
+            className="text-lg text-white/70 mb-8 font-body"
+          >
             Follow me on social media and let's build something amazing together.
-          </p>
-          <div className="flex justify-center space-x-6">
+          </motion.p>
+          <motion.div 
+            className="flex justify-center space-x-6"
+            variants={staggerContainer}
+            initial="initial"
+            animate="animate"
+          >
             {[
               { href: "https://linkedin.com/in/meetshah1708", icon: Linkedin, label: "LinkedIn", color: "from-blue-600 to-blue-700" },
               { href: "https://github.com/meetshah1708", icon: Github, label: "GitHub", color: "from-gray-600 to-gray-700" },
               { href: "mailto:meetshah1785@gmail.com", icon: Mail, label: "Email", color: "from-red-600 to-red-700" },
-            ].map((social) => (
-              <a
+            ].map((social, index) => (
+              <motion.a
                 key={social.href}
                 href={social.href}
                 target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
                 rel="noopener noreferrer"
-                className={`group relative p-4 bg-gradient-to-br ${social.color} rounded-2xl text-white transition-all duration-300 hover:scale-110 hover:shadow-2xl`}
+                className={`group relative p-4 bg-gradient-to-br ${social.color} rounded-2xl text-white transition-all duration-300 hover:scale-110 hover:shadow-2xl overflow-hidden`}
                 aria-label={social.label}
+                variants={scaleIn}
+                initial="initial"
+                animate="animate"
+                transition={{ delay: 1.8 + index * 0.1 }}
+                whileHover={{ 
+                  scale: 1.15,
+                  rotateY: 10,
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{ scale: 0.95 }}
               >
-                <social.icon className="w-6 h-6" />
+                <social.icon className="w-6 h-6 relative z-10" />
                 <div className="absolute inset-0 bg-white/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </a>
+                <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
+              </motion.a>
             ))}
-          </div>
+          </motion.div>
         </div>
       </motion.div>
     </motion.div>
