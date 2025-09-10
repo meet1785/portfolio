@@ -3,7 +3,7 @@ import { Github, Linkedin, Mail, FileText, Home, Briefcase, ExternalLink, Downlo
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ThemeProvider} from './context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { pageTransition, fadeInUp, scaleIn, staggerContainer, typewriter, floatUpDown, pulseGlow} from './utils/animations';
+import { pageTransition, fadeInUp, scaleIn, staggerContainer, typewriter, rotate3D, cardHover3D, float3D, morphingBlob, particleFloat} from './utils/animations';
 import { useDebounce } from './utils/useDebounce';
 import img from '/meet.jpeg'; 
 
@@ -51,6 +51,11 @@ const skillIcons: Record<string, string> = {
   Java: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg",
   "C++": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg",
   Python: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
+
+  // AI/ML & Data Science
+  "AI/ML": "https://img.icons8.com/color/48/artificial-intelligence.png",
+  FastAPI: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg",
+  NLP: "https://img.icons8.com/color/48/natural-language-processing.png",
 
   // Tools & DevOps
   Git: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg",
@@ -261,37 +266,82 @@ const App: React.FC = () => {
     <ThemeProvider>
       <Router basename="/portfolio">
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-          {/* Enhanced Animated Background Elements */}
+          {/* Enhanced 3D Animated Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute -top-4 -left-4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-            <div className="absolute -top-4 -right-4 w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-            <div className="absolute -bottom-8 left-20 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
-            <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-15 animate-blob animation-delay-2000"></div>
-            <div className="absolute bottom-1/4 left-1/3 w-64 h-64 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-15 animate-blob animation-delay-4000"></div>
+            <motion.div 
+              variants={morphingBlob}
+              initial="initial"
+              animate="animate"
+              className="absolute -top-4 -left-4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+            ></motion.div>
+            <motion.div 
+              variants={float3D}
+              initial="initial"
+              animate="animate"
+              className="absolute -top-4 -right-4 w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+            ></motion.div>
+            <motion.div 
+              variants={rotate3D}
+              initial="initial"
+              animate="animate"
+              className="absolute -bottom-8 left-20 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+            ></motion.div>
+            <motion.div 
+              variants={morphingBlob}
+              initial="initial"
+              animate="animate"
+              className="absolute top-1/2 right-1/4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-15"
+            ></motion.div>
+            <motion.div 
+              variants={float3D}
+              initial="initial"
+              animate="animate"
+              className="absolute bottom-1/4 left-1/3 w-64 h-64 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-15"
+            ></motion.div>
           </div>
 
-          {/* Modern grid pattern overlay */}
+          {/* Enhanced 3D grid pattern overlay */}
           <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `
-                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
-              `,
-              backgroundSize: '50px 50px',
-            }}></div>
+            <motion.div 
+              className="absolute inset-0" 
+              style={{
+                backgroundImage: `
+                  linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
+                `,
+                backgroundSize: '50px 50px',
+              }}
+              animate={{
+                backgroundPosition: ['0px 0px', '50px 50px', '0px 0px'],
+              }}
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            ></motion.div>
           </div>
 
-          {/* Floating particles */}
+          {/* Enhanced 3D floating particles */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {Array.from({ length: 20 }).map((_, i) => (
-              <div
+            {Array.from({ length: 25 }).map((_, i) => (
+              <motion.div
                 key={i}
-                className="absolute w-1 h-1 bg-white/20 rounded-full animate-float"
+                variants={particleFloat}
+                initial="initial"
+                animate="animate"
+                className="absolute rounded-full"
                 style={{
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 6}s`,
-                  animationDuration: `${4 + Math.random() * 4}s`
+                  width: `${2 + Math.random() * 4}px`,
+                  height: `${2 + Math.random() * 4}px`,
+                  background: `linear-gradient(45deg, 
+                    rgba(59, 130, 246, ${0.3 + Math.random() * 0.4}), 
+                    rgba(147, 51, 234, ${0.3 + Math.random() * 0.4})
+                  )`,
+                  filter: 'blur(0.5px)',
+                  boxShadow: `0 0 ${4 + Math.random() * 8}px rgba(59, 130, 246, 0.3)`,
                 }}
               />
             ))}
@@ -315,58 +365,111 @@ const LandingPage: React.FC = () => {
       variants={pageTransition}
       className="min-h-screen relative overflow-hidden"
     >
-      <div className="min-h-screen flex items-center justify-center">
+      {/* Enhanced 3D Floating Particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {Array.from({ length: 30 }).map((_, i) => (
+          <motion.div
+            key={i}
+            variants={particleFloat}
+            initial="initial"
+            animate="animate"
+            className="absolute w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-600 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              filter: 'blur(0.5px)',
+            }}
+          />
+        ))}
+        {/* Larger floating geometric shapes */}
+        {Array.from({ length: 8 }).map((_, i) => (
+          <motion.div
+            key={`geo-${i}`}
+            variants={float3D}
+            initial="initial"
+            animate="animate"
+            className="absolute"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: `${20 + Math.random() * 40}px`,
+              height: `${20 + Math.random() * 40}px`,
+              background: `linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.3))`,
+              borderRadius: Math.random() > 0.5 ? '50%' : '20%',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(10px)',
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="min-h-screen flex items-center justify-center relative z-10">
         <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-center gap-12 py-20">
-          {/* Profile Image */}
+          {/* Enhanced Profile Image with 3D Effects */}
           <motion.div
             variants={scaleIn}
             initial="initial"
             animate="animate"
             className="relative"
           >
-            <div className="relative w-96 h-96 lg:w-[30rem] lg:h-[30rem]">
-              {/* Enhanced glowing background with pulsing animation */}
+            <div className="relative w-96 h-96 lg:w-[30rem] lg:h-[30rem]" style={{ perspective: '1000px' }}>
+              {/* Enhanced morphing background */}
               <motion.div 
-                variants={pulseGlow}
+                variants={morphingBlob}
                 initial="initial"
                 animate="animate"
-                className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-2xl opacity-20"
+                className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 blur-2xl opacity-20"
               ></motion.div>
-              {/* Main image with enhanced hover effects */}
+              {/* Main image with enhanced 3D hover effects */}
               <motion.img
                 src={img} 
                 alt="Meet Shah"
-                className="relative w-full h-full object-cover rounded-full border-4 border-white/20 shadow-2xl backdrop-blur-sm transition-transform duration-500 hover:scale-105"
+                className="relative w-full h-full object-cover rounded-full border-4 border-white/20 shadow-2xl backdrop-blur-sm"
                 style={{
                   objectPosition: 'center top',
-                  objectFit: 'cover'
+                  objectFit: 'cover',
+                  transformStyle: 'preserve-3d',
                 }}
                 whileHover={{ 
-                  scale: 1.05,
-                  rotateY: 5,
-                  transition: { duration: 0.3 }
+                  scale: 1.08,
+                  rotateY: 15,
+                  rotateX: 5,
+                  z: 50,
+                  transition: { duration: 0.4, ease: "easeOut" }
                 }}
+                whileTap={{ scale: 0.95 }}
               />
-              {/* Enhanced floating elements */}
+              {/* Enhanced floating 3D elements */}
               <motion.div 
-                variants={floatUpDown}
+                variants={float3D}
                 initial="initial"
                 animate="animate"
-                className="absolute -top-6 -right-6 w-12 h-12 bg-blue-500/30 rounded-full backdrop-blur-sm border border-white/20"
+                className="absolute -top-8 -right-8 w-16 h-16 bg-gradient-to-r from-blue-500/40 to-cyan-500/40 rounded-full backdrop-blur-sm border border-white/30 shadow-lg"
+                style={{ transformStyle: 'preserve-3d' }}
               ></motion.div>
               <motion.div 
-                variants={floatUpDown}
+                variants={rotate3D}
                 initial="initial"
                 animate="animate"
-                transition={{ delay: 1 }}
-                className="absolute -bottom-4 -left-4 w-8 h-8 bg-purple-500/30 rounded-full backdrop-blur-sm border border-white/20"
+                className="absolute -bottom-6 -left-6 w-12 h-12 bg-gradient-to-r from-purple-500/40 to-pink-500/40 rounded-lg backdrop-blur-sm border border-white/30 shadow-lg"
+                style={{ transformStyle: 'preserve-3d' }}
               ></motion.div>
               <motion.div 
-                variants={floatUpDown}
+                variants={float3D}
                 initial="initial"
                 animate="animate"
                 transition={{ delay: 0.5 }}
-                className="absolute top-1/2 -left-8 w-6 h-6 bg-yellow-500/30 rounded-full backdrop-blur-sm border border-white/20"
+                className="absolute top-1/2 -left-10 w-8 h-8 bg-gradient-to-r from-yellow-500/40 to-orange-500/40 rounded-full backdrop-blur-sm border border-white/30 shadow-lg"
+                style={{ transformStyle: 'preserve-3d' }}
+              ></motion.div>
+              {/* Additional geometric shapes */}
+              <motion.div 
+                variants={rotate3D}
+                initial="initial"
+                animate="animate"
+                transition={{ delay: 1 }}
+                className="absolute top-10 -right-4 w-6 h-6 bg-gradient-to-r from-emerald-500/40 to-teal-500/40 rotate-45 backdrop-blur-sm border border-white/30 shadow-lg"
+                style={{ transformStyle: 'preserve-3d' }}
               ></motion.div>
             </div>
           </motion.div>
@@ -532,6 +635,31 @@ const WorksPage: React.FC = () => {
       description: "Advanced AI-powered resume screening application built with TypeScript, featuring automated candidate evaluation and scoring.",
       github: "https://github.com/meetshah1708/ai-resume-screener",
       tech: ['TypeScript', 'React', 'AI/ML'],
+      featured: true,
+      category: 'AI/ML'
+    },
+    {
+      title: "AuthenticityNet",
+      description: "AI-powered image authenticity verification system using multiple deep learning models (CNN, EfficientNet, VGG16) with React frontend and FastAPI backend.",
+      github: "https://github.com/meetshah1708/authenticity-core",
+      tech: ['TypeScript', 'React', 'Python', 'AI/ML', 'FastAPI'],
+      featured: true,
+      category: 'AI/ML'
+    },
+    {
+      title: "Job-Matched CV Generator",
+      description: "Intelligent CV optimization tool that matches resumes to job descriptions using AI, built with React and modern frontend technologies.",
+      github: "https://github.com/meetshah1708/job-matched-cv",
+      link: "https://lovable.dev/projects/4883ae47-3f0e-41bb-9ce1-86a70668056e",
+      tech: ['TypeScript', 'React', 'AI/ML', 'Tailwind CSS'],
+      featured: true,
+      category: 'AI/ML'
+    },
+    {
+      title: "Email Reply Generator",
+      description: "Intelligent email response generator with Java backend and React frontend, featuring NLP for contextual email analysis and smart reply suggestions.",
+      github: "https://github.com/meetshah1708/email-reply-generator",
+      tech: ['Java', 'Spring Boot', 'JavaScript', 'React', 'NLP'],
       featured: true,
       category: 'AI/ML'
     },
@@ -1162,40 +1290,70 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
   
   return (
     <motion.div
-      variants={fadeInUp}
-      whileHover={{ y: -8, scale: 1.02 }}
+      variants={cardHover3D}
+      initial="initial"
+      whileHover="hover"
       transition={{ duration: 0.3, ease: "easeOut" }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       className={`group relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-6 transition-all duration-300 hover:bg-white/10 hover:shadow-2xl hover:border-white/20 overflow-hidden ${featured ? 'md:col-span-2 lg:col-span-1 ring-2 ring-blue-500/20' : ''}`}
+      style={{ 
+        transformStyle: 'preserve-3d',
+        perspective: '1000px'
+      }}
     >
-      {/* Enhanced background gradient effect */}
+      {/* Enhanced 3D background gradient effect */}
       <motion.div 
-        className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        animate={isHovered ? { scale: 1.05 } : { scale: 1 }}
+        className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        animate={isHovered ? { 
+          scale: 1.05,
+          rotateZ: 2,
+        } : { 
+          scale: 1,
+          rotateZ: 0,
+        }}
         transition={{ duration: 0.3 }}
+        style={{ transformStyle: 'preserve-3d' }}
       />
       
-      {/* Animated border gradient */}
+      {/* Floating holographic overlay */}
       <motion.div 
-        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"
         style={{
-          background: 'linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent)',
+          background: 'linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent, rgba(147, 51, 234, 0.1), transparent)',
+          backgroundSize: '200% 200%',
         }}
-        animate={isHovered ? { rotate: 360 } : { rotate: 0 }}
-        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+        animate={isHovered ? { 
+          backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+          scale: [1, 1.02, 1]
+        } : { 
+          backgroundPosition: '0% 50%',
+          scale: 1 
+        }}
+        transition={{ 
+          duration: 3, 
+          repeat: isHovered ? Infinity : 0, 
+          ease: "linear" 
+        }}
       />
 
-      {/* Featured badge - positioned at top-right with higher z-index */}
+      {/* Featured badge with 3D effect */}
       {featured && (
         <motion.div 
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1, duration: 0.3, type: "spring" }}
           className="absolute -top-1 -right-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-xl z-20 border border-white/20"
+          style={{ transformStyle: 'preserve-3d' }}
+          whileHover={{ 
+            scale: 1.15,
+            rotateY: 10,
+            z: 20,
+            transition: { duration: 0.2 }
+          }}
         >
           <motion.span
-            animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
+            animate={isHovered ? { scale: 1.1, rotateZ: 5 } : { scale: 1, rotateZ: 0 }}
             transition={{ duration: 0.2 }}
           >
             ✨ Featured
@@ -1203,14 +1361,21 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
         </motion.div>
       )}
       
-      {/* Category badge - positioned at top-left with better visibility */}
+      {/* Category badge with 3D effect */}
       {category && (
         <motion.div 
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.05, duration: 0.3, type: "spring" }}
           className="absolute top-4 left-4 bg-gradient-to-r from-gray-800/90 to-gray-700/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-2 rounded-full z-15 border border-white/30 shadow-lg"
-          whileHover={{ scale: 1.08, y: -1 }}
+          style={{ transformStyle: 'preserve-3d' }}
+          whileHover={{ 
+            scale: 1.1, 
+            y: -2,
+            rotateX: 10,
+            z: 15,
+            transition: { duration: 0.2 }
+          }}
         >
           {category}
         </motion.div>

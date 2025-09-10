@@ -1,8 +1,8 @@
-import { Github, Linkedin, Mail, Code, FileText, Home, Briefcase, ExternalLink, Download } from 'lucide-react';
+import { Github, Linkedin, Mail, Code, FileText, Home, Briefcase } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ThemeProvider} from './context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { pageTransition, fadeInUp, scaleIn, staggerContainer} from './utils/animations';
+import { pageTransition, fadeInUp, scaleIn} from './utils/animations';
 import img from '/meet.jpeg'; 
 interface SkillCategoryProps {
   title: string;

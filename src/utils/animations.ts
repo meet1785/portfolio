@@ -172,3 +172,109 @@ export const pulseGlow: Variants = {
     }
   }
 };
+
+// Enhanced 3D animations for portfolio
+export const rotate3D: Variants = {
+  initial: { 
+    rotateY: 0,
+    rotateX: 0,
+  },
+  animate: { 
+    rotateY: [0, 5, -5, 0],
+    rotateX: [0, 2, -2, 0],
+    transition: {
+      duration: 6,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
+};
+
+export const cardHover3D: Variants = {
+  initial: { 
+    rotateY: 0,
+    rotateX: 0,
+    z: 0,
+    scale: 1
+  },
+  hover: { 
+    rotateY: 8,
+    rotateX: 8,
+    z: 50,
+    scale: 1.05,
+    transition: {
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  }
+};
+
+export const float3D: Variants = {
+  initial: { 
+    y: 0,
+    rotateY: 0,
+    rotateZ: 0
+  },
+  animate: { 
+    y: [-10, 10, -10],
+    rotateY: [0, 360],
+    rotateZ: [0, 5, -5, 0],
+    transition: {
+      y: {
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut"
+      },
+      rotateY: {
+        duration: 20,
+        repeat: Infinity,
+        ease: "linear"
+      },
+      rotateZ: {
+        duration: 6,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  }
+};
+
+export const morphingBlob: Variants = {
+  initial: { 
+    borderRadius: "30% 70% 70% 30% / 30% 30% 70% 70%",
+    scale: 1
+  },
+  animate: { 
+    borderRadius: [
+      "30% 70% 70% 30% / 30% 30% 70% 70%",
+      "70% 30% 30% 70% / 70% 70% 30% 30%",
+      "50% 50% 50% 50% / 50% 50% 50% 50%",
+      "30% 70% 70% 30% / 30% 30% 70% 70%"
+    ],
+    scale: [1, 1.1, 0.9, 1],
+    transition: {
+      duration: 8,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
+};
+
+export const particleFloat: Variants = {
+  initial: { 
+    y: 0,
+    x: 0,
+    opacity: 0.6
+  },
+  animate: { 
+    y: [-20, 20, -20],
+    x: [-10, 10, -10],
+    opacity: [0.6, 1, 0.6],
+    transition: {
+      duration: Math.random() * 3 + 2,
+      repeat: Infinity,
+      ease: "easeInOut",
+      delay: Math.random() * 2
+    }
+  }
+};
