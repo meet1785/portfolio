@@ -13,7 +13,7 @@ const App: React.FC = () => {
   return (
     <ThemeProvider>
       <Router basename="/portfolio">
-        <div className="min-h-screen bg-gray-100 dark:bg-gradient-to-br dark:from-slate-900 dark:via-purple-900 dark:to-slate-900 relative overflow-hidden transition-colors duration-300">
+        <div className="min-h-screen bg-slate-50 dark:bg-gradient-to-br dark:from-slate-900 dark:via-purple-900 dark:to-slate-900 relative overflow-hidden transition-colors duration-300">
           {/* Enhanced 3D Animated Background Elements */}
           <div className="absolute inset-0 overflow-hidden hidden dark:block">
             <motion.div 

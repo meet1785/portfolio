@@ -128,7 +128,7 @@ const LandingPage: React.FC = () => {
             <motion.div variants={staggerContainer} initial="initial" animate="animate" className="space-y-4">
               <motion.h1
                 variants={typewriter}
-                className="text-5xl lg:text-7xl font-bold text-gray-800 dark:text-white font-heading"
+                className="text-5xl lg:text-7xl font-bold text-slate-800 dark:text-white font-heading"
               >
                 Meet
                 <motion.span
@@ -140,14 +140,14 @@ const LandingPage: React.FC = () => {
               <motion.p
                 variants={fadeInUp}
                 transition={{ delay: 0.4 }}
-                className="text-xl lg:text-2xl text-gray-600 dark:text-white/80 font-body"
+                className="text-xl lg:text-2xl text-slate-600 dark:text-white/80 font-body"
               >
                 Computer Engineering Student & Full Stack Developer
               </motion.p>
               <motion.p
                 variants={fadeInUp}
                 transition={{ delay: 0.6 }}
-                className="text-lg text-gray-500 dark:text-white/60 max-w-2xl font-body leading-relaxed"
+                className="text-lg text-slate-500 dark:text-white/60 max-w-2xl font-body leading-relaxed"
               >
                 Passionate Computer Engineering student from Mumbai with CGPI 9.4/10.0, specializing in MERN stack development,
                 AI/ML applications, and innovative digital solutions. Currently seeking opportunities to contribute to impactful projects.
@@ -177,7 +177,7 @@ const LandingPage: React.FC = () => {
               <motion.div variants={scaleIn} transition={{ delay: 1 }}>
                 <Link
                   to="/resume"
-                  className="group relative inline-flex items-center justify-center px-8 py-4 border-2 border-gray-400 dark:border-white/20 text-gray-800 dark:text-white font-semibold rounded-2xl backdrop-blur-sm transition-all duration-300 hover:bg-gray-200 dark:hover:bg-white/10 hover:scale-105 font-body overflow-hidden"
+                  className="group relative inline-flex items-center justify-center px-8 py-4 border-2 border-slate-300 dark:border-white/20 text-slate-800 dark:text-white font-semibold rounded-2xl backdrop-blur-sm transition-all duration-300 hover:bg-slate-100 dark:hover:bg-white/10 hover:scale-105 font-body overflow-hidden"
                 >
                   <span className="flex items-center space-x-2 relative z-10">
                     <Download className="w-5 h-5 group-hover:animate-bounce" />
@@ -193,7 +193,7 @@ const LandingPage: React.FC = () => {
 
       {/* Enhanced "Stay Connected" section */}
       <motion.div
-        className="py-20 bg-gray-100 dark:bg-gradient-to-t dark:from-black/20 dark:to-transparent"
+        className="py-20 bg-slate-100 dark:bg-gradient-to-t dark:from-black/20 dark:to-transparent"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.2 }}
@@ -203,7 +203,7 @@ const LandingPage: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.4 }}
-            className="text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white mb-6 font-heading"
+            className="text-3xl lg:text-4xl font-bold text-slate-800 dark:text-white mb-6 font-heading"
           >
             Let's Connect
           </motion.h2>
@@ -211,7 +211,7 @@ const LandingPage: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.6 }}
-            className="text-lg text-gray-600 dark:text-white/70 mb-8 font-body"
+            className="text-lg text-slate-600 dark:text-white/70 mb-8 font-body"
           >
             Follow me on social media and let's build something amazing together.
           </motion.p>
