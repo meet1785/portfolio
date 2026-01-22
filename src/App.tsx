@@ -1,11 +1,109 @@
 import React from 'react';
-import { Github, Linkedin, Mail, FileText, Home, Briefcase, ExternalLink, Download, Menu, X } from 'lucide-react';
+import { Github, Linkedin, Mail, FileText, Home, Briefcase, ExternalLink, Download, Menu, X, ArrowRight, Sparkles, Code2, Zap, Star } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ThemeProvider} from './context/ThemeContext';
-import { motion, AnimatePresence } from 'framer-motion';
-import { pageTransition, fadeInUp, scaleIn, staggerContainer, typewriter, rotate3D, cardHover3D, float3D, morphingBlob, particleFloat} from './utils/animations';
+import { motion, AnimatePresence, useScroll, useMotionValue, useSpring } from 'framer-motion';
+import { pageTransition, fadeInUp, staggerContainer, rotate3D, cardHover3D, float3D, morphingBlob, particleFloat, elasticSlideUp, staggerChildren } from './utils/animations';
 import { useDebounce } from './utils/useDebounce';
-import img from '/meet.jpeg'; 
+import img from '/meet.jpeg';
+
+// Cursor following effect component
+const CursorGlow: React.FC = () => {
+  const cursorX = useMotionValue(0);
+  const cursorY = useMotionValue(0);
+  const springX = useSpring(cursorX, { stiffness: 100, damping: 30 });
+  const springY = useSpring(cursorY, { stiffness: 100, damping: 30 });
+
+  React.useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [cursorX, cursorY]);
+
+  return (
+    <motion.div
+      className="fixed w-[600px] h-[600px] rounded-full pointer-events-none z-0 hidden lg:block"
+      style={{
+        x: springX,
+        y: springY,
+        translateX: '-50%',
+        translateY: '-50%',
+        background: 'radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.05) 30%, transparent 70%)',
+        filter: 'blur(40px)',
+      }}
+    />
+  );
+};
+
+// Scroll progress indicator
+const ScrollProgress: React.FC = () => {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  
+  return (
+    <motion.div 
+      className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 z-[100] origin-left"
+      style={{ scaleX }}
+    />
+  );
+};
+
+// Animated counter component
+const AnimatedCounter: React.FC<{ value: number; suffix?: string; label: string }> = ({ value, suffix = '', label }) => {
+  const [count, setCount] = React.useState(0);
+  const [isVisible, setIsVisible] = React.useState(false);
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isVisible) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [isVisible]);
+
+  React.useEffect(() => {
+    if (!isVisible) return;
+    const duration = 2000;
+    const steps = 60;
+    const increment = value / steps;
+    let current = 0;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= value) {
+        setCount(value);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(current));
+      }
+    }, duration / steps);
+
+    return () => clearInterval(timer);
+  }, [isVisible, value]);
+
+  return (
+    <motion.div 
+      ref={ref}
+      className="stat-card"
+      initial={{ opacity: 0, y: 20 }}
+      animate={isVisible ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="stat-number">{count}{suffix}</div>
+      <div className="text-white/60 text-sm mt-2 font-body">{label}</div>
+    </motion.div>
+  );
+}; 
 
 interface SkillCategoryProps {
   title: string;
@@ -265,43 +363,46 @@ const App: React.FC = () => {
   return (
     <ThemeProvider>
       <Router basename="/portfolio">
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 relative overflow-hidden noise-overlay">
+          {/* Scroll Progress Bar */}
+          <ScrollProgress />
+          
+          {/* Cursor Glow Effect */}
+          <CursorGlow />
+          
+          {/* Aurora Gradient Background */}
+          <div className="absolute inset-0 aurora-gradient" />
+
           {/* Enhanced 3D Animated Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
             <motion.div 
               variants={morphingBlob}
               initial="initial"
               animate="animate"
-              className="absolute -top-4 -left-4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+              className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-full mix-blend-multiply filter blur-3xl"
             ></motion.div>
             <motion.div 
               variants={float3D}
               initial="initial"
               animate="animate"
-              className="absolute -top-4 -right-4 w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+              className="absolute -top-20 -right-20 w-[500px] h-[500px] bg-gradient-to-r from-cyan-500/15 to-blue-500/15 rounded-full mix-blend-multiply filter blur-3xl"
             ></motion.div>
             <motion.div 
               variants={rotate3D}
               initial="initial"
               animate="animate"
-              className="absolute -bottom-8 left-20 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+              className="absolute -bottom-40 left-1/4 w-[700px] h-[700px] bg-gradient-to-r from-pink-500/15 to-rose-500/15 rounded-full mix-blend-multiply filter blur-3xl"
             ></motion.div>
             <motion.div 
               variants={morphingBlob}
               initial="initial"
               animate="animate"
-              className="absolute top-1/2 right-1/4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-15"
-            ></motion.div>
-            <motion.div 
-              variants={float3D}
-              initial="initial"
-              animate="animate"
-              className="absolute bottom-1/4 left-1/3 w-64 h-64 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-15"
+              className="absolute top-1/3 right-1/5 w-[400px] h-[400px] bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-full mix-blend-multiply filter blur-3xl"
             ></motion.div>
           </div>
 
           {/* Enhanced 3D grid pattern overlay */}
-          <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0 opacity-[0.02]">
             <motion.div 
               className="absolute inset-0" 
               style={{
@@ -309,13 +410,13 @@ const App: React.FC = () => {
                   linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
                   linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
                 `,
-                backgroundSize: '50px 50px',
+                backgroundSize: '80px 80px',
               }}
               animate={{
-                backgroundPosition: ['0px 0px', '50px 50px', '0px 0px'],
+                backgroundPosition: ['0px 0px', '80px 80px', '0px 0px'],
               }}
               transition={{
-                duration: 20,
+                duration: 30,
                 repeat: Infinity,
                 ease: "linear"
               }}
@@ -324,7 +425,7 @@ const App: React.FC = () => {
 
           {/* Enhanced 3D floating particles */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {Array.from({ length: 25 }).map((_, i) => (
+            {Array.from({ length: 40 }).map((_, i) => (
               <motion.div
                 key={i}
                 variants={particleFloat}
@@ -334,14 +435,13 @@ const App: React.FC = () => {
                 style={{
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`,
-                  width: `${2 + Math.random() * 4}px`,
-                  height: `${2 + Math.random() * 4}px`,
-                  background: `linear-gradient(45deg, 
-                    rgba(59, 130, 246, ${0.3 + Math.random() * 0.4}), 
-                    rgba(147, 51, 234, ${0.3 + Math.random() * 0.4})
+                  width: `${2 + Math.random() * 6}px`,
+                  height: `${2 + Math.random() * 6}px`,
+                  background: `radial-gradient(circle, 
+                    rgba(99, 102, 241, ${0.4 + Math.random() * 0.4}), 
+                    rgba(168, 85, 247, ${0.2 + Math.random() * 0.3})
                   )`,
-                  filter: 'blur(0.5px)',
-                  boxShadow: `0 0 ${4 + Math.random() * 8}px rgba(59, 130, 246, 0.3)`,
+                  boxShadow: `0 0 ${10 + Math.random() * 20}px rgba(99, 102, 241, 0.3)`,
                 }}
               />
             ))}
@@ -357,249 +457,318 @@ const App: React.FC = () => {
 };
 
 const LandingPage: React.FC = () => {
+  const [displayedText, setDisplayedText] = React.useState('');
+  const [currentRoleIndex, setCurrentRoleIndex] = React.useState(0);
+  const [isDeleting, setIsDeleting] = React.useState(false);
+  
+  const roles = React.useMemo(() => ['Full Stack Developer', 'AI/ML Enthusiast', 'Problem Solver', 'Tech Innovator'], []);
+  
+  React.useEffect(() => {
+    const currentRole = roles[currentRoleIndex];
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        if (displayedText.length < currentRole.length) {
+          setDisplayedText(currentRole.slice(0, displayedText.length + 1));
+        } else {
+          setTimeout(() => setIsDeleting(true), 2000);
+        }
+      } else {
+        if (displayedText.length > 0) {
+          setDisplayedText(displayedText.slice(0, -1));
+        } else {
+          setIsDeleting(false);
+          setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+        }
+      }
+    }, isDeleting ? 50 : 100);
+    
+    return () => clearTimeout(timeout);
+  }, [displayedText, isDeleting, currentRoleIndex, roles]);
+
   return (
     <motion.div
       initial="initial"
       animate="animate"
       exit="exit"
       variants={pageTransition}
-      className="min-h-screen relative overflow-hidden"
+      className="min-h-screen relative overflow-hidden pt-20"
     >
-      {/* Enhanced 3D Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 30 }).map((_, i) => (
-          <motion.div
-            key={i}
-            variants={particleFloat}
-            initial="initial"
-            animate="animate"
-            className="absolute w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-600 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              filter: 'blur(0.5px)',
-            }}
-          />
-        ))}
-        {/* Larger floating geometric shapes */}
-        {Array.from({ length: 8 }).map((_, i) => (
-          <motion.div
-            key={`geo-${i}`}
-            variants={float3D}
-            initial="initial"
-            animate="animate"
-            className="absolute"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${20 + Math.random() * 40}px`,
-              height: `${20 + Math.random() * 40}px`,
-              background: `linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.3))`,
-              borderRadius: Math.random() > 0.5 ? '50%' : '20%',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(10px)',
-            }}
-          />
-        ))}
+      {/* Orbit rings decoration */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none hidden lg:block">
+        <div className="orbit-ring w-[500px] h-[500px] opacity-30" />
+        <div className="orbit-ring w-[650px] h-[650px] opacity-20" style={{ animationDuration: '25s', animationDirection: 'reverse' }} />
+        <div className="orbit-ring w-[800px] h-[800px] opacity-10" style={{ animationDuration: '35s' }} />
       </div>
 
-      <div className="min-h-screen flex items-center justify-center relative z-10">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-center gap-12 py-20">
+      {/* Hero Section */}
+      <div className="min-h-[90vh] flex items-center justify-center relative z-10">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-center gap-16 py-12">
           {/* Enhanced Profile Image with 3D Effects */}
           <motion.div
-            variants={scaleIn}
-            initial="initial"
-            animate="animate"
+            initial={{ opacity: 0, scale: 0.8, rotateY: -20 }}
+            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="relative"
           >
-            <div className="relative w-96 h-96 lg:w-[30rem] lg:h-[30rem]" style={{ perspective: '1000px' }}>
-              {/* Enhanced morphing background */}
+            <div className="relative w-80 h-80 lg:w-[26rem] lg:h-[26rem]" style={{ perspective: '1200px' }}>
+              {/* Animated ring around image */}
               <motion.div 
-                variants={morphingBlob}
-                initial="initial"
-                animate="animate"
-                className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 blur-2xl opacity-20"
-              ></motion.div>
-              {/* Main image with enhanced 3D hover effects */}
-              <motion.img
-                src={img} 
-                alt="Meet Shah"
-                className="relative w-full h-full object-cover rounded-full border-4 border-white/20 shadow-2xl backdrop-blur-sm"
-                style={{
-                  objectPosition: 'center top',
-                  objectFit: 'cover',
-                  transformStyle: 'preserve-3d',
+                className="absolute inset-[-20px] border-2 border-dashed border-indigo-500/30 rounded-full"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              />
+              <motion.div 
+                className="absolute inset-[-40px] border border-purple-500/20 rounded-full"
+                animate={{ rotate: -360 }}
+                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              />
+              
+              {/* Glow effect behind image */}
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full blur-3xl opacity-30"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.3, 0.4, 0.3],
                 }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              />
+              
+              {/* Main image */}
+              <motion.div
+                className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/10 shadow-2xl"
+                style={{ transformStyle: 'preserve-3d' }}
                 whileHover={{ 
-                  scale: 1.08,
-                  rotateY: 15,
+                  scale: 1.05,
+                  rotateY: 10,
                   rotateX: 5,
-                  z: 50,
                   transition: { duration: 0.4, ease: "easeOut" }
                 }}
-                whileTap={{ scale: 0.95 }}
-              />
-              {/* Enhanced floating 3D elements */}
+              >
+                <img
+                  src={img} 
+                  alt="Meet Shah"
+                  className="w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
+              </motion.div>
+              
+              {/* Floating badges around image */}
               <motion.div 
-                variants={float3D}
-                initial="initial"
-                animate="animate"
-                className="absolute -top-8 -right-8 w-16 h-16 bg-gradient-to-r from-blue-500/40 to-cyan-500/40 rounded-full backdrop-blur-sm border border-white/30 shadow-lg"
-                style={{ transformStyle: 'preserve-3d' }}
-              ></motion.div>
+                className="absolute -top-4 -right-4 floating-badge"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5, type: "spring" }}
+              >
+                <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-3 rounded-xl shadow-lg">
+                  <Code2 className="w-6 h-6 text-white" />
+                </div>
+              </motion.div>
+              
               <motion.div 
-                variants={rotate3D}
-                initial="initial"
-                animate="animate"
-                className="absolute -bottom-6 -left-6 w-12 h-12 bg-gradient-to-r from-purple-500/40 to-pink-500/40 rounded-lg backdrop-blur-sm border border-white/30 shadow-lg"
-                style={{ transformStyle: 'preserve-3d' }}
-              ></motion.div>
+                className="absolute -bottom-2 -left-4 floating-badge"
+                style={{ animationDelay: '1s' }}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.7, type: "spring" }}
+              >
+                <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-3 rounded-xl shadow-lg">
+                  <Zap className="w-6 h-6 text-white" />
+                </div>
+              </motion.div>
+              
               <motion.div 
-                variants={float3D}
-                initial="initial"
-                animate="animate"
-                transition={{ delay: 0.5 }}
-                className="absolute top-1/2 -left-10 w-8 h-8 bg-gradient-to-r from-yellow-500/40 to-orange-500/40 rounded-full backdrop-blur-sm border border-white/30 shadow-lg"
-                style={{ transformStyle: 'preserve-3d' }}
-              ></motion.div>
-              {/* Additional geometric shapes */}
-              <motion.div 
-                variants={rotate3D}
-                initial="initial"
-                animate="animate"
-                transition={{ delay: 1 }}
-                className="absolute top-10 -right-4 w-6 h-6 bg-gradient-to-r from-emerald-500/40 to-teal-500/40 rotate-45 backdrop-blur-sm border border-white/30 shadow-lg"
-                style={{ transformStyle: 'preserve-3d' }}
-              ></motion.div>
+                className="absolute top-1/2 -right-8 floating-badge"
+                style={{ animationDelay: '0.5s' }}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.9, type: "spring" }}
+              >
+                <div className="bg-gradient-to-r from-amber-500 to-orange-600 p-3 rounded-xl shadow-lg">
+                  <Sparkles className="w-6 h-6 text-white" />
+                </div>
+              </motion.div>
             </div>
           </motion.div>
 
           {/* Text Content */}
-          <div className="text-center lg:text-left space-y-8">
-            <motion.div variants={staggerContainer} initial="initial" animate="animate" className="space-y-4">
-              <motion.h1 
-                variants={typewriter}
-                className="text-5xl lg:text-7xl font-bold text-white font-heading"
-              >
-                Meet 
-                <motion.span 
-                  variants={typewriter}
-                  transition={{ delay: 0.3 }}
-                  className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent"
-                > Shah</motion.span>
-              </motion.h1>
+          <div className="text-center lg:text-left space-y-8 max-w-xl">
+            {/* Status Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <span className="hero-badge">
+                <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                <span>Available for opportunities</span>
+              </span>
+            </motion.div>
+            
+            <motion.div 
+              initial="initial" 
+              animate="animate" 
+              variants={staggerChildren}
+              className="space-y-4"
+            >
               <motion.p 
-                variants={fadeInUp}
-                transition={{ delay: 0.4 }}
-                className="text-xl lg:text-2xl text-white/80 font-body"
+                variants={elasticSlideUp}
+                className="text-lg text-indigo-400 font-medium font-mono tracking-wider"
               >
-                Computer Engineering Student & Full Stack Developer
+                Hello, I'm
               </motion.p>
-              <motion.p 
-                variants={fadeInUp}
-                transition={{ delay: 0.6 }}
-                className="text-lg text-white/60 max-w-2xl font-body leading-relaxed"
+              
+              <motion.h1 
+                variants={elasticSlideUp}
+                className="text-5xl lg:text-7xl font-bold text-white font-heading tracking-tight"
               >
-                Passionate Computer Engineering student from Mumbai with CGPI 9.4/10.0, specializing in MERN stack development,  
-                AI/ML applications, and innovative digital solutions. Currently seeking opportunities to contribute to impactful projects.
+                Meet{' '}
+                <span className="text-gradient-animate">Shah</span>
+              </motion.h1>
+              
+              <motion.div 
+                variants={elasticSlideUp}
+                className="h-12 flex items-center justify-center lg:justify-start"
+              >
+                <span className="text-2xl lg:text-3xl text-white/70 font-heading">
+                  {displayedText}
+                  <span className="typing-cursor" />
+                </span>
+              </motion.div>
+              
+              <motion.p 
+                variants={elasticSlideUp}
+                className="text-lg text-white/60 max-w-xl font-body leading-relaxed"
+              >
+                Passionate Computer Engineering student from Mumbai with <span className="text-indigo-400 font-semibold">CGPI 9.4/10.0</span>, 
+                specializing in MERN stack development, AI/ML applications, and innovative digital solutions.
               </motion.p>
             </motion.div>
             
+            {/* CTA Buttons */}
             <motion.div
-              variants={staggerContainer}
-              initial="initial"
-              animate="animate"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <motion.div variants={scaleIn} transition={{ delay: 0.8 }}>
-                <Link 
-                  to="/works" 
-                  className="group relative inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-2xl font-body overflow-hidden"
-                >
-                  <span className="flex items-center space-x-2 relative z-10">
-                    <Briefcase className="w-5 h-5" />
-                    <span>View My Work</span>
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="absolute inset-0 bg-white/10 rounded-2xl scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                </Link>
-              </motion.div>
+              <Link 
+                to="/works" 
+                className="group relative inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-[0_0_40px_rgba(99,102,241,0.4)] cta-shine overflow-hidden"
+              >
+                <span className="flex items-center space-x-2 relative z-10">
+                  <Briefcase className="w-5 h-5" />
+                  <span>View My Work</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </Link>
               
-              <motion.div variants={scaleIn} transition={{ delay: 1 }}>
-                <Link 
-                  to="/resume" 
-                  className="group relative inline-flex items-center justify-center px-8 py-4 border-2 border-white/20 text-white font-semibold rounded-2xl backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:scale-105 font-body overflow-hidden"
+              <Link 
+                to="/resume" 
+                className="group relative inline-flex items-center justify-center px-8 py-4 bg-white/5 border border-white/20 text-white font-semibold rounded-xl backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/30 overflow-hidden"
+              >
+                <span className="flex items-center space-x-2 relative z-10">
+                  <Download className="w-5 h-5 group-hover:animate-bounce" />
+                  <span>Download Resume</span>
+                </span>
+              </Link>
+            </motion.div>
+            
+            {/* Quick Social Links */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+              className="flex items-center gap-4 justify-center lg:justify-start"
+            >
+              <span className="text-white/40 text-sm">Connect:</span>
+              {[
+                { href: "https://github.com/meetshah1708", icon: Github },
+                { href: "https://linkedin.com/in/meetshah1708", icon: Linkedin },
+                { href: "mailto:meetshah1785@gmail.com", icon: Mail },
+              ].map((social, i) => (
+                <motion.a
+                  key={social.href}
+                  href={social.href}
+                  target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
+                  rel="noopener noreferrer"
+                  className="social-icon"
+                  whileHover={{ scale: 1.15, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.1 + i * 0.1 }}
                 >
-                  <span className="flex items-center space-x-2 relative z-10">
-                    <Download className="w-5 h-5 group-hover:animate-bounce" />
-                    <span>Resume</span>
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-2xl scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-right"></div>
-                </Link>
-              </motion.div>
+                  <social.icon className="w-5 h-5 text-white/70" />
+                </motion.a>
+              ))}
             </motion.div>
           </div>
         </div>
       </div>
 
-      {/* Enhanced "Stay Connected" section */}
+      {/* Stats Section */}
       <motion.div 
-        className="py-20 bg-gradient-to-t from-black/20 to-transparent"
+        className="py-20 relative"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+      >
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="glass-card rounded-3xl p-8 lg:p-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <AnimatedCounter value={17} suffix="+" label="Projects Completed" />
+              <AnimatedCounter value={300} suffix="+" label="DSA Problems Solved" />
+              <AnimatedCounter value={9.4} suffix="" label="CGPI Score" />
+              <AnimatedCounter value={50} suffix="+" label="GCP Skill Badges" />
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Let's Connect Section */}
+      <motion.div 
+        className="py-20"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.2 }}
+        transition={{ duration: 0.8, delay: 1.4 }}
       >
         <div className="max-w-4xl mx-auto text-center px-6">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.4 }}
-            className="text-3xl lg:text-4xl font-bold text-white mb-6 font-heading"
-          >
-            Let's Connect
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.6 }}
-            className="text-lg text-white/70 mb-8 font-body"
-          >
-            Follow me on social media and let's build something amazing together.
-          </motion.p>
           <motion.div 
-            className="flex justify-center space-x-6"
-            variants={staggerContainer}
-            initial="initial"
-            animate="animate"
+            className="glass-card rounded-3xl p-12"
+            whileHover={{ scale: 1.01 }}
+            transition={{ duration: 0.3 }}
           >
-            {[
-              { href: "https://linkedin.com/in/meetshah1708", icon: Linkedin, label: "LinkedIn", color: "from-blue-600 to-blue-700" },
-              { href: "https://github.com/meetshah1708", icon: Github, label: "GitHub", color: "from-gray-600 to-gray-700" },
-              { href: "mailto:meetshah1785@gmail.com", icon: Mail, label: "Email", color: "from-red-600 to-red-700" },
-            ].map((social, index) => (
-              <motion.a
-                key={social.href}
-                href={social.href}
-                target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
-                rel="noopener noreferrer"
-                className={`group relative p-4 bg-gradient-to-br ${social.color} rounded-2xl text-white transition-all duration-300 hover:scale-110 hover:shadow-2xl overflow-hidden`}
-                aria-label={social.label}
-                variants={scaleIn}
-                initial="initial"
-                animate="animate"
-                transition={{ delay: 1.8 + index * 0.1 }}
-                whileHover={{ 
-                  scale: 1.15,
-                  rotateY: 10,
-                  transition: { duration: 0.2 }
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <social.icon className="w-6 h-6 relative z-10" />
-                <div className="absolute inset-0 bg-white/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
-              </motion.a>
-            ))}
+            <Star className="w-12 h-12 text-indigo-400 mx-auto mb-6" />
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4 font-heading">
+              Let's Build Something <span className="text-gradient-animate">Amazing</span>
+            </h2>
+            <p className="text-lg text-white/60 mb-8 font-body max-w-xl mx-auto">
+              I'm always excited to collaborate on innovative projects and explore new opportunities.
+            </p>
+            <div className="flex justify-center gap-6">
+              {[
+                { href: "https://linkedin.com/in/meetshah1708", icon: Linkedin, label: "LinkedIn", gradient: "from-blue-600 to-blue-700" },
+                { href: "https://github.com/meetshah1708", icon: Github, label: "GitHub", gradient: "from-slate-600 to-slate-700" },
+                { href: "mailto:meetshah1785@gmail.com", icon: Mail, label: "Email", gradient: "from-rose-600 to-rose-700" },
+              ].map((social, index) => (
+                <motion.a
+                  key={social.href}
+                  href={social.href}
+                  target={social.href.startsWith('mailto:') ? '_self' : '_blank'}
+                  rel="noopener noreferrer"
+                  className={`group relative p-4 bg-gradient-to-br ${social.gradient} rounded-2xl text-white transition-all duration-300 hover:shadow-lg overflow-hidden`}
+                  aria-label={social.label}
+                  whileHover={{ scale: 1.1, y: -4 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.6 + index * 0.1 }}
+                >
+                  <social.icon className="w-6 h-6 relative z-10" />
+                  <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.a>
+              ))}
+            </div>
           </motion.div>
         </div>
       </motion.div>
@@ -780,11 +949,22 @@ const WorksPage: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-medium mb-6"
+          >
+            <Code2 className="w-4 h-4" />
+            <span>Explore My Work</span>
+          </motion.div>
+          
           <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 font-heading">
-            My <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Projects</span>
+            Featured <span className="text-gradient-animate">Projects</span>
           </h1>
-          <p className="text-xl text-white/70 max-w-3xl mx-auto mb-8 font-body">
-            A collection of projects showcasing my skills in full-stack development, modern frameworks, and innovative solutions.
+          <p className="text-xl text-white/60 max-w-2xl mx-auto mb-10 font-body">
+            A curated collection of projects showcasing my skills in full-stack development, AI/ML, and innovative solutions.
           </p>
           
           {/* Technology Filter */}
@@ -792,7 +972,7 @@ const WorksPage: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-wrap justify-center gap-3 mb-8"
+            className="flex flex-wrap justify-center gap-2 mb-8 max-w-4xl mx-auto"
           >
             {filterOptions.map((tech, index) => (
               <motion.button
@@ -800,13 +980,13 @@ const WorksPage: React.FC = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2, delay: index * 0.02 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => handleFilterChange(tech)}
-                className={`relative px-4 py-2 rounded-xl font-medium transition-all duration-200 font-body overflow-hidden group ${
+                className={`relative px-4 py-2 rounded-full font-medium text-sm transition-all duration-300 font-body overflow-hidden ${
                   selectedFilter === tech
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
-                    : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white backdrop-blur-sm'
+                    ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/25'
+                    : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white border border-white/10 hover:border-white/20'
                 }`}
               >
                 <span className="relative z-10 flex items-center space-x-2">
@@ -819,7 +999,6 @@ const WorksPage: React.FC = () => {
                   )}
                   <span>{tech}</span>
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
               </motion.button>
             ))}
           </motion.div>
@@ -830,7 +1009,7 @@ const WorksPage: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.2 }}
-            className="text-white/60 font-body flex items-center justify-center space-x-2"
+            className="text-white/50 font-body text-sm flex items-center justify-center space-x-2"
           >
             {isLoading ? (
               <>
@@ -839,10 +1018,10 @@ const WorksPage: React.FC = () => {
                   transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                   className="w-4 h-4 border border-white/30 border-t-white/60 rounded-full"
                 />
-                <span>Filtering projects...</span>
+                <span>Filtering...</span>
               </>
             ) : (
-              <span>
+              <span className="bg-white/5 px-3 py-1 rounded-full">
                 {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} found
               </span>
             )}
@@ -906,49 +1085,66 @@ const ResumePage: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-sm font-medium mb-6"
+          >
+            <FileText className="w-4 h-4" />
+            <span>Professional Background</span>
+          </motion.div>
+          
           <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 font-heading">
-            My <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Resume</span>
+            My <span className="text-gradient-animate">Resume</span>
           </h1>
-          <p className="text-xl text-white/70 max-w-3xl mx-auto mb-8 font-body">
-            Computer Engineering Student | Full Stack Developer | Problem Solver
+          <p className="text-xl text-white/60 max-w-2xl mx-auto mb-8 font-body">
+            Computer Engineering Student • Full Stack Developer • Problem Solver
           </p>
           <div className="flex justify-center">
             <motion.a 
               href="/resume.pdf" 
               download
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
+              className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all duration-300 cta-shine"
             >
               <Download className="w-5 h-5" />
               <span>Download Resume</span>
+              <ArrowRight className="w-4 h-4" />
             </motion.a>
           </div>
         </motion.div>
 
-        <div className="space-y-12">
+        <div className="space-y-8">
           {/* Education Section */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
+            className="glass-card rounded-3xl p-8 lg:p-10"
           >
-            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 font-heading">Education</h2>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="p-2 rounded-lg bg-blue-500/20">
+                <Sparkles className="w-6 h-6 text-blue-400" />
+              </div>
+              <h2 className="text-2xl lg:text-3xl font-bold text-white font-heading">Education</h2>
+            </div>
             <div className="space-y-6">
-              <div className="border-l-4 border-blue-500 pl-6">
+              <div className="border-l-4 border-blue-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-xl font-bold text-white font-heading">Bachelor of Engineering, Computer Engineering</h3>
                 <p className="text-blue-400 font-semibold">Thakur College of Engineering and Technology, University of Mumbai</p>
                 <p className="text-white/60">CGPI: 9.4/10.0</p>
               </div>
-              <div className="border-l-4 border-purple-500 pl-6">
+              <div className="border-l-4 border-purple-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-xl font-bold text-white font-heading">Higher Secondary Certificate (H.S.C.)</h3>
                 <p className="text-purple-400 font-semibold">Maharashtra State Board</p>
                 <p className="text-white/60">Score: 82% | JEE Mains & CET Percentile: 96%ile</p>
               </div>
-              <div className="border-l-4 border-green-500 pl-6">
+              <div className="border-l-4 border-emerald-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-xl font-bold text-white font-heading">Secondary School Certificate (S.S.C.)</h3>
-                <p className="text-green-400 font-semibold">Maharashtra State Board</p>
+                <p className="text-emerald-400 font-semibold">Maharashtra State Board</p>
                 <p className="text-white/60">Score: 94.8%</p>
               </div>
             </div>
@@ -959,22 +1155,27 @@ const ResumePage: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
+            className="glass-card rounded-3xl p-8 lg:p-10"
           >
-            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 font-heading">Work Experience</h2>
-            <div className="space-y-8">
-              <div className="border-l-4 border-blue-500 pl-6">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="p-2 rounded-lg bg-purple-500/20">
+                <Briefcase className="w-6 h-6 text-purple-400" />
+              </div>
+              <h2 className="text-2xl lg:text-3xl font-bold text-white font-heading">Work Experience</h2>
+            </div>
+            <div className="space-y-6">
+              <div className="border-l-4 border-indigo-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-xl font-bold text-white font-heading">Business Analyst Intern</h3>
-                <p className="text-blue-400 font-semibold mb-2">Neoprism Consultancy And Services</p>
-                <ul className="text-white/70 space-y-2 font-body">
+                <p className="text-indigo-400 font-semibold mb-2">Neoprism Consultancy And Services</p>
+                <ul className="text-white/60 space-y-2 font-body">
                   <li>• Authored 20+ white papers for SMEs, driving data-informed digital marketing strategies</li>
                   <li>• Collaborated with cross-functional teams to analyze KPIs and recommend growth solutions</li>
                 </ul>
               </div>
-              <div className="border-l-4 border-purple-500 pl-6">
+              <div className="border-l-4 border-purple-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-xl font-bold text-white font-heading">AI Prompt Engineering Intern</h3>
                 <p className="text-purple-400 font-semibold mb-2">VaultOfCodes (Remote)</p>
-                <ul className="text-white/70 space-y-2 font-body">
+                <ul className="text-white/60 space-y-2 font-body">
                   <li>• Designed and fine-tuned prompts for LLMs to improve NLP model accuracy in text generation tasks</li>
                   <li>• Explored generative AI tools for behavior modeling and iterative prompt optimization</li>
                 </ul>
@@ -987,21 +1188,26 @@ const ResumePage: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
+            className="glass-card rounded-3xl p-8 lg:p-10"
           >
-            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 font-heading">University Projects</h2>
-            <div className="space-y-8">
-              <div className="border-l-4 border-green-500 pl-6">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="p-2 rounded-lg bg-emerald-500/20">
+                <Code2 className="w-6 h-6 text-emerald-400" />
+              </div>
+              <h2 className="text-2xl lg:text-3xl font-bold text-white font-heading">University Projects</h2>
+            </div>
+            <div className="space-y-6">
+              <div className="border-l-4 border-emerald-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-xl font-bold text-white font-heading">YouTube Clone – React Webapp</h3>
-                <ul className="text-white/70 space-y-2 font-body mt-2">
+                <ul className="text-white/60 space-y-2 font-body mt-2">
                   <li>• Designed and implemented a responsive video streaming platform using React.js and RapidAPI</li>
                   <li>• Enabled real-time content fetching and dynamic video playback functionality</li>
                   <li>• Deployed on Vercel with production-ready configuration, ensuring high performance and intuitive UI/UX</li>
                 </ul>
               </div>
-              <div className="border-l-4 border-orange-500 pl-6">
+              <div className="border-l-4 border-amber-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-xl font-bold text-white font-heading">Email Reply Generator – Spring Boot, React, Chrome Extension</h3>
-                <ul className="text-white/70 space-y-2 font-body mt-2">
+                <ul className="text-white/60 space-y-2 font-body mt-2">
                   <li>• Developed a full-stack productivity tool integrating Spring Boot and React to automate professional email replies using LLMs</li>
                   <li>• Engineered a custom Chrome extension to embed AI-powered suggestions directly into the user's email interface</li>
                   <li>• Reduced average response time by over 40%</li>
@@ -1015,9 +1221,14 @@ const ResumePage: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
+            className="glass-card rounded-3xl p-8 lg:p-10"
           >
-            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 font-heading">Technical Skills</h2>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="p-2 rounded-lg bg-cyan-500/20">
+                <Zap className="w-6 h-6 text-cyan-400" />
+              </div>
+              <h2 className="text-2xl lg:text-3xl font-bold text-white font-heading">Technical Skills</h2>
+            </div>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
               <SkillCategory title="Languages" skills={['Java', 'C++', 'JavaScript', 'Python']} />
               <SkillCategory title="Frontend" skills={['React.js', 'Next.js', 'HTML', 'CSS']} />
