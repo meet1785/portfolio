@@ -60,21 +60,23 @@ const AnimatedCounter: React.FC<{ value: number; suffix?: string; label: string 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !isVisible) {
+        if (entry.isIntersecting) {
           setIsVisible(true);
+          observer.disconnect(); // Stop observing once visible
         }
       },
       { threshold: 0.5 }
     );
 
-    if (ref.current) observer.observe(ref.current);
+    const currentRef = ref.current;
+    if (currentRef) observer.observe(currentRef);
     return () => observer.disconnect();
-  }, [isVisible]);
+  }, []); // Remove isVisible from dependencies
 
   React.useEffect(() => {
     if (!isVisible) return;
     const duration = 2000;
-    const steps = 60;
+    const steps = 40; // Reduced from 60 for better performance
     const increment = value / steps;
     let current = 0;
 
