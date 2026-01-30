@@ -137,7 +137,7 @@ const AppContent: React.FC = () => {
                 transition={{ duration: 0.5 }}
               >
                 <Link to="/" className="flex items-center space-x-2 group" onClick={closeMobileMenu}>
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <span className="text-white font-bold text-lg">M</span>
                   </div>
                   <span className="text-white font-semibold text-xl font-primary group-hover:text-blue-300 transition-colors duration-300">Meet Shah</span>
@@ -166,7 +166,7 @@ const AppContent: React.FC = () => {
                         {item.icon && <item.icon className="w-4 h-4" />}
                         <span>{item.label}</span>
                       </div>
-                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </Link>
                   </motion.div>
                 ))}
@@ -194,7 +194,7 @@ const AppContent: React.FC = () => {
                       aria-label={social.label}
                     >
                       <social.icon className="w-5 h-5" />
-                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </a>
                   ))}
                 </motion.div>
@@ -298,14 +298,14 @@ const App: React.FC = () => {
   return (
     <ThemeProvider>
       <Router basename="/portfolio">
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 relative overflow-hidden">
           {/* Enhanced 3D Animated Background Elements - simplified on mobile */}
           <div className="absolute inset-0 overflow-hidden">
             <motion.div 
               variants={isMobile ? simpleFloat : morphingBlob}
               initial="initial"
               animate="animate"
-              className="absolute -top-4 -left-4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+              className="absolute -top-4 -left-4 w-96 h-96 bg-sky-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
             ></motion.div>
             <motion.div 
               variants={isMobile ? simpleFloat : float3D}
@@ -371,7 +371,7 @@ const App: React.FC = () => {
                   height: `${2 + Math.random() * 4}px`,
                   background: `linear-gradient(45deg, 
                     rgba(59, 130, 246, ${0.3 + Math.random() * 0.4}), 
-                    rgba(147, 51, 234, ${0.3 + Math.random() * 0.4})
+                    rgba(6, 182, 212, ${0.3 + Math.random() * 0.4})
                   )`,
                   filter: 'blur(0.5px)',
                   boxShadow: `0 0 ${4 + Math.random() * 8}px rgba(59, 130, 246, 0.3)`,
@@ -390,6 +390,8 @@ const App: React.FC = () => {
 };
 
 const LandingPage: React.FC = () => {
+  const isMobile = useIsMobile();
+  
   return (
     <motion.div
       initial="initial"
@@ -406,7 +408,7 @@ const LandingPage: React.FC = () => {
             variants={particleFloat}
             initial="initial"
             animate="animate"
-            className="absolute w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-600 rounded-full"
+            className="absolute w-2 h-2 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -427,7 +429,7 @@ const LandingPage: React.FC = () => {
               top: `${Math.random() * 100}%`,
               width: `${20 + Math.random() * 40}px`,
               height: `${20 + Math.random() * 40}px`,
-              background: `linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.3))`,
+              background: `linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(14, 165, 233, 0.3))`,
               borderRadius: Math.random() > 0.5 ? '50%' : '20%',
               border: '1px solid rgba(255, 255, 255, 0.1)',
               backdropFilter: 'blur(10px)',
@@ -451,7 +453,7 @@ const LandingPage: React.FC = () => {
                 variants={isMobile ? simpleFloat : morphingBlob}
                 initial="initial"
                 animate="animate"
-                className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 blur-2xl opacity-20"
+                className="absolute inset-0 bg-gradient-to-r from-blue-500 via-cyan-500 to-pink-500 blur-2xl opacity-20"
               ></motion.div>
               {/* Main image with enhanced 3D hover effects */}
               <motion.img
@@ -484,7 +486,7 @@ const LandingPage: React.FC = () => {
                 variants={isMobile ? simpleFloat : rotate3D}
                 initial="initial"
                 animate="animate"
-                className="absolute -bottom-6 -left-6 w-12 h-12 bg-gradient-to-r from-purple-500/40 to-pink-500/40 rounded-lg backdrop-blur-sm border border-white/30 shadow-lg"
+                className="absolute -bottom-6 -left-6 w-12 h-12 bg-gradient-to-r from-sky-500/40 to-pink-500/40 rounded-lg backdrop-blur-sm border border-white/30 shadow-lg"
                 style={{ transformStyle: 'preserve-3d' }}
               ></motion.div>
               <motion.div 
@@ -518,7 +520,7 @@ const LandingPage: React.FC = () => {
                 <motion.span 
                   variants={typewriter}
                   transition={{ delay: 0.3 }}
-                  className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent"
+                  className="bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent"
                 > Shah</motion.span>
               </motion.h1>
               <motion.p 
@@ -547,13 +549,13 @@ const LandingPage: React.FC = () => {
               <motion.div variants={scaleIn} transition={{ delay: 0.8 }}>
                 <Link 
                   to="/works" 
-                  className="group relative inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-2xl font-body overflow-hidden"
+                  className="group relative inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-2xl font-body overflow-hidden"
                 >
                   <span className="flex items-center space-x-2 relative z-10">
                     <Briefcase className="w-5 h-5" />
                     <span>View My Work</span>
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="absolute inset-0 bg-white/10 rounded-2xl scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                 </Link>
               </motion.div>
@@ -567,7 +569,7 @@ const LandingPage: React.FC = () => {
                     <Download className="w-5 h-5 group-hover:animate-bounce" />
                     <span>Resume</span>
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-2xl scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-right"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-2xl scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-right"></div>
                 </Link>
               </motion.div>
             </motion.div>
@@ -810,7 +812,7 @@ const WorksPage: React.FC = () => {
           className="text-center mb-16"
         >
           <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 font-heading">
-            My <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Projects</span>
+            My <span className="bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent">Projects</span>
           </h1>
           <p className="text-xl text-white/70 max-w-3xl mx-auto mb-8 font-body">
             A collection of projects showcasing my skills in full-stack development, modern frameworks, and innovative solutions.
@@ -834,14 +836,14 @@ const WorksPage: React.FC = () => {
                 onClick={() => handleFilterChange(tech)}
                 className={`relative px-4 py-2 rounded-xl font-medium transition-all duration-200 font-body overflow-hidden group ${
                   selectedFilter === tech
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
+                    ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg'
                     : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white backdrop-blur-sm'
                 }`}
               >
                 <span className="relative z-10">
                   <span>{tech}</span>
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
               </motion.button>
             ))}
           </motion.div>
@@ -916,7 +918,7 @@ const ResumePage: React.FC = () => {
           className="text-center mb-16"
         >
           <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 font-heading">
-            My <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Resume</span>
+            My <span className="bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent">Resume</span>
           </h1>
           <p className="text-xl text-white/70 max-w-3xl mx-auto mb-8 font-body">
             Computer Engineering Student | Full Stack Developer | Problem Solver
@@ -927,7 +929,7 @@ const ResumePage: React.FC = () => {
               download
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
+              className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
             >
               <Download className="w-5 h-5" />
               <span>Download Resume</span>
@@ -950,9 +952,9 @@ const ResumePage: React.FC = () => {
                 <p className="text-blue-400 font-semibold">Thakur College of Engineering and Technology, University of Mumbai</p>
                 <p className="text-white/60">CGPI: 9.4/10.0</p>
               </div>
-              <div className="border-l-4 border-purple-500 pl-6">
+              <div className="border-l-4 border-sky-500 pl-6">
                 <h3 className="text-xl font-bold text-white font-heading">Higher Secondary Certificate (H.S.C.)</h3>
-                <p className="text-purple-400 font-semibold">Maharashtra State Board</p>
+                <p className="text-sky-400 font-semibold">Maharashtra State Board</p>
                 <p className="text-white/60">Score: 82% | JEE Mains & CET Percentile: 96%ile</p>
               </div>
               <div className="border-l-4 border-green-500 pl-6">
@@ -980,9 +982,9 @@ const ResumePage: React.FC = () => {
                   <li>• Collaborated with cross-functional teams to analyze KPIs and recommend growth solutions</li>
                 </ul>
               </div>
-              <div className="border-l-4 border-purple-500 pl-6">
+              <div className="border-l-4 border-sky-500 pl-6">
                 <h3 className="text-xl font-bold text-white font-heading">AI Prompt Engineering Intern</h3>
-                <p className="text-purple-400 font-semibold mb-2">VaultOfCodes (Remote)</p>
+                <p className="text-sky-400 font-semibold mb-2">VaultOfCodes (Remote)</p>
                 <ul className="text-white/70 space-y-2 font-body">
                   <li>• Designed and fine-tuned prompts for LLMs to improve NLP model accuracy in text generation tasks</li>
                   <li>• Explored generative AI tools for behavior modeling and iterative prompt optimization</li>
@@ -1081,7 +1083,7 @@ const ResumePage: React.FC = () => {
                 <h3 className="text-lg font-bold text-white font-heading">NSS VOLUNTEER</h3>
                 <p className="text-white/70 font-body">Organized and executed social initiatives benefiting 50+ individuals through community outreach</p>
               </div>
-              <div className="border-l-4 border-purple-500 pl-6">
+              <div className="border-l-4 border-sky-500 pl-6">
                 <h3 className="text-lg font-bold text-white font-heading">TSDW SPORTS TEAM</h3>
                 <p className="text-white/70 font-body">Coordinated 10+ inter-college sports and tech events with 200+ participants across campuses</p>
               </div>
@@ -1162,7 +1164,7 @@ const AboutPage: React.FC = () => {
           className="text-center mb-16"
         >
           <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 font-heading">
-            About <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Me</span>
+            About <span className="bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent">Me</span>
           </h1>
           <p className="text-xl text-white/70 max-w-2xl mx-auto font-body">
             Computer Engineering Student | CGPI: 9.4/10.0 | Mumbai
@@ -1313,7 +1315,7 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
     >
       {/* Enhanced 3D background gradient effect */}
       <motion.div 
-        className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-sky-500/10 to-pink-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         animate={isHovered ? { 
           scale: 1.05,
           rotateZ: 2,
@@ -1329,7 +1331,7 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
       <motion.div 
         className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"
         style={{
-          background: 'linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent, rgba(147, 51, 234, 0.1), transparent)',
+          background: 'linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent, rgba(6, 182, 212, 0.1), transparent)',
           backgroundSize: '200% 200%',
         }}
         animate={isHovered ? { 
@@ -1352,7 +1354,7 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1, duration: 0.3, type: "spring" }}
-          className="absolute -top-1 -right-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-xl z-20 border border-white/20"
+          className="absolute -top-1 -right-1 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-xl z-20 border border-white/20"
           style={{ transformStyle: 'preserve-3d' }}
           whileHover={{ 
             scale: 1.15,
