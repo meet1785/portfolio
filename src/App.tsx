@@ -33,7 +33,7 @@ const CursorGlow: React.FC = () => {
           y: springY,
           translateX: '-50%',
           translateY: '-50%',
-          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(139, 92, 246, 0.08) 25%, rgba(236, 72, 153, 0.04) 50%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(99, 102, 241, 0.08) 25%, rgba(14, 165, 233, 0.04) 50%, transparent 70%)',
           filter: 'blur(60px)',
         }}
       />
@@ -45,7 +45,7 @@ const CursorGlow: React.FC = () => {
           y: springY,
           translateX: '-50%',
           translateY: '-50%',
-          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%)',
           filter: 'blur(30px)',
         }}
       />
@@ -61,12 +61,12 @@ const ScrollProgress: React.FC = () => {
   return (
     <>
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 via-pink-500 to-cyan-500 z-[100] origin-left"
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600 z-[100] origin-left"
         style={{ scaleX }}
       />
       {/* Glow effect */}
       <motion.div 
-        className="fixed top-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 z-[99] origin-left blur-sm opacity-60"
+        className="fixed top-0 left-0 right-0 h-2 bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600 z-[99] origin-left blur-sm opacity-60"
         style={{ scaleX }}
       />
     </>
@@ -82,15 +82,15 @@ const ParticleField: React.FC = React.memo(() => {
   // Pre-generate particle data to avoid re-renders
   const particles = React.useMemo(() => {
     const colors = [
-      'rgba(99, 102, 241, 0.5)',
-      'rgba(139, 92, 246, 0.4)',
-      'rgba(236, 72, 153, 0.35)',
-      'rgba(6, 182, 212, 0.4)',
+      'rgba(56, 189, 248, 0.5)',
+      'rgba(99, 102, 241, 0.4)',
+      'rgba(14, 165, 233, 0.35)',
+      'rgba(59, 130, 246, 0.4)',
     ];
     const glowColors = [
-      'rgba(99, 102, 241, 0.3)',
-      'rgba(139, 92, 246, 0.25)',
-      'rgba(236, 72, 153, 0.25)',
+      'rgba(56, 189, 248, 0.3)',
+      'rgba(99, 102, 241, 0.25)',
+      'rgba(14, 165, 233, 0.25)',
     ];
     
     // Reduced particle count for better performance (20 instead of 50)
@@ -151,11 +151,12 @@ const FloatingShapes: React.FC = () => {
 
   if (prefersReducedMotion) return null;
 
+  // Hide on mobile to prevent flickering
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none hidden lg:block">
       {/* Hexagon */}
       <motion.div
-        className="absolute top-20 right-[15%] w-20 h-20 border border-indigo-500/30 will-change-transform"
+        className="absolute top-20 right-[15%] w-20 h-20 border border-sky-400/30 will-change-transform"
         style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}
         animate={{
           rotate: [0, 360],
@@ -169,7 +170,7 @@ const FloatingShapes: React.FC = () => {
       
       {/* Triangle */}
       <motion.div
-        className="absolute bottom-32 left-[20%] w-16 h-16 border border-purple-500/30 will-change-transform"
+        className="absolute bottom-32 left-[20%] w-16 h-16 border border-blue-500/30 will-change-transform"
         style={{ clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)' }}
         animate={{
           rotate: [0, -360],
@@ -183,7 +184,7 @@ const FloatingShapes: React.FC = () => {
       
       {/* Diamond */}
       <motion.div
-        className="absolute top-1/3 left-[10%] w-12 h-12 border border-cyan-500/30 will-change-transform"
+        className="absolute top-1/3 left-[10%] w-12 h-12 border border-indigo-500/30 will-change-transform"
         style={{ clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }}
         animate={{
           rotate: [0, 180, 360],
@@ -197,7 +198,7 @@ const FloatingShapes: React.FC = () => {
       
       {/* Circle rings */}
       <motion.div
-        className="absolute bottom-1/4 right-[25%] w-24 h-24 border border-pink-500/20 rounded-full will-change-transform"
+        className="absolute bottom-1/4 right-[25%] w-24 h-24 border border-sky-400/20 rounded-full will-change-transform"
         animate={{
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.5, 0.3],
@@ -477,7 +478,7 @@ const App: React.FC = () => {
   return (
     <ThemeProvider>
       <Router basename="/portfolio">
-        <div className="min-h-screen bg-[#0a0a0f] relative overflow-hidden">
+        <div className="min-h-screen bg-[#030712] relative overflow-hidden">
           {/* Scroll Progress Bar */}
           <ScrollProgress />
           
@@ -487,7 +488,7 @@ const App: React.FC = () => {
           {/* Dynamic background with multiple layers */}
           <div className="fixed inset-0 z-0">
             {/* Base gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-[#0a0a1f] to-indigo-950" />
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-[#0c1222] to-blue-950/50" />
             
             {/* Aurora Gradient Background */}
             <div className="absolute inset-0 aurora-gradient opacity-80" />
@@ -500,47 +501,47 @@ const App: React.FC = () => {
           </div>
 
           {/* Enhanced 3D Animated Background Elements */}
-          <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+          <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 hidden md:block">
             <motion.div 
               variants={morphingBlob}
               initial="initial"
               animate="animate"
-              className="absolute -top-40 -left-40 w-[700px] h-[700px] bg-gradient-to-r from-indigo-600/25 to-purple-600/25 rounded-full mix-blend-multiply filter blur-[100px] morph-blob"
+              className="absolute -top-40 -left-40 w-[700px] h-[700px] bg-gradient-to-r from-blue-600/20 to-sky-500/20 rounded-full mix-blend-multiply filter blur-[100px] morph-blob"
             />
             <motion.div 
               variants={float3D}
               initial="initial"
               animate="animate"
-              className="absolute -top-20 -right-20 w-[600px] h-[600px] bg-gradient-to-r from-cyan-500/20 to-blue-600/20 rounded-full mix-blend-multiply filter blur-[100px]"
+              className="absolute -top-20 -right-20 w-[600px] h-[600px] bg-gradient-to-r from-indigo-500/20 to-blue-600/20 rounded-full mix-blend-multiply filter blur-[100px]"
             />
             <motion.div 
               variants={rotate3D}
               initial="initial"
               animate="animate"
-              className="absolute -bottom-40 left-1/4 w-[800px] h-[800px] bg-gradient-to-r from-pink-600/20 to-rose-600/20 rounded-full mix-blend-multiply filter blur-[100px]"
+              className="absolute -bottom-40 left-1/4 w-[800px] h-[800px] bg-gradient-to-r from-sky-600/15 to-cyan-600/15 rounded-full mix-blend-multiply filter blur-[100px]"
             />
             <motion.div 
               variants={morphingBlob}
               initial="initial"
               animate="animate"
-              className="absolute top-1/3 right-1/5 w-[500px] h-[500px] bg-gradient-to-r from-emerald-500/15 to-teal-600/15 rounded-full mix-blend-multiply filter blur-[100px]"
+              className="absolute top-1/3 right-1/5 w-[500px] h-[500px] bg-gradient-to-r from-blue-500/10 to-indigo-600/10 rounded-full mix-blend-multiply filter blur-[100px]"
             />
             <motion.div 
               variants={floatWithDepth}
               initial="initial"
               animate="animate"
-              className="absolute bottom-1/3 left-1/5 w-[400px] h-[400px] bg-gradient-to-r from-amber-500/15 to-orange-500/15 rounded-full mix-blend-multiply filter blur-[100px]"
+              className="absolute bottom-1/3 left-1/5 w-[400px] h-[400px] bg-gradient-to-r from-cyan-500/10 to-sky-500/10 rounded-full mix-blend-multiply filter blur-[100px]"
             />
           </div>
 
           {/* Enhanced 3D grid pattern overlay */}
-          <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-0">
+          <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-0 hidden md:block">
             <motion.div 
               className="absolute inset-0" 
               style={{
                 backgroundImage: `
-                  linear-gradient(rgba(99, 102, 241, 0.15) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(99, 102, 241, 0.15) 1px, transparent 1px)
+                  linear-gradient(rgba(56, 189, 248, 0.15) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(56, 189, 248, 0.15) 1px, transparent 1px)
                 `,
                 backgroundSize: '100px 100px',
               }}
@@ -607,10 +608,10 @@ const LandingPage: React.FC = () => {
       variants={pageTransition}
       className="min-h-screen relative overflow-hidden"
     >
-      {/* Minimal gradient orbs - subtle background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-20 w-[600px] h-[600px] rounded-full bg-indigo-500/10 blur-[120px]" />
-        <div className="absolute bottom-20 left-20 w-[500px] h-[500px] rounded-full bg-purple-500/10 blur-[120px]" />
+      {/* Minimal gradient orbs - subtle background - hidden on mobile to prevent flicker */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block">
+        <div className="absolute top-20 right-20 w-[600px] h-[600px] rounded-full bg-sky-500/10 blur-[120px]" />
+        <div className="absolute bottom-20 left-20 w-[500px] h-[500px] rounded-full bg-blue-600/10 blur-[120px]" />
       </div>
 
       {/* Hero Section - Clean Minimal Design */}
@@ -659,9 +660,9 @@ const LandingPage: React.FC = () => {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="h-8 flex items-center justify-center lg:justify-start"
               >
-                <span className="text-lg lg:text-xl text-indigo-400 font-mono">
+                <span className="text-lg lg:text-xl text-sky-400 font-mono">
                   {displayedText}
-                  <span className="inline-block w-[2px] h-5 bg-indigo-400 ml-1 animate-pulse" />
+                  <span className="inline-block w-[2px] h-5 bg-sky-400 ml-1 animate-pulse" />
                 </span>
               </motion.div>
               
@@ -685,7 +686,7 @@ const LandingPage: React.FC = () => {
               >
                 <Link 
                   to="/works" 
-                  className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-sm font-medium rounded-full transition-all duration-300 hover:bg-indigo-500 hover:text-white hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/25"
+                  className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 text-sm font-medium rounded-full transition-all duration-300 hover:bg-sky-400 hover:text-white hover:scale-105 hover:shadow-lg hover:shadow-sky-500/25"
                 >
                   <span>View Projects</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -748,12 +749,12 @@ const LandingPage: React.FC = () => {
                 
                 {/* Image container - LARGER SIZE */}
                 <motion.div
-                  className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] xl:w-[480px] xl:h-[480px] rounded-full overflow-hidden border-4 border-indigo-500/40 shadow-2xl shadow-indigo-500/40"
+                  className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] xl:w-[480px] xl:h-[480px] rounded-full overflow-hidden border-4 border-sky-500/40 shadow-2xl shadow-sky-500/40"
                   whileHover={{ scale: 1.03 }}
                   transition={{ duration: 0.5, type: "spring", stiffness: 200 }}
                 >
                   {/* Dark gradient background behind image for blending light backgrounds */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-indigo-950 to-purple-950" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-sky-950" />
                   <img
                     src={img} 
                     alt="Meet Shah - Full Stack Developer"
@@ -762,20 +763,20 @@ const LandingPage: React.FC = () => {
                     style={{ objectPosition: '50% 20%', transform: 'scale(1.3)' }}
                   />
                   {/* Bottom fade for seamless blending */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/30 to-transparent" />
                   {/* Top subtle fade */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/40 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-[#030712]/40 via-transparent to-transparent" />
                   {/* Side fades for circular blending */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/50 via-transparent to-[#050505]/50" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/50 via-transparent to-[#030712]/50" />
                   {/* Color tint overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 via-transparent to-purple-600/10 mix-blend-overlay" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-sky-600/10 via-transparent to-blue-600/10 mix-blend-overlay" />
                   {/* Strong vignette for edge blending */}
-                  <div className="absolute inset-0 shadow-[inset_0_0_120px_60px_rgba(5,5,5,0.9)]" />
+                  <div className="absolute inset-0 shadow-[inset_0_0_120px_60px_rgba(3,7,18,0.9)]" />
                 </motion.div>
                 
                 {/* Floating badge - CGPI */}
                 <motion.div 
-                  className="absolute -bottom-2 right-4 px-5 py-2.5 bg-gradient-to-r from-indigo-600/90 to-purple-600/90 backdrop-blur-xl rounded-full border border-white/30 shadow-xl shadow-indigo-500/30"
+                  className="absolute -bottom-2 right-4 px-5 py-2.5 bg-gradient-to-r from-sky-600/90 to-blue-600/90 backdrop-blur-xl rounded-full border border-white/30 shadow-xl shadow-sky-500/30"
                   initial={{ opacity: 0, scale: 0.8, y: 20 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ delay: 0.9, type: "spring", stiffness: 200 }}
@@ -788,7 +789,7 @@ const LandingPage: React.FC = () => {
                 
                 {/* Floating badge - Code icon */}
                 <motion.div 
-                  className="absolute top-4 -left-4 p-4 bg-gradient-to-br from-indigo-500 to-purple-600 backdrop-blur-xl rounded-2xl border border-white/30 shadow-xl shadow-purple-500/30"
+                  className="absolute top-4 -left-4 p-4 bg-gradient-to-br from-sky-500 to-blue-600 backdrop-blur-xl rounded-2xl border border-white/30 shadow-xl shadow-blue-500/30"
                   initial={{ opacity: 0, scale: 0.8, x: -20 }}
                   animate={{ opacity: 1, scale: 1, x: 0 }}
                   transition={{ delay: 1, type: "spring", stiffness: 200 }}
@@ -799,36 +800,36 @@ const LandingPage: React.FC = () => {
                 
                 {/* Floating badge - React */}
                 <motion.div 
-                  className="absolute top-1/4 -right-6 px-4 py-2 bg-black/80 backdrop-blur-xl rounded-full border border-cyan-400/40 shadow-lg shadow-cyan-500/20"
+                  className="absolute top-1/4 -right-6 px-4 py-2 bg-slate-900/80 backdrop-blur-xl rounded-full border border-sky-400/40 shadow-lg shadow-sky-500/20"
                   initial={{ opacity: 0, scale: 0.8, x: 20 }}
                   animate={{ opacity: 1, scale: 1, x: 0 }}
                   transition={{ delay: 1.2, type: "spring", stiffness: 200 }}
                   whileHover={{ scale: 1.1 }}
                 >
-                  <span className="text-xs font-semibold text-cyan-400">React.js</span>
+                  <span className="text-xs font-semibold text-sky-400">React.js</span>
                 </motion.div>
                 
                 {/* Floating badge - Python/AI */}
                 <motion.div 
-                  className="absolute bottom-1/4 -left-8 px-4 py-2 bg-black/80 backdrop-blur-xl rounded-full border border-emerald-400/40 shadow-lg shadow-emerald-500/20"
+                  className="absolute bottom-1/4 -left-8 px-4 py-2 bg-slate-900/80 backdrop-blur-xl rounded-full border border-blue-400/40 shadow-lg shadow-blue-500/20"
                   initial={{ opacity: 0, scale: 0.8, x: -20 }}
                   animate={{ opacity: 1, scale: 1, x: 0 }}
                   transition={{ delay: 1.4, type: "spring", stiffness: 200 }}
                   whileHover={{ scale: 1.1 }}
                 >
-                  <span className="text-xs font-semibold text-emerald-400">AI/ML</span>
+                  <span className="text-xs font-semibold text-blue-400">AI/ML</span>
                 </motion.div>
                 
                 {/* Orbiting dot decorations */}
-                <div className="absolute -inset-10 pointer-events-none">
+                <div className="absolute -inset-10 pointer-events-none hidden lg:block">
                   <motion.div 
-                    className="absolute top-0 left-1/2 w-2 h-2 bg-indigo-400 rounded-full"
+                    className="absolute top-0 left-1/2 w-2 h-2 bg-sky-400 rounded-full"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                     style={{ transformOrigin: "0 240px" }}
                   />
                   <motion.div 
-                    className="absolute top-1/2 right-0 w-1.5 h-1.5 bg-purple-400 rounded-full"
+                    className="absolute top-1/2 right-0 w-1.5 h-1.5 bg-blue-400 rounded-full"
                     animate={{ rotate: -360 }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                     style={{ transformOrigin: "-200px 0" }}
@@ -904,7 +905,7 @@ const LandingPage: React.FC = () => {
           <div className="flex flex-wrap justify-center gap-4">
             <a 
               href="mailto:meetshah1785@gmail.com"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-medium rounded-full transition-all duration-300 hover:bg-indigo-500 hover:text-white hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/25"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-slate-900 font-medium rounded-full transition-all duration-300 hover:bg-sky-400 hover:text-white hover:scale-105 hover:shadow-lg hover:shadow-sky-500/25"
             >
               <Mail className="w-5 h-5" />
               <span>Get in touch</span>
@@ -1112,7 +1113,7 @@ const WorksPage: React.FC = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-medium mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-300 text-sm font-medium mb-6"
           >
             <Code2 className="w-4 h-4" />
             <span>Explore My Work</span>
@@ -1143,7 +1144,7 @@ const WorksPage: React.FC = () => {
                 onClick={() => handleFilterChange(tech)}
                 className={`relative px-4 py-2 rounded-full font-medium text-sm transition-all duration-300 font-body overflow-hidden ${
                   selectedFilter === tech
-                    ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/25'
+                    ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-500/25'
                     : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white border border-white/10 hover:border-white/20'
                 }`}
               >
@@ -1248,7 +1249,7 @@ const ResumePage: React.FC = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-sm font-medium mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-300 text-sm font-medium mb-6"
           >
             <FileText className="w-4 h-4" />
             <span>Professional Background</span>
@@ -1266,7 +1267,7 @@ const ResumePage: React.FC = () => {
               download
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all duration-300 cta-shine"
+              className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 transition-all duration-300 cta-shine"
             >
               <Download className="w-5 h-5" />
               <span>Download Resume</span>
@@ -1284,25 +1285,25 @@ const ResumePage: React.FC = () => {
             className="glass-card rounded-3xl p-8 lg:p-10"
           >
             <div className="flex items-center gap-3 mb-8">
-              <div className="p-2 rounded-lg bg-blue-500/20">
-                <Sparkles className="w-6 h-6 text-blue-400" />
+              <div className="p-2 rounded-lg bg-sky-500/20">
+                <Sparkles className="w-6 h-6 text-sky-400" />
               </div>
               <h2 className="text-2xl lg:text-3xl font-bold text-white font-heading">Education</h2>
             </div>
             <div className="space-y-6">
-              <div className="border-l-4 border-blue-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
+              <div className="border-l-4 border-sky-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-xl font-bold text-white font-heading">Bachelor of Engineering, Computer Engineering</h3>
-                <p className="text-blue-400 font-semibold">Thakur College of Engineering and Technology, University of Mumbai</p>
+                <p className="text-sky-400 font-semibold">Thakur College of Engineering and Technology, University of Mumbai</p>
                 <p className="text-white/60">CGPI: 9.4/10.0</p>
               </div>
-              <div className="border-l-4 border-purple-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
+              <div className="border-l-4 border-blue-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-xl font-bold text-white font-heading">Higher Secondary Certificate (H.S.C.)</h3>
-                <p className="text-purple-400 font-semibold">Maharashtra State Board</p>
+                <p className="text-blue-400 font-semibold">Maharashtra State Board</p>
                 <p className="text-white/60">Score: 82% | JEE Mains & CET Percentile: 96%ile</p>
               </div>
-              <div className="border-l-4 border-emerald-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
+              <div className="border-l-4 border-indigo-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-xl font-bold text-white font-heading">Secondary School Certificate (S.S.C.)</h3>
-                <p className="text-emerald-400 font-semibold">Maharashtra State Board</p>
+                <p className="text-indigo-400 font-semibold">Maharashtra State Board</p>
                 <p className="text-white/60">Score: 94.8%</p>
               </div>
             </div>
@@ -1316,23 +1317,23 @@ const ResumePage: React.FC = () => {
             className="glass-card rounded-3xl p-8 lg:p-10"
           >
             <div className="flex items-center gap-3 mb-8">
-              <div className="p-2 rounded-lg bg-purple-500/20">
-                <Briefcase className="w-6 h-6 text-purple-400" />
+              <div className="p-2 rounded-lg bg-blue-500/20">
+                <Briefcase className="w-6 h-6 text-blue-400" />
               </div>
               <h2 className="text-2xl lg:text-3xl font-bold text-white font-heading">Work Experience</h2>
             </div>
             <div className="space-y-6">
-              <div className="border-l-4 border-indigo-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
+              <div className="border-l-4 border-sky-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-xl font-bold text-white font-heading">Business Analyst Intern</h3>
-                <p className="text-indigo-400 font-semibold mb-2">Neoprism Consultancy And Services</p>
+                <p className="text-sky-400 font-semibold mb-2">Neoprism Consultancy And Services</p>
                 <ul className="text-white/60 space-y-2 font-body">
                   <li>• Authored 20+ white papers for SMEs, driving data-informed digital marketing strategies</li>
                   <li>• Collaborated with cross-functional teams to analyze KPIs and recommend growth solutions</li>
                 </ul>
               </div>
-              <div className="border-l-4 border-purple-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
+              <div className="border-l-4 border-blue-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-xl font-bold text-white font-heading">AI Prompt Engineering Intern</h3>
-                <p className="text-purple-400 font-semibold mb-2">VaultOfCodes (Remote)</p>
+                <p className="text-blue-400 font-semibold mb-2">VaultOfCodes (Remote)</p>
                 <ul className="text-white/60 space-y-2 font-body">
                   <li>• Designed and fine-tuned prompts for LLMs to improve NLP model accuracy in text generation tasks</li>
                   <li>• Explored generative AI tools for behavior modeling and iterative prompt optimization</li>
@@ -1349,13 +1350,13 @@ const ResumePage: React.FC = () => {
             className="glass-card rounded-3xl p-8 lg:p-10"
           >
             <div className="flex items-center gap-3 mb-8">
-              <div className="p-2 rounded-lg bg-emerald-500/20">
-                <Code2 className="w-6 h-6 text-emerald-400" />
+              <div className="p-2 rounded-lg bg-sky-500/20">
+                <Code2 className="w-6 h-6 text-sky-400" />
               </div>
               <h2 className="text-2xl lg:text-3xl font-bold text-white font-heading">University Projects</h2>
             </div>
             <div className="space-y-6">
-              <div className="border-l-4 border-emerald-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
+              <div className="border-l-4 border-sky-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-xl font-bold text-white font-heading">YouTube Clone – React Webapp</h3>
                 <ul className="text-white/60 space-y-2 font-body mt-2">
                   <li>• Designed and implemented a responsive video streaming platform using React.js and RapidAPI</li>
@@ -1363,7 +1364,7 @@ const ResumePage: React.FC = () => {
                   <li>• Deployed on Vercel with production-ready configuration, ensuring high performance and intuitive UI/UX</li>
                 </ul>
               </div>
-              <div className="border-l-4 border-amber-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
+              <div className="border-l-4 border-blue-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-xl font-bold text-white font-heading">Email Reply Generator – Spring Boot, React, Chrome Extension</h3>
                 <ul className="text-white/60 space-y-2 font-body mt-2">
                   <li>• Developed a full-stack productivity tool integrating Spring Boot and React to automate professional email replies using LLMs</li>
@@ -1382,8 +1383,8 @@ const ResumePage: React.FC = () => {
             className="glass-card rounded-3xl p-8 lg:p-10"
           >
             <div className="flex items-center gap-3 mb-8">
-              <div className="p-2 rounded-lg bg-cyan-500/20">
-                <Zap className="w-6 h-6 text-cyan-400" />
+              <div className="p-2 rounded-lg bg-blue-500/20">
+                <Zap className="w-6 h-6 text-blue-400" />
               </div>
               <h2 className="text-2xl lg:text-3xl font-bold text-white font-heading">Technical Skills</h2>
             </div>
@@ -1522,7 +1523,7 @@ const AboutPage: React.FC = () => {
           className="text-center mb-16"
         >
           <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 font-heading">
-            About <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Me</span>
+            About <span className="bg-gradient-to-r from-sky-400 to-blue-600 bg-clip-text text-transparent">Me</span>
           </h1>
           <p className="text-xl text-white/70 max-w-2xl mx-auto font-body">
             Computer Engineering Student | CGPI: 9.4/10.0 | Mumbai
@@ -1687,13 +1688,13 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
       }}
     >
       {/* Card background with glassmorphism */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] via-white/[0.03] to-transparent backdrop-blur-xl rounded-3xl border border-white/10 group-hover:border-indigo-500/30 transition-colors duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] via-white/[0.03] to-transparent backdrop-blur-xl rounded-3xl border border-white/10 group-hover:border-sky-500/30 transition-colors duration-500" />
       
       {/* Spotlight effect following mouse */}
       <motion.div 
         className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
         style={{
-          background: `radial-gradient(600px circle at ${mousePosition.x * 100}% ${mousePosition.y * 100}%, rgba(99, 102, 241, 0.15), transparent 40%)`,
+          background: `radial-gradient(600px circle at ${mousePosition.x * 100}% ${mousePosition.y * 100}%, rgba(56, 189, 248, 0.15), transparent 40%)`,
         }}
       />
       
@@ -1701,7 +1702,7 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
       <motion.div 
         className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         style={{
-          background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1))',
+          background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(99, 102, 241, 0.1), rgba(14, 165, 233, 0.1))',
         }}
       />
       
@@ -1717,8 +1718,8 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
           className="absolute -top-0.5 -right-0.5 z-20"
         >
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 blur-lg opacity-60" />
-            <div className="relative bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-xs font-bold px-4 py-2 rounded-bl-2xl rounded-tr-3xl shadow-xl border-l border-b border-white/20">
+            <div className="absolute inset-0 bg-gradient-to-r from-sky-500 to-blue-600 blur-lg opacity-60" />
+            <div className="relative bg-gradient-to-r from-sky-500 to-blue-600 text-white text-xs font-bold px-4 py-2 rounded-bl-2xl rounded-tr-3xl shadow-xl border-l border-b border-white/20">
               <span className="flex items-center gap-1">
                 <Sparkles className="w-3 h-3" />
                 Featured
@@ -1748,7 +1749,7 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
       {/* Content container */}
       <div className={`relative z-10 p-6 ${category || featured ? 'mt-10' : 'mt-3'}`}>
         <motion.h3 
-          className="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors duration-300 font-heading mb-3"
+          className="text-xl font-bold text-white group-hover:text-sky-300 transition-colors duration-300 font-heading mb-3"
           animate={isHovered ? { x: 6 } : { x: 0 }}
           transition={{ duration: 0.3 }}
         >
@@ -1766,7 +1767,7 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
           {tech.map((t, index) => (
             <motion.div 
               key={t} 
-              className="flex items-center space-x-1.5 bg-white/5 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10 group-hover:border-indigo-500/20 group-hover:bg-white/10 transition-all duration-300"
+              className="flex items-center space-x-1.5 bg-white/5 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10 group-hover:border-sky-500/20 group-hover:bg-white/10 transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -1800,11 +1801,11 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
               href={link} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="group/link inline-flex items-center space-x-2 text-indigo-400 hover:text-indigo-300 transition-colors font-medium text-sm"
+              className="group/link inline-flex items-center space-x-2 text-sky-400 hover:text-sky-300 transition-colors font-medium text-sm"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span className="flex items-center space-x-1.5 bg-indigo-500/10 px-3 py-1.5 rounded-lg border border-indigo-500/20 group-hover/link:bg-indigo-500/20 transition-colors">
+              <span className="flex items-center space-x-1.5 bg-sky-500/10 px-3 py-1.5 rounded-lg border border-sky-500/20 group-hover/link:bg-sky-500/20 transition-colors">
                 <ExternalLink className="w-4 h-4" />
                 <span>Live Demo</span>
               </span>
