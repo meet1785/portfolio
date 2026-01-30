@@ -7,6 +7,22 @@ import { pageTransition, fadeInUp, scaleIn, staggerContainer, typewriter, rotate
 import { useDebounce } from './utils/useDebounce';
 import img from '/meet.jpeg'; 
 
+// Detect mobile devices to reduce animations
+const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+// Simple animation variants for mobile
+const simpleFloat = {
+  initial: { y: 0 },
+  animate: { 
+    y: [-5, 5, -5],
+    transition: {
+      duration: 8,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
+};
+
 interface SkillCategoryProps {
   title: string;
   skills: string[];
@@ -82,11 +98,6 @@ const skillIcons: Record<string, string> = {
 
 const AppContent: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  
-  // Detect mobile devices to reduce animations
-  const isMobile = React.useMemo(() => {
-    return typeof window !== 'undefined' && window.innerWidth < 768;
-  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -94,19 +105,6 @@ const AppContent: React.FC = () => {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
-  };
-  
-  // Simple animation variants for mobile
-  const simpleFloat = {
-    initial: { y: 0 },
-    animate: { 
-      y: [-5, 5, -5],
-      transition: {
-        duration: 8,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
   };
 
   return (
