@@ -2,10 +2,41 @@ import React from 'react';
 import { Github, Linkedin, Mail, FileText, Home, Briefcase, ExternalLink, Download, Menu, X } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ThemeProvider} from './context/ThemeContext';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { pageTransition, fadeInUp, scaleIn, staggerContainer, typewriter, rotate3D, cardHover3D, float3D, morphingBlob, particleFloat} from './utils/animations';
 import { useDebounce } from './utils/useDebounce';
 import img from '/meet.jpeg'; 
+
+// Hook to detect mobile devices reactively
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = React.useState(() => 
+    typeof window !== 'undefined' && window.innerWidth < 768
+  );
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return isMobile;
+};
+
+// Simple animation variants for mobile
+const simpleFloat: Variants = {
+  initial: { y: 0 },
+  animate: { 
+    y: [-5, 5, -5],
+    transition: {
+      duration: 8,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
+};
 
 interface SkillCategoryProps {
   title: string;
@@ -262,38 +293,40 @@ const AppContent: React.FC = () => {
 };
 
 const App: React.FC = () => {
+  const isMobile = useIsMobile();
+  
   return (
     <ThemeProvider>
       <Router basename="/portfolio">
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-          {/* Enhanced 3D Animated Background Elements */}
+          {/* Enhanced 3D Animated Background Elements - simplified on mobile */}
           <div className="absolute inset-0 overflow-hidden">
             <motion.div 
-              variants={morphingBlob}
+              variants={isMobile ? simpleFloat : morphingBlob}
               initial="initial"
               animate="animate"
               className="absolute -top-4 -left-4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
             ></motion.div>
             <motion.div 
-              variants={float3D}
+              variants={isMobile ? simpleFloat : float3D}
               initial="initial"
               animate="animate"
               className="absolute -top-4 -right-4 w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
             ></motion.div>
             <motion.div 
-              variants={rotate3D}
+              variants={isMobile ? simpleFloat : rotate3D}
               initial="initial"
               animate="animate"
               className="absolute -bottom-8 left-20 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
             ></motion.div>
             <motion.div 
-              variants={morphingBlob}
+              variants={isMobile ? simpleFloat : morphingBlob}
               initial="initial"
               animate="animate"
               className="absolute top-1/2 right-1/4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-15"
             ></motion.div>
             <motion.div 
-              variants={float3D}
+              variants={isMobile ? simpleFloat : float3D}
               initial="initial"
               animate="animate"
               className="absolute bottom-1/4 left-1/3 w-64 h-64 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-15"
@@ -385,7 +418,7 @@ const LandingPage: React.FC = () => {
         {Array.from({ length: 8 }).map((_, i) => (
           <motion.div
             key={`geo-${i}`}
-            variants={float3D}
+            variants={isMobile ? simpleFloat : float3D}
             initial="initial"
             animate="animate"
             className="absolute"
@@ -415,7 +448,7 @@ const LandingPage: React.FC = () => {
             <div className="relative w-96 h-96 lg:w-[30rem] lg:h-[30rem]" style={{ perspective: '1000px' }}>
               {/* Enhanced morphing background */}
               <motion.div 
-                variants={morphingBlob}
+                variants={isMobile ? simpleFloat : morphingBlob}
                 initial="initial"
                 animate="animate"
                 className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 blur-2xl opacity-20"
@@ -441,21 +474,21 @@ const LandingPage: React.FC = () => {
               />
               {/* Enhanced floating 3D elements */}
               <motion.div 
-                variants={float3D}
+                variants={isMobile ? simpleFloat : float3D}
                 initial="initial"
                 animate="animate"
                 className="absolute -top-8 -right-8 w-16 h-16 bg-gradient-to-r from-blue-500/40 to-cyan-500/40 rounded-full backdrop-blur-sm border border-white/30 shadow-lg"
                 style={{ transformStyle: 'preserve-3d' }}
               ></motion.div>
               <motion.div 
-                variants={rotate3D}
+                variants={isMobile ? simpleFloat : rotate3D}
                 initial="initial"
                 animate="animate"
                 className="absolute -bottom-6 -left-6 w-12 h-12 bg-gradient-to-r from-purple-500/40 to-pink-500/40 rounded-lg backdrop-blur-sm border border-white/30 shadow-lg"
                 style={{ transformStyle: 'preserve-3d' }}
               ></motion.div>
               <motion.div 
-                variants={float3D}
+                variants={isMobile ? simpleFloat : float3D}
                 initial="initial"
                 animate="animate"
                 transition={{ delay: 0.5 }}
@@ -464,7 +497,7 @@ const LandingPage: React.FC = () => {
               ></motion.div>
               {/* Additional geometric shapes */}
               <motion.div 
-                variants={rotate3D}
+                variants={isMobile ? simpleFloat : rotate3D}
                 initial="initial"
                 animate="animate"
                 transition={{ delay: 1 }}
@@ -609,7 +642,6 @@ const LandingPage: React.FC = () => {
 
 const WorksPage: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = React.useState<string>('All');
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const debouncedFilter = useDebounce(selectedFilter, 50);
   
   const projects = React.useMemo(() => [
@@ -757,12 +789,9 @@ const WorksPage: React.FC = () => {
     return projects.filter(project => project.tech.includes(debouncedFilter));
   }, [projects, debouncedFilter]);
 
-  // Handle filter change with immediate visual feedback
+  // Handle filter change - removed setTimeout to prevent flickering
   const handleFilterChange = React.useCallback((tech: string) => {
-    setIsLoading(true);
     setSelectedFilter(tech);
-    // Reset loading state after a short delay to show immediate feedback
-    setTimeout(() => setIsLoading(false), 200);
   }, []);
 
   return (
@@ -809,14 +838,7 @@ const WorksPage: React.FC = () => {
                     : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white backdrop-blur-sm'
                 }`}
               >
-                <span className="relative z-10 flex items-center space-x-2">
-                  {selectedFilter === tech && isLoading && (
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      className="w-3 h-3 border border-white/30 border-t-white rounded-full"
-                    />
-                  )}
+                <span className="relative z-10">
                   <span>{tech}</span>
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
@@ -824,28 +846,17 @@ const WorksPage: React.FC = () => {
             ))}
           </motion.div>
           
-          {/* Project count with loading state */}
+          {/* Project count */}
           <motion.div 
-            key={`${selectedFilter}-${isLoading}`}
+            key={selectedFilter}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.3 }}
             className="text-white/60 font-body flex items-center justify-center space-x-2"
           >
-            {isLoading ? (
-              <>
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  className="w-4 h-4 border border-white/30 border-t-white/60 rounded-full"
-                />
-                <span>Filtering projects...</span>
-              </>
-            ) : (
-              <span>
-                {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} found
-              </span>
-            )}
+            <span>
+              {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} found
+            </span>
           </motion.div>
         </motion.div>
         
@@ -856,19 +867,17 @@ const WorksPage: React.FC = () => {
           animate="animate"
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence>
             {filteredProjects.map((project) => (
               <motion.div
                 key={project.title}
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9, y: -20 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
                 transition={{ 
                   duration: 0.3, 
-                  ease: "easeOut",
-                  layout: { duration: 0.2 }
+                  ease: "easeOut"
                 }}
-                layout
               >
                 <ProjectCard {...project} />
               </motion.div>

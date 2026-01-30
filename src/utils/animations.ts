@@ -24,8 +24,8 @@ export const staggerContainer: Variants = {
   initial: {},
   animate: {
     transition: { 
-      staggerChildren: 0.03,
-      delayChildren: 0.05
+      staggerChildren: 0.1, // Increased from 0.03 to reduce mobile jank
+      delayChildren: 0.1    // Increased from 0.05
     }
   }
 };
@@ -163,27 +163,27 @@ export const pulseGlow: Variants = {
     scale: 1
   },
   animate: { 
-    opacity: [0.3, 0.6, 0.3],
-    scale: [1, 1.02, 1],
+    opacity: [0.3, 0.5, 0.3], // Reduced intensity from 0.6 to 0.5
+    scale: [1, 1.01, 1],      // Reduced from 1.02 to 1.01
     transition: {
-      duration: 3,
+      duration: 4,            // Increased duration to slow down animation
       repeat: Infinity,
       ease: "easeInOut"
     }
   }
 };
 
-// Enhanced 3D animations for portfolio
+// Enhanced 3D animations for portfolio - optimized for mobile
 export const rotate3D: Variants = {
   initial: { 
     rotateY: 0,
     rotateX: 0,
   },
   animate: { 
-    rotateY: [0, 5, -5, 0],
-    rotateX: [0, 2, -2, 0],
+    rotateY: [0, 3, -3, 0],  // Reduced from [0, 5, -5, 0]
+    rotateX: [0, 1, -1, 0],  // Reduced from [0, 2, -2, 0]
     transition: {
-      duration: 6,
+      duration: 8,           // Increased from 6 to slow down
       repeat: Infinity,
       ease: "easeInOut"
     }
@@ -216,22 +216,22 @@ export const float3D: Variants = {
     rotateZ: 0
   },
   animate: { 
-    y: [-10, 10, -10],
-    rotateY: [0, 360],
-    rotateZ: [0, 5, -5, 0],
+    y: [-5, 5, -5],          // Reduced from [-10, 10, -10]
+    rotateY: [0, 180],       // Reduced from full 360 rotation
+    rotateZ: [0, 3, -3, 0],  // Reduced from [0, 5, -5, 0]
     transition: {
       y: {
-        duration: 4,
+        duration: 5,         // Increased from 4
         repeat: Infinity,
         ease: "easeInOut"
       },
       rotateY: {
-        duration: 20,
+        duration: 30,        // Increased from 20 to slow down
         repeat: Infinity,
         ease: "linear"
       },
       rotateZ: {
-        duration: 6,
+        duration: 8,         // Increased from 6
         repeat: Infinity,
         ease: "easeInOut"
       }
@@ -251,9 +251,9 @@ export const morphingBlob: Variants = {
       "50% 50% 50% 50% / 50% 50% 50% 50%",
       "30% 70% 70% 30% / 30% 30% 70% 70%"
     ],
-    scale: [1, 1.1, 0.9, 1],
+    scale: [1, 1.05, 0.95, 1], // Reduced from [1, 1.1, 0.9, 1]
     transition: {
-      duration: 8,
+      duration: 10,            // Increased from 8 to slow down
       repeat: Infinity,
       ease: "easeInOut"
     }
