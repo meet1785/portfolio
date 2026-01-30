@@ -2,16 +2,31 @@ import React from 'react';
 import { Github, Linkedin, Mail, FileText, Home, Briefcase, ExternalLink, Download, Menu, X } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ThemeProvider} from './context/ThemeContext';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { pageTransition, fadeInUp, scaleIn, staggerContainer, typewriter, rotate3D, cardHover3D, float3D, morphingBlob, particleFloat} from './utils/animations';
 import { useDebounce } from './utils/useDebounce';
 import img from '/meet.jpeg'; 
 
-// Detect mobile devices to reduce animations
-const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+// Hook to detect mobile devices reactively
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = React.useState(() => 
+    typeof window !== 'undefined' && window.innerWidth < 768
+  );
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return isMobile;
+};
 
 // Simple animation variants for mobile
-const simpleFloat = {
+const simpleFloat: Variants = {
   initial: { y: 0 },
   animate: { 
     y: [-5, 5, -5],
@@ -278,6 +293,8 @@ const AppContent: React.FC = () => {
 };
 
 const App: React.FC = () => {
+  const isMobile = useIsMobile();
+  
   return (
     <ThemeProvider>
       <Router basename="/portfolio">
@@ -850,7 +867,7 @@ const WorksPage: React.FC = () => {
           animate="animate"
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             {filteredProjects.map((project) => (
               <motion.div
                 key={project.title}

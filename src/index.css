@@ -4,8 +4,11 @@
 
 /* Custom CSS for modern effects */
 @layer base {
-  html {
-    scroll-behavior: smooth;
+  /* Only apply smooth scrolling when reduced motion is not preferred */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
   
   body {
@@ -243,8 +246,6 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Add CSS containment for better performance */
-  contain: layout style paint;
 }
 
 /* Only apply blur on larger screens */
