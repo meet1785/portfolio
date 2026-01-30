@@ -371,7 +371,7 @@ const App: React.FC = () => {
                   height: `${2 + Math.random() * 4}px`,
                   background: `linear-gradient(45deg, 
                     rgba(59, 130, 246, ${0.3 + Math.random() * 0.4}), 
-                    rgba(147, 51, 234, ${0.3 + Math.random() * 0.4})
+                    rgba(6, 182, 212, ${0.3 + Math.random() * 0.4})
                   )`,
                   filter: 'blur(0.5px)',
                   boxShadow: `0 0 ${4 + Math.random() * 8}px rgba(59, 130, 246, 0.3)`,
@@ -429,7 +429,7 @@ const LandingPage: React.FC = () => {
               top: `${Math.random() * 100}%`,
               width: `${20 + Math.random() * 40}px`,
               height: `${20 + Math.random() * 40}px`,
-              background: `linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.3))`,
+              background: `linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(14, 165, 233, 0.3))`,
               borderRadius: Math.random() > 0.5 ? '50%' : '20%',
               border: '1px solid rgba(255, 255, 255, 0.1)',
               backdropFilter: 'blur(10px)',
@@ -1331,7 +1331,7 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
       <motion.div 
         className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"
         style={{
-          background: 'linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent, rgba(147, 51, 234, 0.1), transparent)',
+          background: 'linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent, rgba(6, 182, 212, 0.1), transparent)',
           backgroundSize: '200% 200%',
         }}
         animate={isHovered ? { 
