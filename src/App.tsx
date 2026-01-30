@@ -82,6 +82,11 @@ const skillIcons: Record<string, string> = {
 
 const AppContent: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  
+  // Detect mobile devices to reduce animations
+  const isMobile = React.useMemo(() => {
+    return typeof window !== 'undefined' && window.innerWidth < 768;
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -89,6 +94,19 @@ const AppContent: React.FC = () => {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+  };
+  
+  // Simple animation variants for mobile
+  const simpleFloat = {
+    initial: { y: 0 },
+    animate: { 
+      y: [-5, 5, -5],
+      transition: {
+        duration: 8,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
   };
 
   return (
@@ -266,34 +284,34 @@ const App: React.FC = () => {
     <ThemeProvider>
       <Router basename="/portfolio">
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-          {/* Enhanced 3D Animated Background Elements */}
+          {/* Enhanced 3D Animated Background Elements - simplified on mobile */}
           <div className="absolute inset-0 overflow-hidden">
             <motion.div 
-              variants={morphingBlob}
+              variants={isMobile ? simpleFloat : morphingBlob}
               initial="initial"
               animate="animate"
               className="absolute -top-4 -left-4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
             ></motion.div>
             <motion.div 
-              variants={float3D}
+              variants={isMobile ? simpleFloat : float3D}
               initial="initial"
               animate="animate"
               className="absolute -top-4 -right-4 w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
             ></motion.div>
             <motion.div 
-              variants={rotate3D}
+              variants={isMobile ? simpleFloat : rotate3D}
               initial="initial"
               animate="animate"
               className="absolute -bottom-8 left-20 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
             ></motion.div>
             <motion.div 
-              variants={morphingBlob}
+              variants={isMobile ? simpleFloat : morphingBlob}
               initial="initial"
               animate="animate"
               className="absolute top-1/2 right-1/4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-15"
             ></motion.div>
             <motion.div 
-              variants={float3D}
+              variants={isMobile ? simpleFloat : float3D}
               initial="initial"
               animate="animate"
               className="absolute bottom-1/4 left-1/3 w-64 h-64 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-15"
@@ -385,7 +403,7 @@ const LandingPage: React.FC = () => {
         {Array.from({ length: 8 }).map((_, i) => (
           <motion.div
             key={`geo-${i}`}
-            variants={float3D}
+            variants={isMobile ? simpleFloat : float3D}
             initial="initial"
             animate="animate"
             className="absolute"
@@ -415,7 +433,7 @@ const LandingPage: React.FC = () => {
             <div className="relative w-96 h-96 lg:w-[30rem] lg:h-[30rem]" style={{ perspective: '1000px' }}>
               {/* Enhanced morphing background */}
               <motion.div 
-                variants={morphingBlob}
+                variants={isMobile ? simpleFloat : morphingBlob}
                 initial="initial"
                 animate="animate"
                 className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 blur-2xl opacity-20"
@@ -441,21 +459,21 @@ const LandingPage: React.FC = () => {
               />
               {/* Enhanced floating 3D elements */}
               <motion.div 
-                variants={float3D}
+                variants={isMobile ? simpleFloat : float3D}
                 initial="initial"
                 animate="animate"
                 className="absolute -top-8 -right-8 w-16 h-16 bg-gradient-to-r from-blue-500/40 to-cyan-500/40 rounded-full backdrop-blur-sm border border-white/30 shadow-lg"
                 style={{ transformStyle: 'preserve-3d' }}
               ></motion.div>
               <motion.div 
-                variants={rotate3D}
+                variants={isMobile ? simpleFloat : rotate3D}
                 initial="initial"
                 animate="animate"
                 className="absolute -bottom-6 -left-6 w-12 h-12 bg-gradient-to-r from-purple-500/40 to-pink-500/40 rounded-lg backdrop-blur-sm border border-white/30 shadow-lg"
                 style={{ transformStyle: 'preserve-3d' }}
               ></motion.div>
               <motion.div 
-                variants={float3D}
+                variants={isMobile ? simpleFloat : float3D}
                 initial="initial"
                 animate="animate"
                 transition={{ delay: 0.5 }}
@@ -464,7 +482,7 @@ const LandingPage: React.FC = () => {
               ></motion.div>
               {/* Additional geometric shapes */}
               <motion.div 
-                variants={rotate3D}
+                variants={isMobile ? simpleFloat : rotate3D}
                 initial="initial"
                 animate="animate"
                 transition={{ delay: 1 }}
