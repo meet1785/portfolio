@@ -609,7 +609,6 @@ const LandingPage: React.FC = () => {
 
 const WorksPage: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = React.useState<string>('All');
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const debouncedFilter = useDebounce(selectedFilter, 50);
   
   const projects = React.useMemo(() => [
@@ -757,12 +756,9 @@ const WorksPage: React.FC = () => {
     return projects.filter(project => project.tech.includes(debouncedFilter));
   }, [projects, debouncedFilter]);
 
-  // Handle filter change with immediate visual feedback
+  // Handle filter change - removed setTimeout to prevent flickering
   const handleFilterChange = React.useCallback((tech: string) => {
-    setIsLoading(true);
     setSelectedFilter(tech);
-    // Reset loading state after a short delay to show immediate feedback
-    setTimeout(() => setIsLoading(false), 200);
   }, []);
 
   return (
@@ -809,14 +805,7 @@ const WorksPage: React.FC = () => {
                     : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white backdrop-blur-sm'
                 }`}
               >
-                <span className="relative z-10 flex items-center space-x-2">
-                  {selectedFilter === tech && isLoading && (
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      className="w-3 h-3 border border-white/30 border-t-white rounded-full"
-                    />
-                  )}
+                <span className="relative z-10">
                   <span>{tech}</span>
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
@@ -824,28 +813,17 @@ const WorksPage: React.FC = () => {
             ))}
           </motion.div>
           
-          {/* Project count with loading state */}
+          {/* Project count */}
           <motion.div 
-            key={`${selectedFilter}-${isLoading}`}
+            key={selectedFilter}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.3 }}
             className="text-white/60 font-body flex items-center justify-center space-x-2"
           >
-            {isLoading ? (
-              <>
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  className="w-4 h-4 border border-white/30 border-t-white/60 rounded-full"
-                />
-                <span>Filtering projects...</span>
-              </>
-            ) : (
-              <span>
-                {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} found
-              </span>
-            )}
+            <span>
+              {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} found
+            </span>
           </motion.div>
         </motion.div>
         
@@ -856,19 +834,17 @@ const WorksPage: React.FC = () => {
           animate="animate"
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence mode="wait">
             {filteredProjects.map((project) => (
               <motion.div
                 key={project.title}
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9, y: -20 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
                 transition={{ 
                   duration: 0.3, 
-                  ease: "easeOut",
-                  layout: { duration: 0.2 }
+                  ease: "easeOut"
                 }}
-                layout
               >
                 <ProjectCard {...project} />
               </motion.div>

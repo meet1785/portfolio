@@ -12,6 +12,22 @@
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Optimize for mobile performance */
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Reduce animations on mobile for better performance */
+  @media (max-width: 767px) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    
+    /* But keep essential transitions */
+    a, button {
+      transition-duration: 150ms !important;
+    }
   }
 }
 
@@ -64,10 +80,18 @@
   
   /* Glassmorphism utilities */
   .glass {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    /* Use solid background on mobile for better performance */
+    background: rgba(255, 255, 255, 0.05);
   }
   
+  /* Only apply blur on larger screens with more GPU power */
+  @media (min-width: 768px) {
+    .glass {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+  }
+
   .glass-border {
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
@@ -154,9 +178,12 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.hover-lift:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+/* Only apply hover effects on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
 }
 
 /* Interactive elements */
@@ -216,19 +243,30 @@
 .project-card {
   position: relative;
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Add will-change for hardware acceleration */
+  will-change: transform;
 }
 
-.project-card:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.3),
-    0 0 60px rgba(59, 130, 246, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+/* Only apply blur on larger screens */
+@media (min-width: 768px) {
+  .project-card {
+    backdrop-filter: blur(20px);
+  }
+}
+
+/* Only apply hover effects on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.3),
+      0 0 60px rgba(59, 130, 246, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
 }
 
 /* Gradient text animations */
@@ -238,7 +276,13 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradient-shift 8s ease infinite;
+}
+
+/* Only animate gradient on larger screens to reduce mobile jank */
+@media (min-width: 768px) {
+  .gradient-text {
+    animation: gradient-shift 8s ease infinite;
+  }
 }
 
 @keyframes gradient-shift {
