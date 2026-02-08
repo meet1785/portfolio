@@ -576,7 +576,7 @@ const LandingPage: React.FC = () => {
   const [currentRoleIndex, setCurrentRoleIndex] = React.useState(0);
   const [isDeleting, setIsDeleting] = React.useState(false);
   
-  const roles = React.useMemo(() => ['Full Stack Developer', 'AI/ML Enthusiast', 'Problem Solver', 'Tech Innovator'], []);
+  const roles = React.useMemo(() => ['Full Stack Developer', 'AI/ML Engineer', 'DevOps Practitioner', 'Problem Solver'], []);
   
   React.useEffect(() => {
     const currentRole = roles[currentRoleIndex];
@@ -673,8 +673,8 @@ const LandingPage: React.FC = () => {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="text-base lg:text-lg text-white/50 max-w-md mx-auto lg:mx-0 leading-relaxed"
               >
-                Computer Engineering student at Thakur College Of Engineering And Technology, Mumbai. 
-                Building exceptional digital experiences with modern technologies.
+                Full Stack Developer & AI/ML Engineer with 20+ projects spanning deep learning, 
+                enterprise systems, and production-grade SaaS platforms.
               </motion.p>
               
               {/* CTA Buttons */}
@@ -709,7 +709,7 @@ const LandingPage: React.FC = () => {
                 className="flex items-center gap-5 pt-4 justify-center lg:justify-start"
               >
                 {[
-                  { href: "https://github.com/meetshah1708", icon: Github, label: "GitHub" },
+                  { href: "https://github.com/meet1785", icon: Github, label: "GitHub" },
                   { href: "https://linkedin.com/in/meetshah1708", icon: Linkedin, label: "LinkedIn" },
                   { href: "mailto:meetshah1785@gmail.com", icon: Mail, label: "Email" },
                 ].map((social) => (
@@ -872,7 +872,7 @@ const LandingPage: React.FC = () => {
       >
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-12">
-            <AnimatedCounter value={17} suffix="+" label="Projects" icon={<Briefcase className="w-6 h-6" />} />
+            <AnimatedCounter value={20} suffix="+" label="Projects Built" icon={<Briefcase className="w-6 h-6" />} />
             <AnimatedCounter value={300} suffix="+" label="DSA Problems" icon={<Code2 className="w-6 h-6" />} />
             <AnimatedCounter value={9.4} suffix="" label="CGPI Score" icon={<GraduationCap className="w-6 h-6" />} />
             <AnimatedCounter value={50} suffix="+" label="GCP Badges" icon={<Award className="w-6 h-6" />} />
@@ -920,7 +920,7 @@ const LandingPage: React.FC = () => {
               <span>LinkedIn</span>
             </a>
             <a 
-              href="https://github.com/meetshah1708"
+              href="https://github.com/meet1785"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 text-white/80 font-medium rounded-full border border-white/20 transition-all duration-300 hover:border-white/50 hover:text-white hover:bg-white/5"
@@ -931,6 +931,139 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Featured Projects Preview */}
+      <motion.div 
+        className="py-24 lg:py-32 border-t border-white/5"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-300 text-sm font-medium mb-6">
+              <Sparkles className="w-4 h-4" />
+              <span>Featured Work</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mb-4">
+              Projects that <span className="text-gradient-accent">stand out</span>
+            </h2>
+            <p className="text-base lg:text-lg text-white/40 max-w-2xl mx-auto">
+              AI-powered applications, enterprise systems, and full-stack platforms built with cutting-edge technologies.
+            </p>
+          </motion.div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+            {[
+              {
+                title: "AuthenticityNet",
+                desc: "Deepfake detection with CNN, EfficientNet & VGG16 ensemble. GradCAM heatmaps, analytics dashboard, 15+ API endpoints.",
+                tech: ["React", "Python", "FastAPI", "Deep Learning"],
+                github: "https://github.com/meet1785/authenticity-core",
+                gradient: "from-violet-500/20 to-fuchsia-500/20",
+                icon: "🧠"
+              },
+              {
+                title: "Smart Assistant",
+                desc: "Chrome extension with LeetCode integration, AI mock interviews, YouTube summaries, gamified learning paths.",
+                tech: ["React", "TypeScript", "Gemini AI", "Chrome Extension"],
+                github: "https://github.com/meet1785/smart-assistant",
+                gradient: "from-sky-500/20 to-blue-500/20",
+                icon: "🤖"
+              },
+              {
+                title: "ShortClips",
+                desc: "AI pipeline converting long videos into viral clips using Whisper, Gemini Pro, PySceneDetect & MoviePy.",
+                tech: ["Python", "FastAPI", "Whisper", "Gemini Pro"],
+                github: "https://github.com/meet1785/shortclips",
+                gradient: "from-emerald-500/20 to-teal-500/20",
+                icon: "🎬"
+              },
+              {
+                title: "YouTube Clone",
+                desc: "Full-featured video streaming platform with real-time content fetching, channel pages, search, and responsive design. Live on Vercel.",
+                tech: ["React", "JavaScript", "RapidAPI", "Vercel"],
+                github: "https://github.com/meetshah1708/youtube",
+                link: "https://youtube-meet.vercel.app/",
+                gradient: "from-red-500/20 to-orange-500/20",
+                icon: "▶️"
+              },
+            ].map((project, i) => (
+              <motion.a
+                key={project.title}
+                href={project.link || project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15, duration: 0.6 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="group relative rounded-2xl border border-white/10 hover:border-sky-500/30 bg-white/[0.03] p-8 transition-all duration-500 cursor-pointer"
+              >
+                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                <div className="relative z-10">
+                  <div className="text-4xl mb-4">{project.icon}</div>
+                  <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-sky-300 transition-colors">{project.title}</h3>
+                  <p className="text-white/50 text-sm leading-relaxed mb-5 group-hover:text-white/70 transition-colors">{project.desc}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tech.map(t => (
+                      <span key={t} className="text-xs px-2.5 py-1 rounded-full bg-white/5 text-white/50 border border-white/10">{t}</span>
+                    ))}
+                  </div>
+                  <div className="mt-5 flex items-center gap-2 text-sky-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                    {project.link ? (
+                      <>
+                        <ExternalLink className="w-4 h-4" />
+                        <span>Live Demo</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>View on GitHub</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </div>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+
+          <motion.div 
+            className="text-center mt-12"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+          >
+            <Link 
+              to="/works"
+              className="group inline-flex items-center gap-2 px-8 py-4 text-white/80 font-medium rounded-full border border-white/20 transition-all duration-300 hover:border-sky-500/50 hover:text-white hover:bg-sky-500/10"
+            >
+              <span>View All Projects</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
+        </div>
+      </motion.div>
+
+      {/* Footer */}
+      <footer className="border-t border-white/5 py-8">
+        <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-white/30 text-sm">© 2026 Meet Shah. Built with React & Framer Motion.</p>
+          <div className="flex items-center gap-4">
+            <a href="https://github.com/meet1785" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/60 transition-colors text-sm">GitHub</a>
+            <a href="https://linkedin.com/in/meetshah1708" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/60 transition-colors text-sm">LinkedIn</a>
+            <a href="mailto:meetshah1785@gmail.com" className="text-white/30 hover:text-white/60 transition-colors text-sm">Email</a>
+          </div>
+        </div>
+      </footer>
     </motion.div>
   );
 };
@@ -942,8 +1075,8 @@ const WorksPage: React.FC = () => {
   
   const projects = React.useMemo(() => [
     {
-      title: "YouTube Clone",
-      description: "A modern YouTube clone built with React, featuring real-time video streaming, dynamic content fetching via RapidAPI, and responsive design.",
+      title: "YouTube Clone — Video Platform",
+      description: "A modern YouTube clone with real-time video streaming, dynamic content fetching via RapidAPI, channel pages, video search, and fully responsive design. Deployed live on Vercel.",
       link: "https://youtube-meet.vercel.app/",
       github: "https://github.com/meetshah1708/youtube",
       tech: ['React', 'JavaScript', 'CSS'],
@@ -951,123 +1084,81 @@ const WorksPage: React.FC = () => {
       category: 'Web App'
     },
     {
-      title: "Email Reply Generator",
-      description: "Full-stack productivity tool with Spring Boot backend and React frontend, featuring Chrome extension and AI-powered email suggestions using LLMs.",
-      github: "https://github.com/meetshah1708/email-reply-generator",
-      tech: ['Spring Boot', 'React', 'JavaScript', 'Chrome Extension'],
+      title: "AuthenticityNet — AI Deepfake Detection",
+      description: "AI-powered image authenticity verification using ensemble deep learning (CNN, EfficientNet, VGG16) with GradCAM visual explanations, intelligent caching (~99% faster), analytics dashboard, and 15+ REST API endpoints.",
+      github: "https://github.com/meet1785/authenticity-core",
+      tech: ['React', 'TypeScript', 'Python', 'FastAPI', 'AI/ML'],
+      featured: true,
+      category: 'AI/ML'
+    },
+    {
+      title: "Smart Assistant — AI Learning Companion",
+      description: "Chrome extension with LeetCode integration (problem analysis, code review, debugging), YouTube video summaries & quizzes, AI mock interview system with timer & real-time feedback, gamified XP/level system, and learning path management.",
+      github: "https://github.com/meet1785/smart-assistant",
+      tech: ['React', 'TypeScript', 'Tailwind CSS', 'AI/ML', 'Webpack'],
+      featured: true,
+      category: 'AI/ML'
+    },
+    {
+      title: "ShortClips — AI Video Pipeline",
+      description: "End-to-end AI tool converting long videos into viral 15-60s clips using OpenAI Whisper transcription, PySceneDetect, Google Gemini Pro content analysis, and MoviePy editing with auto-captions, zoom effects, and 9:16 formatting.",
+      github: "https://github.com/meet1785/shortclips",
+      tech: ['Python', 'FastAPI', 'AI/ML'],
+      featured: true,
+      category: 'AI/ML'
+    },
+    {
+      title: "BudgetBuddy — Enterprise ERP System",
+      description: "Enterprise-grade ERP with 23+ granular permissions across 5 categories, role-based access control (Admin/Manager/User), interactive Recharts analytics dashboard, dark/light theme, and full CRUD budget & expense management.",
+      github: "https://github.com/meet1785/budgetbuddy-erp",
+      tech: ['React', 'TypeScript', 'Node.js', 'MongoDB', 'Tailwind CSS'],
       featured: true,
       category: 'Full Stack'
     },
     {
-      title: "AI Resume Screener",
-      description: "Advanced AI-powered resume screening application built with TypeScript, featuring automated candidate evaluation and scoring.",
-      github: "https://github.com/meetshah1708/ai-resume-screener",
-      tech: ['TypeScript', 'React', 'AI/ML'],
+      title: "FinanceGPT — AI Personal Finance",
+      description: "Comprehensive personal finance platform powered by Google Gemini AI with real-time dashboard, AI financial chat with retry logic, smart expense tracker, budget planner, portfolio management with simulated live updates, and investment calculator.",
+      github: "https://github.com/meet1785/gemini-money",
+      tech: ['React', 'TypeScript', 'Tailwind CSS', 'AI/ML'],
       featured: true,
       category: 'AI/ML'
     },
     {
-      title: "AuthenticityNet",
-      description: "AI-powered image authenticity verification system using multiple deep learning models (CNN, EfficientNet, VGG16) with React frontend and FastAPI backend.",
-      github: "https://github.com/meetshah1708/authenticity-core",
-      tech: ['TypeScript', 'React', 'Python', 'AI/ML', 'FastAPI'],
+      title: "VideoGen — AI Text-to-Video",
+      description: "AI video generation service from text prompts with platform-specific presets (Instagram 9:16, YouTube 16:9, Shorts), async task tracking, n8n webhook integration, Docker deployment, and configurable inference parameters.",
+      github: "https://github.com/meet1785/videogen",
+      tech: ['Python', 'FastAPI', 'Docker'],
       featured: true,
       category: 'AI/ML'
     },
     {
-      title: "Job-Matched CV Generator",
-      description: "Intelligent CV optimization tool that matches resumes to job descriptions using AI, built with React and modern frontend technologies.",
-      github: "https://github.com/meetshah1708/job-matched-cv",
-      link: "https://lovable.dev/projects/4883ae47-3f0e-41bb-9ce1-86a70668056e",
-      tech: ['TypeScript', 'React', 'AI/ML', 'Tailwind CSS'],
-      featured: true,
+      title: "YouTubeSEO — AI Analytics Tool",
+      description: "AI-powered YouTube SEO analyzer with auto metadata extraction, CTR & engagement analytics, comment sentiment analysis, competitive benchmarking against top-ranking videos, and AI-driven optimization recommendations with batch CSV/JSON export.",
+      github: "https://github.com/meet1785/youseo",
+      tech: ['Python', 'AI/ML'],
       category: 'AI/ML'
     },
     {
-      title: "Email Reply Generator",
-      description: "Intelligent email response generator with Java backend and React frontend, featuring NLP for contextual email analysis and smart reply suggestions.",
-      github: "https://github.com/meetshah1708/email-reply-generator",
-      tech: ['Java', 'Spring Boot', 'JavaScript', 'React', 'NLP'],
-      featured: true,
-      category: 'AI/ML'
+      title: "DevSecOps Pipeline — LenDen",
+      description: "Production DevSecOps pipeline with Dockerized Node.js app, Terraform AWS infrastructure provisioning, Jenkins CI/CD pipeline, Trivy container security scanning, and AI-driven security vulnerability remediation.",
+      github: "https://github.com/meet1785/LenDen-Ass",
+      tech: ['Docker', 'AWS'],
+      category: 'DevOps'
     },
     {
-      title: "Blogs App",
-      description: "Modern blog platform with TypeScript, featuring content management, user authentication, and responsive design.",
-      github: "https://github.com/meetshah1708/blogsapp",
-      tech: ['TypeScript', 'React', 'CSS'],
-      category: 'Web App'
-    },
-    {
-      title: "Smart Wardrobe",
-      description: "Intelligent wardrobe management system built with JavaScript, helping users organize and coordinate their clothing.",
-      github: "https://github.com/meetshah1708/smart-wardrobe",
-      tech: ['JavaScript', 'HTML', 'CSS'],
-      category: 'Web App'
-    },
-    {
-      title: "Netflix Clone",
-      description: "Netflix-inspired streaming platform clone with user authentication, movie browsing, and responsive design.",
-      github: "https://github.com/meetshah1708/netflix-clone",
-      tech: ['JavaScript', 'React', 'CSS'],
-      category: 'Web App'
-    },
-    {
-      title: "Cultural Fest Website",
-      description: "Event management website for cultural festivals, featuring event listings, registrations, and interactive design.",
-      github: "https://github.com/meetshah1708/culturalFest",
-      tech: ['HTML', 'CSS', 'JavaScript'],
-      category: 'Website'
-    },
-    {
-      title: "MERN Stack Template",
-      description: "Comprehensive full-stack template demonstrating CRUD operations, authentication, and modern development practices.",
-      github: "https://github.com/meetshah1708/mern",
-      tech: ['MongoDB', 'Express', 'React', 'Node.js'],
+      title: "Cultural Fest — Event Platform",
+      description: "Full-stack event management platform for cultural festivals with Angular frontend, Spring Boot backend, PostgreSQL database, Jakarta Bean Validation, and comprehensive RESTful API with field-specific error handling.",
+      github: "https://github.com/meet1785/cultural-fest",
+      tech: ['TypeScript', 'Java', 'Spring Boot'],
       category: 'Full Stack'
     },
     {
-      title: "PromptDunia",
-      description: "AI prompt sharing platform for exploring and discovering creative prompts, with community features and rating system.",
-      github: "https://github.com/meetshah1708/Promptdunia",
-      tech: ['CSS', 'JavaScript', 'HTML'],
-      category: 'Web App'
+      title: "MySaaS — SaaS Boilerplate",
+      description: "Production-ready full-stack SaaS application with JWT + bcrypt authentication, Stripe payment integration, Docker + docker-compose deployment, GitHub Actions CI/CD, PostgreSQL, and structured service architecture.",
+      github: "https://github.com/meet1785/mysaas",
+      tech: ['React', 'TypeScript', 'Node.js', 'Docker'],
+      category: 'Full Stack'
     },
-    {
-      title: "QuizApp",
-      description: "Interactive quiz application with multiple categories, scoring system, and modern animations for engaging user experience.",
-      github: "https://github.com/meetshah1708/Quizapp",
-      tech: ['JavaScript', 'React', 'CSS'],
-      category: 'Web App'
-    },
-    {
-      title: "Food App",
-      description: "Restaurant and food delivery application with menu browsing, ordering system, and responsive mobile-first design.",
-      github: "https://github.com/meetshah1708/food-app",
-      tech: ['JavaScript', 'React', 'CSS'],
-      category: 'Web App'
-    },
-    {
-      title: "Fitness Tracker",
-      description: "Personal fitness tracking application with workout logging, progress monitoring, and health analytics.",
-      github: "https://github.com/meetshah1708/fitness",
-      tech: ['JavaScript', 'HTML', 'CSS'],
-      category: 'Web App'
-    },
-    {
-      title: "Meet Grocery",
-      description: "E-commerce grocery platform with product catalog, shopping cart functionality, and order management system.",
-      github: "https://github.com/meetshah1708/Proj2-MEET-GROCERY",
-      tech: ['HTML', 'CSS', 'JavaScript'],
-      category: 'E-commerce'
-    },
-    {
-      title: "Calculator App",
-      description: "Advanced calculator application with scientific functions, memory operations, and responsive design.",
-      github: "https://github.com/meetshah1708/calculator",
-      tech: ['JavaScript', 'HTML', 'CSS'],
-      category: 'Utility'
-    }
   ], []);
 
   // Get unique technologies for filter with better memoization
@@ -1120,10 +1211,10 @@ const WorksPage: React.FC = () => {
           </motion.div>
           
           <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 font-heading">
-            Featured <span className="text-gradient-animate">Projects</span>
+            All <span className="text-gradient-animate">Projects</span>
           </h1>
           <p className="text-xl text-white/60 max-w-2xl mx-auto mb-10 font-body">
-            A curated collection of projects showcasing my skills in full-stack development, AI/ML, and innovative solutions.
+            10 curated projects across AI/ML, enterprise full-stack, and DevOps — each built to production standards.
           </p>
           
           {/* Technology Filter */}
@@ -1357,19 +1448,27 @@ const ResumePage: React.FC = () => {
             </div>
             <div className="space-y-6">
               <div className="border-l-4 border-sky-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
-                <h3 className="text-xl font-bold text-white font-heading">YouTube Clone – React Webapp</h3>
+                <h3 className="text-xl font-bold text-white font-heading">AuthenticityNet — AI Deepfake Detection System</h3>
                 <ul className="text-white/60 space-y-2 font-body mt-2">
-                  <li>• Designed and implemented a responsive video streaming platform using React.js and RapidAPI</li>
-                  <li>• Enabled real-time content fetching and dynamic video playback functionality</li>
-                  <li>• Deployed on Vercel with production-ready configuration, ensuring high performance and intuitive UI/UX</li>
+                  <li>• Built ensemble deep learning system using CNN, EfficientNet, and VGG16 for image authenticity verification</li>
+                  <li>• Implemented GradCAM heatmaps for visual explanations and intelligent caching for ~99% faster repeated predictions</li>
+                  <li>• Developed React frontend with analytics dashboard and FastAPI backend with 15+ REST endpoints</li>
                 </ul>
               </div>
               <div className="border-l-4 border-blue-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
-                <h3 className="text-xl font-bold text-white font-heading">Email Reply Generator – Spring Boot, React, Chrome Extension</h3>
+                <h3 className="text-xl font-bold text-white font-heading">Smart Assistant — AI Chrome Extension</h3>
                 <ul className="text-white/60 space-y-2 font-body mt-2">
-                  <li>• Developed a full-stack productivity tool integrating Spring Boot and React to automate professional email replies using LLMs</li>
-                  <li>• Engineered a custom Chrome extension to embed AI-powered suggestions directly into the user's email interface</li>
-                  <li>• Reduced average response time by over 40%</li>
+                  <li>• Engineered Chrome extension with LeetCode integration for problem analysis, code review, and debugging assistance</li>
+                  <li>• Built AI mock interview system with timer, code editor, and real-time feedback powered by Google Gemini API</li>
+                  <li>• Implemented gamified XP/level system with learning path management, YouTube video summaries, and quiz generation</li>
+                </ul>
+              </div>
+              <div className="border-l-4 border-indigo-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
+                <h3 className="text-xl font-bold text-white font-heading">BudgetBuddy ERP — Enterprise Resource Planning</h3>
+                <ul className="text-white/60 space-y-2 font-body mt-2">
+                  <li>• Developed enterprise-grade ERP with 23+ granular permissions across 5 categories and role-based access control</li>
+                  <li>• Built interactive analytics dashboard with Recharts, dark/light theme, and responsive design with React + TypeScript</li>
+                  <li>• Implemented full CRUD operations with Node.js/Express backend and MongoDB with JWT authentication</li>
                 </ul>
               </div>
             </div>
@@ -1389,15 +1488,15 @@ const ResumePage: React.FC = () => {
               <h2 className="text-2xl lg:text-3xl font-bold text-white font-heading">Technical Skills</h2>
             </div>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <SkillCategory title="Languages" skills={['Java', 'C++', 'JavaScript', 'Python']} />
-              <SkillCategory title="Frontend" skills={['React.js', 'Next.js', 'HTML', 'CSS']} />
-              <SkillCategory title="Backend" skills={['Node.js', 'Express.js', 'Spring Boot']} />
-              <SkillCategory title="Database" skills={['MySQL', 'MongoDB', 'Firebase']} />
+              <SkillCategory title="Languages" skills={['Python', 'TypeScript', 'Java', 'JavaScript', 'C++']} />
+              <SkillCategory title="Frontend" skills={['React', 'Next.js', 'Tailwind CSS', 'HTML', 'CSS']} />
+              <SkillCategory title="Backend" skills={['Node.js', 'Express', 'Spring Boot', 'FastAPI']} />
+              <SkillCategory title="Database" skills={['MongoDB', 'MySQL', 'Firebase']} />
             </div>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-6">
-              <SkillCategory title="Tools" skills={['Git', 'VS Code', 'Postman']} />
-              <SkillCategory title="Cloud" skills={['Google Cloud Platform', 'Firebase', 'Vercel']} />
-              <SkillCategory title="Concepts" skills={['REST APIs', 'MERN Stack', 'AI/ML']} />
+              <SkillCategory title="DevOps & Tools" skills={['Docker', 'AWS', 'Git', 'Linux']} />
+              <SkillCategory title="Cloud" skills={['GCP', 'Firebase', 'Vercel']} />
+              <SkillCategory title="AI & Data" skills={['AI/ML', 'NLP', 'FastAPI']} />
             </div>
           </motion.section>
 
@@ -1540,18 +1639,20 @@ const AboutPage: React.FC = () => {
             <div className="prose prose-lg prose-invert max-w-none">
               <p className="text-lg leading-relaxed text-white/80 font-body">
                 I'm Meet Shah, a Computer Engineering student at Thakur College of Engineering and Technology, University of Mumbai, 
-                with a stellar CGPI of 9.4/10.0. Based in Mumbai, I'm passionate about creating innovative digital solutions and 
-                solving complex problems through technology.
+                with a CGPI of 9.4/10.0. I specialize in building AI-powered applications and enterprise-grade full-stack systems 
+                that solve real problems at scale.
               </p>
               <p className="text-lg leading-relaxed text-white/80 font-body mt-6">
-                With expertise in the MERN Stack and proficiency in languages like Java, C++, JavaScript, and Python, I've successfully 
-                developed multiple projects including a YouTube clone using React.js and RapidAPI, and an Email Reply Generator with 
-                Spring Boot and Chrome extension integration.
+                My strongest work includes <strong className="text-white">AuthenticityNet</strong> — a deepfake detection system using CNN, EfficientNet & VGG16 
+                ensemble learning with GradCAM visual explanations; <strong className="text-white">Smart Assistant</strong> — a Chrome extension with LeetCode integration, 
+                AI mock interviews, and gamified learning; and <strong className="text-white">ShortClips</strong> — an end-to-end AI pipeline that converts long 
+                videos into viral clips using OpenAI Whisper, Gemini Pro, and MoviePy.
               </p>
               <p className="text-lg leading-relaxed text-white/80 font-body mt-6">
-                My professional experience includes working as a Business Analyst Intern at Neoprism Consultancy, where I authored 20+ 
-                white papers for SMEs and collaborated on data-driven marketing strategies. As an AI Prompt Engineering Intern at 
-                VaultOfCodes, I designed and fine-tuned prompts for LLMs to improve NLP model accuracy.
+                I work across the full stack with React, TypeScript, Node.js, Python, FastAPI, Spring Boot, Docker, 
+                and cloud platforms (AWS, GCP). I've built enterprise ERP systems with 23+ granular permissions, 
+                AI-powered finance platforms, SaaS boilerplates with Stripe integration, and production DevSecOps pipelines with 
+                Terraform and Jenkins.
               </p>
             </div>
           </motion.div>
@@ -1606,14 +1707,14 @@ const AboutPage: React.FC = () => {
             <h2 className="text-2xl font-bold text-white mb-6 font-heading">Looking Forward</h2>
             <div className="prose prose-lg prose-invert max-w-none">
               <p className="text-lg leading-relaxed text-white/80 font-body">
-                I'm constantly building personal projects while maintaining a balance with interests in table tennis and community 
-                volunteering. Currently seeking opportunities to leverage my technical skills and creative approach to contribute 
-                to innovative projects and make a meaningful impact in the technology industry.
+                I'm actively building AI/ML systems and production-grade applications. I'm looking for 
+                opportunities where I can apply my deep learning, full-stack, and DevOps skills to build 
+                products that make a real impact.
               </p>
               <p className="text-lg leading-relaxed text-white/80 font-body mt-6">
-                My experience with modern development tools (Docker, Git, RESTful APIs), cloud platforms (Google Cloud Platform, Firebase), 
-                and frameworks (React, Next.js, Express.js) positions me well for tackling complex technological challenges and building 
-                scalable solutions.
+                My experience spans deep learning model development (CNN, EfficientNet, VGG16), modern frontend 
+                (React, TypeScript, Tailwind), robust backends (Node.js, FastAPI, Spring Boot), containerization 
+                (Docker, Terraform), cloud infrastructure (AWS, GCP), and CI/CD pipelines (GitHub Actions, Jenkins).
               </p>
             </div>
           </motion.div>
