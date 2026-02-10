@@ -1,13 +1,26 @@
 import React from 'react';
-import { Github, Linkedin, Mail, FileText, Briefcase, ExternalLink, Download, Menu, X, ArrowRight, Sparkles, Code2, Zap, Rocket, Award, GraduationCap } from 'lucide-react';
+import { Github, Linkedin, Mail, FileText, Briefcase, ExternalLink, Download, Menu, X, ArrowRight, Sparkles, Code2, Zap, Rocket, Award, GraduationCap, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ThemeProvider} from './context/ThemeContext';
 import { motion, AnimatePresence, useScroll, useMotionValue, useSpring } from 'framer-motion';
 import { pageTransition, fadeInUp, staggerContainer, rotate3D, cardHover3D, float3D, morphingBlob, floatWithDepth } from './utils/animations';
 import { useDebounce } from './utils/useDebounce';
-import img from '/IMG-20250308-WA0004.jpg';
+import { EMAILJS_CONFIG, RATE_LIMIT_MS } from './utils/emailConfig';
+import { generatePDFResume, generateDOCXResume, generateResumeData } from './utils/resumeGenerator';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import emailjs from '@emailjs/browser';
 
-// Enhanced Cursor following effect with trail
+// Contact Form Schema
+const contactSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(50, 'Name must be less than 50 characters'),
+  email: z.string().email('Please enter a valid email address'),
+  subject: z.string().min(5, 'Subject must be at least 5 characters').max(100, 'Subject must be less than 100 characters'),
+  message: z.string().min(10, 'Message must be at least 10 characters').max(1000, 'Message must be less than 1000 characters'),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 const CursorGlow: React.FC = () => {
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
@@ -289,59 +302,140 @@ const profileIcons: Record<string, string> = {
 };
 
 const skillIcons: Record<string, string> = {
-  // Frontend Technologies
-  React: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
-  "React.js": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
-  "Next.js": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg",
+  // Programming Languages
+  Python: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
   TypeScript: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",
   JavaScript: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
+  Java: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg",
+  "C++": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg",
+  SQL: "https://img.icons8.com/color/48/sql.png",
+  Bash: "https://img.icons8.com/color/48/bash.png",
+  Rust: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-plain.svg",
+  Go: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg",
+  Kotlin: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kotlin/kotlin-original.svg",
+
+  // Frontend Technologies
+  React: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
+  "Next.js": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg",
+  Vue: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg",
+  Angular: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angularjs/angularjs-original.svg",
   "Tailwind CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
+  "Material-UI": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/materialui/materialui-original.svg",
+  "Framer Motion": "https://img.icons8.com/color/48/framer.png",
+  SASS: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sass/sass-original.svg",
+  HTML5: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg",
+  CSS3: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg",
   Redux: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redux/redux-original.svg",
-  HTML: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg",
-  CSS: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg",
+  Zustand: "https://img.icons8.com/color/48/zustand.png",
+  Recoil: "https://img.icons8.com/color/48/recoil.png",
 
   // Backend Technologies
   "Node.js": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg",
   Express: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg",
-  "Express.js": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg",
+  FastAPI: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg",
   "Spring Boot": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg",
+  Django: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg",
+  REST: "https://img.icons8.com/color/48/api.png",
+  GraphQL: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/graphql/graphql-plain.svg",
+  WebSocket: "https://img.icons8.com/color/48/websocket.png",
+  tRPC: "https://img.icons8.com/color/48/trpc.png",
+  "RabbitMQ": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rabbitmq/rabbitmq-original.svg",
+  gRPC: "https://img.icons8.com/color/48/grpc.png",
+
+  // AI & Machine Learning
+  TensorFlow: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg",
+  PyTorch: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg",
+  "Scikit-learn": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg",
+  Keras: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/keras/keras-original.svg",
+  "OpenAI API": "https://img.icons8.com/color/48/openai.png",
+  "Claude API": "https://img.icons8.com/color/48/claude-ai.png",
+  LangChain: "https://img.icons8.com/color/48/langchain.png",
+  "Hugging Face": "https://img.icons8.com/color/48/hugging-face.png",
+  spaCy: "https://img.icons8.com/color/48/spacy.png",
+  NLTK: "https://img.icons8.com/color/48/nltk.png",
+  OpenCV: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg",
+  Transformers: "https://img.icons8.com/color/48/transformers.png",
+  MLflow: "https://img.icons8.com/color/48/mlflow.png",
+  DVC: "https://img.icons8.com/color/48/dvc.png",
+  "Weights & Biases": "https://img.icons8.com/color/48/weights-and-biases.png",
+  Kubeflow: "https://img.icons8.com/color/48/kubeflow.png",
+
+  // Cloud & DevOps
+  AWS: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg",
+  Azure: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg",
+  GCP: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg",
+  Vercel: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg",
+  Netlify: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/netlify/netlify-original.svg",
+  Docker: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg",
+  Kubernetes: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg",
+  Terraform: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg",
+  Ansible: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ansible/ansible-original.svg",
+  "GitHub Actions": "https://img.icons8.com/color/48/github-actions.png",
+  Jenkins: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg",
+  "GitLab CI": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg",
+  CircleCI: "https://img.icons8.com/color/48/circleci.png",
+  Prometheus: "https://img.icons8.com/color/48/prometheus.png",
+  Grafana: "https://img.icons8.com/color/48/grafana.png",
+  "ELK Stack": "https://img.icons8.com/color/48/elastic.png",
+  Datadog: "https://img.icons8.com/color/48/datadog.png",
 
   // Databases
   MongoDB: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg",
+  PostgreSQL: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
   MySQL: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg",
-  Firebase: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg",
+  Redis: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg",
+  Cassandra: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cassandra/cassandra-original.svg",
+  "DynamoDB": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dynamodb/dynamodb-original.svg",
+  "Apache Spark": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apachespark/apachespark-original.svg",
+  Kafka: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apachekafka/apachekafka-original.svg",
+  Airflow: "https://img.icons8.com/color/48/apache-airflow.png",
+  Pandas: "https://img.icons8.com/color/48/pandas.png",
+  Tableau: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tableau/tableau-original.svg",
+  "Power BI": "https://img.icons8.com/color/48/power-bi.png",
+  Looker: "https://img.icons8.com/color/48/looker.png",
+  Metabase: "https://img.icons8.com/color/48/metabase.png",
 
-  // Programming Languages
-  Java: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg",
-  "C++": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg",
-  Python: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
-
-  // AI/ML & Data Science
-  "AI/ML": "https://img.icons8.com/color/48/artificial-intelligence.png",
-  FastAPI: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg",
-  NLP: "https://img.icons8.com/color/48/natural-language-processing.png",
-
-  // Tools & DevOps
+  // Tools & Technologies
   Git: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg",
-  Docker: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg",
-  AWS: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg",
-  "Google Cloud Platform": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg",
-  GCP: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg",
-  Vercel: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg",
-  Vite: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg",
-  vite: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg",
-  "VS Code": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg",
+  Linux: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg",
   Postman: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg",
-
-  // Mobile Development
-  "React Native": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
-
-  // Additional Technologies
+  Jest: "https://img.icons8.com/color/48/jest.png",
+  Cypress: "https://img.icons8.com/color/48/cypress.png",
+  Selenium: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/selenium/selenium-original.svg",
+  Playwright: "https://img.icons8.com/color/48/playwright.png",
+  SonarQube: "https://img.icons8.com/color/48/sonarqube.png",
+  Prettier: "https://img.icons8.com/color/48/prettier.png",
+  Husky: "https://img.icons8.com/color/48/husky.png",
+  Vite: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg",
   Webpack: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/webpack/webpack-original.svg",
-  Babel: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/babel/babel-original.svg",
   ESLint: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/eslint/eslint-original.svg",
-  Nginx: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nginx/nginx-original.svg",
-  Linux: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg"
+
+  // Emerging Technologies
+  Solidity: "https://img.icons8.com/color/48/solidity.png",
+  "Web3.js": "https://img.icons8.com/color/48/web3.png",
+  IPFS: "https://img.icons8.com/color/48/ipfs.png",
+  Unity: "https://img.icons8.com/color/48/unity.png",
+  "Unreal Engine": "https://img.icons8.com/color/48/unreal-engine.png",
+  WebXR: "https://img.icons8.com/color/48/webxr.png",
+  Three: "https://img.icons8.com/color/48/threejs.png",
+  Qiskit: "https://img.icons8.com/color/48/qiskit.png",
+  Cirq: "https://img.icons8.com/color/48/cirq.png",
+
+  // Security
+  OWASP: "https://img.icons8.com/color/48/owasp.png",
+  JWT: "https://img.icons8.com/color/48/jwt.png",
+  OAuth: "https://img.icons8.com/color/48/oauth.png",
+  SSL: "https://img.icons8.com/color/48/ssl.png",
+
+  // Legacy/Alternative names
+  "React.js": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
+  "Express.js": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg",
+  "Google Cloud Platform": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg",
+  "VS Code": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg",
+  "React Native": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
+  vite: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg",
+  "AI/ML": "https://img.icons8.com/color/48/artificial-intelligence.png",
+  NLP: "https://img.icons8.com/color/48/natural-language-processing.png"
 };
 
 const AppContent: React.FC = () => {
@@ -392,6 +486,7 @@ const AppContent: React.FC = () => {
                   { to: "/works", label: "Work" },
                   { to: "/resume", label: "Resume" },
                   { to: "/about", label: "About" },
+                  { to: "/contact", label: "Contact" },
                 ].map((item) => (
                   <Link 
                     key={item.to}
@@ -438,6 +533,7 @@ const AppContent: React.FC = () => {
                     { to: "/works", label: "Work" },
                     { to: "/resume", label: "Resume" },
                     { to: "/about", label: "About" },
+                    { to: "/contact", label: "Contact" },
                   ].map((item) => (
                     <Link 
                       key={item.to}
@@ -468,6 +564,7 @@ const AppContent: React.FC = () => {
           <Route path="/works" element={<WorksPage />} />
           <Route path="/resume" element={<ResumePage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </AnimatePresence>
     </>
@@ -756,7 +853,7 @@ const LandingPage: React.FC = () => {
                   {/* Dark gradient background behind image for blending light backgrounds */}
                   <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-sky-950" />
                   <img
-                    src={img} 
+                    src="/meet.jpeg" 
                     alt="Meet Shah - Full Stack Developer"
                     className="relative w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
                     loading="eager"
@@ -1352,18 +1449,38 @@ const ResumePage: React.FC = () => {
           <p className="text-xl text-white/60 max-w-2xl mx-auto mb-8 font-body">
             Computer Engineering Student • Full Stack Developer • Problem Solver
           </p>
-          <div className="flex justify-center">
-            <motion.a 
-              href="/resume.pdf" 
-              download
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <motion.button
+              onClick={() => {
+                generatePDFResume(generateResumeData());
+              }}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 transition-all duration-300 cta-shine"
+              className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-red-500 to-pink-600 text-white font-semibold rounded-xl shadow-lg shadow-red-500/25 hover:shadow-red-500/40 transition-all duration-300 cta-shine"
             >
               <Download className="w-5 h-5" />
-              <span>Download Resume</span>
+              <span>Download PDF</span>
               <ArrowRight className="w-4 h-4" />
-            </motion.a>
+            </motion.button>
+
+            <motion.button
+              onClick={async () => {
+                await generateDOCXResume(generateResumeData());
+              }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 cta-shine"
+            >
+              <Download className="w-5 h-5" />
+              <span>Download DOCX</span>
+              <ArrowRight className="w-4 h-4" />
+            </motion.button>
+          </div>
+
+          <div className="text-center mt-4">
+            <p className="text-sm text-white/50">
+              ATS-friendly resume with professional formatting
+            </p>
           </div>
         </motion.div>
 
@@ -1487,16 +1604,90 @@ const ResumePage: React.FC = () => {
               </div>
               <h2 className="text-2xl lg:text-3xl font-bold text-white font-heading">Technical Skills</h2>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <SkillCategory title="Languages" skills={['Python', 'TypeScript', 'Java', 'JavaScript', 'C++']} />
-              <SkillCategory title="Frontend" skills={['React', 'Next.js', 'Tailwind CSS', 'HTML', 'CSS']} />
-              <SkillCategory title="Backend" skills={['Node.js', 'Express', 'Spring Boot', 'FastAPI']} />
-              <SkillCategory title="Database" skills={['MongoDB', 'MySQL', 'Firebase']} />
+
+            {/* Core Programming Languages */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-sky-400 mb-4 font-heading">Programming Languages</h3>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <SkillCategory title="Primary" skills={['Python', 'TypeScript', 'JavaScript', 'Java', 'C++']} />
+                <SkillCategory title="Scripting & Automation" skills={['Bash', 'PowerShell', 'SQL']} />
+                <SkillCategory title="Emerging" skills={['Rust', 'Go', 'Kotlin']} />
+              </div>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-6">
-              <SkillCategory title="DevOps & Tools" skills={['Docker', 'AWS', 'Git', 'Linux']} />
-              <SkillCategory title="Cloud" skills={['GCP', 'Firebase', 'Vercel']} />
-              <SkillCategory title="AI & Data" skills={['AI/ML', 'NLP', 'FastAPI']} />
+
+            {/* Modern Web Development */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-blue-400 mb-4 font-heading">Modern Web Development</h3>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                <SkillCategory title="Frontend Frameworks" skills={['React', 'Next.js', 'Vue.js', 'Angular']} />
+                <SkillCategory title="Styling & UI" skills={['Tailwind CSS', 'Material-UI', 'Framer Motion', 'SASS']} />
+                <SkillCategory title="Build Tools" skills={['Vite', 'Webpack', 'Parcel', 'ESLint']} />
+                <SkillCategory title="State Management" skills={['Redux', 'Zustand', 'Context API', 'Recoil']} />
+              </div>
+            </div>
+
+            {/* Backend & APIs */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-indigo-400 mb-4 font-heading">Backend & APIs</h3>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <SkillCategory title="Runtime & Frameworks" skills={['Node.js', 'Express', 'FastAPI', 'Spring Boot', 'Django']} />
+                <SkillCategory title="API Technologies" skills={['REST', 'GraphQL', 'WebSocket', 'tRPC']} />
+                <SkillCategory title="Microservices" skills={['Docker', 'Kubernetes', 'RabbitMQ', 'gRPC']} />
+              </div>
+            </div>
+
+            {/* AI & Machine Learning */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-purple-400 mb-4 font-heading">AI & Machine Learning</h3>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                <SkillCategory title="ML Frameworks" skills={['TensorFlow', 'PyTorch', 'Scikit-learn', 'Keras']} />
+                <SkillCategory title="Generative AI" skills={['OpenAI API', 'Claude API', 'LangChain', 'Hugging Face']} />
+                <SkillCategory title="NLP & CV" skills={['spaCy', 'NLTK', 'OpenCV', 'Transformers']} />
+                <SkillCategory title="MLOps" skills={['MLflow', 'DVC', 'Weights & Biases', 'Kubeflow']} />
+              </div>
+            </div>
+
+            {/* Cloud & DevOps */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-cyan-400 mb-4 font-heading">Cloud & DevOps</h3>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                <SkillCategory title="Cloud Platforms" skills={['AWS', 'Azure', 'GCP', 'Vercel', 'Netlify']} />
+                <SkillCategory title="Infrastructure" skills={['Docker', 'Kubernetes', 'Terraform', 'Ansible']} />
+                <SkillCategory title="CI/CD" skills={['GitHub Actions', 'Jenkins', 'GitLab CI', 'CircleCI']} />
+                <SkillCategory title="Monitoring" skills={['Prometheus', 'Grafana', 'ELK Stack', 'Datadog']} />
+              </div>
+            </div>
+
+            {/* Databases & Data */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-emerald-400 mb-4 font-heading">Databases & Data</h3>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                <SkillCategory title="Relational" skills={['PostgreSQL', 'MySQL', 'SQL Server', 'Oracle']} />
+                <SkillCategory title="NoSQL" skills={['MongoDB', 'Redis', 'Cassandra', 'DynamoDB']} />
+                <SkillCategory title="Data Processing" skills={['Apache Spark', 'Kafka', 'Airflow', 'Pandas']} />
+                <SkillCategory title="Analytics" skills={['Tableau', 'Power BI', 'Looker', 'Metabase']} />
+              </div>
+            </div>
+
+            {/* Cybersecurity & Quality */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-rose-400 mb-4 font-heading">Security & Quality Assurance</h3>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <SkillCategory title="Security" skills={['OWASP', 'JWT', 'OAuth', 'SSL/TLS', 'Penetration Testing']} />
+                <SkillCategory title="Testing" skills={['Jest', 'Cypress', 'Selenium', 'Postman', 'Playwright']} />
+                <SkillCategory title="Code Quality" skills={['SonarQube', 'Prettier', 'Husky', 'Conventional Commits']} />
+              </div>
+            </div>
+
+            {/* Emerging Technologies */}
+            <div>
+              <h3 className="text-lg font-semibold text-yellow-400 mb-4 font-heading">Emerging Technologies</h3>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                <SkillCategory title="Blockchain" skills={['Ethereum', 'Solidity', 'Web3.js', 'IPFS']} />
+                <SkillCategory title="IoT & Edge" skills={['MQTT', 'Arduino', 'Raspberry Pi', 'Edge Computing']} />
+                <SkillCategory title="AR/VR" skills={['Unity', 'Unreal Engine', 'WebXR', 'Three.js']} />
+                <SkillCategory title="Quantum Computing" skills={['Qiskit', 'Cirq', 'Quantum Algorithms']} />
+              </div>
             </div>
           </motion.section>
 
@@ -1849,6 +2040,299 @@ const AboutPage: React.FC = () => {
                 <span className="text-white/80">📍 Mumbai, India</span>
               </div>
             </div>
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const ContactPage: React.FC = () => {
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [submitStatus, setSubmitStatus] = React.useState<'idle' | 'success' | 'error'>('idle');
+  const [lastSubmissionTime, setLastSubmissionTime] = React.useState<number>(0);
+  const formRef = React.useRef<HTMLFormElement>(null);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    const now = Date.now();
+
+    // Rate limiting check
+    if (now - lastSubmissionTime < RATE_LIMIT_MS) {
+      setSubmitStatus('error');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const templateParams = {
+        from_name: data.name,
+        from_email: data.email,
+        subject: data.subject,
+        message: data.message,
+        to_email: 'meetshah1785@gmail.com',
+      };
+
+      await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
+        templateParams,
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
+
+      setSubmitStatus('success');
+      setLastSubmissionTime(now);
+      reset();
+    } catch (error) {
+      console.error('Email send failed:', error);
+
+      // Check if EmailJS is not configured
+      if (EMAILJS_CONFIG.SERVICE_ID === 'your_service_id') {
+        setSubmitStatus('error');
+        // Show configuration message
+        alert('Email service not configured. Please contact meetshah1785@gmail.com directly.');
+        return;
+      }
+
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageTransition}
+      className="pt-28 pb-16 min-h-screen"
+    >
+      <div className="max-w-4xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6 font-heading">
+            Get In <span className="bg-gradient-to-r from-sky-400 to-blue-600 bg-clip-text text-transparent">Touch</span>
+          </h1>
+          <p className="text-xl text-white/70 max-w-2xl mx-auto font-body">
+            Have a project in mind or want to discuss opportunities? I'd love to hear from you.
+          </p>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Contact Information */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-8"
+          >
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-6 font-heading">Let's Connect</h2>
+              <p className="text-white/70 mb-8 font-body">
+                I'm always open to discussing new opportunities, interesting projects, or just having a chat about technology.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div className="flex items-center space-x-4">
+                <div className="p-3 rounded-full bg-sky-500/20">
+                  <Mail className="w-6 h-6 text-sky-400" />
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold">Email</h3>
+                  <p className="text-white/60">meetshah1785@gmail.com</p>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <div className="p-3 rounded-full bg-blue-500/20">
+                  <Github className="w-6 h-6 text-blue-400" />
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold">GitHub</h3>
+                  <a href="https://github.com/meet1785" className="text-white/60 hover:text-blue-400 transition-colors">
+                    github.com/meet1785
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <div className="p-3 rounded-full bg-indigo-500/20">
+                  <Linkedin className="w-6 h-6 text-indigo-400" />
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold">LinkedIn</h3>
+                  <a href="https://linkedin.com/in/meetshah1708" className="text-white/60 hover:text-indigo-400 transition-colors">
+                    linkedin.com/in/meetshah1708
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <div className="p-3 rounded-full bg-emerald-500/20">
+                  <span className="w-6 h-6 text-emerald-400 flex items-center justify-center text-lg">📍</span>
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold">Location</h3>
+                  <p className="text-white/60">Mumbai, Maharashtra, India</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-sky-500/10 to-blue-500/10 border border-sky-500/20">
+              <h3 className="text-white font-semibold mb-2">Response Time</h3>
+              <p className="text-white/60 text-sm">
+                I typically respond within 24 hours. For urgent inquiries, feel free to call or connect on LinkedIn.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 shadow-2xl"
+          >
+            <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-white/80 mb-2">
+                  Full Name *
+                </label>
+                <input
+                  {...register('name')}
+                  type="text"
+                  id="name"
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  placeholder="Your full name"
+                />
+                {errors.name && (
+                  <p className="mt-1 text-sm text-red-400 flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    {errors.name.message}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-white/80 mb-2">
+                  Email Address *
+                </label>
+                <input
+                  {...register('email')}
+                  type="email"
+                  id="email"
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  placeholder="your.email@example.com"
+                />
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-400 flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="subject" className="block text-sm font-medium text-white/80 mb-2">
+                  Subject *
+                </label>
+                <input
+                  {...register('subject')}
+                  type="text"
+                  id="subject"
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  placeholder="What's this about?"
+                />
+                {errors.subject && (
+                  <p className="mt-1 text-sm text-red-400 flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    {errors.subject.message}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-white/80 mb-2">
+                  Message *
+                </label>
+                <textarea
+                  {...register('message')}
+                  id="message"
+                  rows={6}
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all resize-none"
+                  placeholder="Tell me about your project or opportunity..."
+                />
+                {errors.message && (
+                  <p className="mt-1 text-sm text-red-400 flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    {errors.message.message}
+                  </p>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Sending...
+                  </>
+                ) : submitStatus === 'success' ? (
+                  <>
+                    <CheckCircle className="w-5 h-5" />
+                    Message Sent!
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    Send Message
+                  </>
+                )}
+              </button>
+
+              {submitStatus === 'error' && (
+                <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
+                  <div className="flex items-center gap-2 text-red-400">
+                    <AlertCircle className="w-5 h-5" />
+                    <span className="font-medium">Failed to send message</span>
+                  </div>
+                  <p className="text-red-300 text-sm mt-1">
+                    Please try again or contact me directly at meetshah1785@gmail.com
+                  </p>
+                </div>
+              )}
+
+              {submitStatus === 'success' && (
+                <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20">
+                  <div className="flex items-center gap-2 text-green-400">
+                    <CheckCircle className="w-5 h-5" />
+                    <span className="font-medium">Message sent successfully!</span>
+                  </div>
+                  <p className="text-green-300 text-sm mt-1">
+                    Thank you for reaching out. I'll get back to you soon!
+                  </p>
+                </div>
+              )}
+            </form>
           </motion.div>
         </div>
       </div>
