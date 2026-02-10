@@ -1507,19 +1507,32 @@ const ResumePage: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
           >
-            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 font-heading">Virtual Experience Programs</h2>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="p-2 rounded-lg bg-indigo-500/20">
+                <Rocket className="w-6 h-6 text-indigo-400" />
+              </div>
+              <h2 className="text-2xl lg:text-3xl font-bold text-white font-heading">Virtual Experience Programs</h2>
+            </div>
             <div className="space-y-6">
-              <div className="border-l-4 border-blue-600 pl-6">
+              <div className="border-l-4 border-red-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
+                <h3 className="text-lg font-bold text-white font-heading">Wells Fargo – Software Engineering Job Simulation | Forage</h3>
+                <p className="text-white/70 font-body">Completed software engineering simulation focusing on enterprise development practices</p>
+                <p className="text-white/50 text-sm mt-1">Aug 2025</p>
+              </div>
+              <div className="border-l-4 border-blue-600 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-lg font-bold text-white font-heading">JP Morgan – Advanced Software Engineering | Forage</h3>
                 <p className="text-white/70 font-body">Created a live stock dashboard using Python and JPM's Perspective library</p>
+                <p className="text-white/50 text-sm mt-1">Sep 2024</p>
               </div>
-              <div className="border-l-4 border-yellow-500 pl-6">
+              <div className="border-l-4 border-yellow-500 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-lg font-bold text-white font-heading">Goldman Sachs – Software Engineering | Forage</h3>
                 <p className="text-white/70 font-body">Optimized Python code and implemented unit tests to improve performance</p>
+                <p className="text-white/50 text-sm mt-1">Feb 2025</p>
               </div>
-              <div className="border-l-4 border-green-600 pl-6">
+              <div className="border-l-4 border-green-600 pl-6 hover:bg-white/5 py-3 rounded-r-xl transition-colors">
                 <h3 className="text-lg font-bold text-white font-heading">Deloitte Australia – Data Analytics | Forage</h3>
                 <p className="text-white/70 font-body">Built Tableau dashboards and analyzed data to support decisions</p>
+                <p className="text-white/50 text-sm mt-1">Jun 2025</p>
               </div>
             </div>
           </motion.section>
@@ -1555,20 +1568,117 @@ const ResumePage: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.7 }}
             className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl"
           >
-            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-8 font-heading">Certifications & Training</h2>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="bg-white/5 rounded-xl p-4">
-                <h3 className="text-white font-semibold">Google Cybersecurity Certificate (Coursera)</h3>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="p-2 rounded-lg bg-indigo-500/20">
+                <Award className="w-6 h-6 text-indigo-400" />
               </div>
-              <div className="bg-white/5 rounded-xl p-4">
-                <h3 className="text-white font-semibold">Google Arcade Facilitator (50+ GCP Skill Badges)</h3>
+              <h2 className="text-2xl lg:text-3xl font-bold text-white font-heading">Certifications & Training</h2>
+            </div>
+            
+            {/* AI & Cloud Certifications */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-sky-400 mb-4 font-heading">AI & Cloud Technologies</h3>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-xl p-5 hover:border-blue-500/40 transition-all">
+                  <h3 className="text-white font-semibold mb-1">Microsoft Azure AI Essentials Professional Certificate</h3>
+                  <p className="text-white/50 text-xs mb-2">Microsoft & LinkedIn • Feb 2026</p>
+                  <p className="text-white/60 text-sm">Azure AI Studio, Generative AI, NLP</p>
+                </div>
+                <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-xl p-5 hover:border-purple-500/40 transition-all">
+                  <h3 className="text-white font-semibold mb-1">Google Arcade Facilitator</h3>
+                  <p className="text-white/50 text-xs mb-2">Google Cloud Platform • 2024</p>
+                  <p className="text-white/60 text-sm">50+ GCP Skill Badges Earned</p>
+                </div>
               </div>
-              <div className="bg-white/5 rounded-xl p-4">
-                <h3 className="text-white font-semibold">TCS CodeVita 2024 (Round 2 Qualifier)</h3>
+            </div>
+
+            {/* Backend & System Design */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-blue-400 mb-4 font-heading">Backend & System Design</h3>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="bg-gradient-to-br from-sky-500/10 to-blue-500/10 border border-sky-500/20 rounded-xl p-5 hover:border-sky-500/40 transition-all">
+                  <h3 className="text-white font-semibold mb-1">Backend System Design</h3>
+                  <p className="text-white/50 text-xs mb-2">Frontend Masters • Feb 2026</p>
+                  <p className="text-white/60 text-sm">Advanced system architecture patterns</p>
+                </div>
+                <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-xl p-5 hover:border-cyan-500/40 transition-all">
+                  <h3 className="text-white font-semibold mb-1">Introduction to Backend Architectures</h3>
+                  <p className="text-white/50 text-xs mb-2">Frontend Masters • Feb 2026</p>
+                  <p className="text-white/60 text-sm">Scalable backend development</p>
+                </div>
               </div>
-              <div className="bg-white/5 rounded-xl p-4">
-                <h3 className="text-white font-semibold">300+ DSA Problems Solved</h3>
-                <p className="text-white/60 text-sm">LeetCode, GeeksforGeeks, CodeChef</p>
+            </div>
+
+            {/* AI Development & Prompt Engineering */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-indigo-400 mb-4 font-heading">AI Development & Automation</h3>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 rounded-xl p-5 hover:border-indigo-500/40 transition-all">
+                  <h3 className="text-white font-semibold mb-1">Build an AI Agent from Scratch</h3>
+                  <p className="text-white/50 text-xs mb-2">Frontend Masters • Nov 2025</p>
+                  <p className="text-white/60 text-sm">AI agent architecture & implementation</p>
+                </div>
+                <div className="bg-gradient-to-br from-violet-500/10 to-indigo-500/10 border border-violet-500/20 rounded-xl p-5 hover:border-violet-500/40 transition-all">
+                  <h3 className="text-white font-semibold mb-1">Practical Prompt Engineering</h3>
+                  <p className="text-white/50 text-xs mb-2">Frontend Masters • Nov 2025</p>
+                  <p className="text-white/60 text-sm">LLM optimization & prompt design</p>
+                </div>
+                <div className="bg-gradient-to-br from-orange-500/10 to-amber-500/10 border border-orange-500/20 rounded-xl p-5 hover:border-orange-500/40 transition-all">
+                  <h3 className="text-white font-semibold mb-1">Claude Code in Action</h3>
+                  <p className="text-white/50 text-xs mb-2">Anthropic • Feb 2026</p>
+                  <p className="text-white/60 text-sm">AI-assisted development practices</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Business & Leadership */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-emerald-400 mb-4 font-heading">Business & Leadership</h3>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 rounded-xl p-5 hover:border-emerald-500/40 transition-all">
+                  <h3 className="text-white font-semibold mb-1">McKinsey.org Forward Program</h3>
+                  <p className="text-white/50 text-xs mb-2">McKinsey & Company • Dec 2025</p>
+                  <p className="text-white/60 text-sm">Leadership, Strategic Thinking, Business Storytelling</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Programming & Security */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-rose-400 mb-4 font-heading">Programming & Security</h3>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <div className="bg-gradient-to-br from-red-500/10 to-rose-500/10 border border-red-500/20 rounded-xl p-5 hover:border-red-500/40 transition-all">
+                  <h3 className="text-white font-semibold mb-1">Google Cybersecurity Specialization</h3>
+                  <p className="text-white/50 text-xs mb-2">Coursera • Jan 2024</p>
+                  <p className="text-white/60 text-sm">CompTIA Security+ aligned</p>
+                </div>
+                <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/20 rounded-xl p-5 hover:border-blue-500/40 transition-all">
+                  <h3 className="text-white font-semibold mb-1">Data Science Essentials with Python</h3>
+                  <p className="text-white/50 text-xs mb-2">Cisco • Sep 2025</p>
+                  <p className="text-white/60 text-sm">Data analysis & visualization</p>
+                </div>
+                <div className="bg-gradient-to-br from-indigo-500/10 to-blue-500/10 border border-indigo-500/20 rounded-xl p-5 hover:border-indigo-500/40 transition-all">
+                  <h3 className="text-white font-semibold mb-1">C++ Essentials 1</h3>
+                  <p className="text-white/50 text-xs mb-2">Cisco • Sep 2025</p>
+                  <p className="text-white/60 text-sm">Core C++ programming concepts</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Achievements */}
+            <div>
+              <h3 className="text-lg font-semibold text-yellow-400 mb-4 font-heading">Competitive Achievements</h3>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 rounded-xl p-5 hover:border-yellow-500/40 transition-all">
+                  <h3 className="text-white font-semibold mb-1">TCS CodeVita 2024</h3>
+                  <p className="text-white/50 text-xs mb-2">Tata Consultancy Services • 2024</p>
+                  <p className="text-white/60 text-sm">Round 2 Qualifier</p>
+                </div>
+                <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-xl p-5 hover:border-green-500/40 transition-all">
+                  <h3 className="text-white font-semibold mb-1">300+ DSA Problems Solved</h3>
+                  <p className="text-white/50 text-xs mb-2">Multiple Platforms • 2023-2025</p>
+                  <p className="text-white/60 text-sm">LeetCode, GeeksforGeeks, CodeChef</p>
+                </div>
               </div>
             </div>
           </motion.section>
