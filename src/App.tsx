@@ -1609,20 +1609,20 @@ const ResumePage: React.FC = () => {
             <div className="mb-8">
               <h3 className="text-lg font-semibold text-sky-400 mb-4 font-heading">Programming Languages</h3>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <SkillCategory title="Primary" skills={['Python', 'TypeScript', 'JavaScript', 'Java', 'C++']} />
-                <SkillCategory title="Scripting & Automation" skills={['Bash', 'PowerShell', 'SQL']} />
-                <SkillCategory title="Emerging" skills={['Rust', 'Go', 'Kotlin']} />
+                <SkillCategory title="Primary" skills={['Python', 'TypeScript', 'JavaScript', 'Java']} />
+                <SkillCategory title="Scripting & Query" skills={['Bash', 'SQL']} />
+                <SkillCategory title="Systems" skills={['C++']} />
               </div>
             </div>
 
             {/* Modern Web Development */}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold text-blue-400 mb-4 font-heading">Modern Web Development</h3>
+              <h3 className="text-lg font-semibold text-blue-400 mb-4 font-heading">Web Development</h3>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                <SkillCategory title="Frontend Frameworks" skills={['React', 'Next.js', 'Vue.js', 'Angular']} />
-                <SkillCategory title="Styling & UI" skills={['Tailwind CSS', 'Material-UI', 'Framer Motion', 'SASS']} />
-                <SkillCategory title="Build Tools" skills={['Vite', 'Webpack', 'Parcel', 'ESLint']} />
-                <SkillCategory title="State Management" skills={['Redux', 'Zustand', 'Context API', 'Recoil']} />
+                <SkillCategory title="Frontend" skills={['React', 'Next.js', 'TypeScript', 'Tailwind CSS']} />
+                <SkillCategory title="UI/UX" skills={['Framer Motion', 'CSS3', 'HTML5', 'Responsive Design']} />
+                <SkillCategory title="Build Tools" skills={['Vite', 'Webpack', 'ESLint', 'npm']} />
+                <SkillCategory title="Browser APIs" skills={['Chrome Extensions', 'Web APIs', 'Local Storage']} />
               </div>
             </div>
 
@@ -1630,9 +1630,9 @@ const ResumePage: React.FC = () => {
             <div className="mb-8">
               <h3 className="text-lg font-semibold text-indigo-400 mb-4 font-heading">Backend & APIs</h3>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <SkillCategory title="Runtime & Frameworks" skills={['Node.js', 'Express', 'FastAPI', 'Spring Boot', 'Django']} />
-                <SkillCategory title="API Technologies" skills={['REST', 'GraphQL', 'WebSocket', 'tRPC']} />
-                <SkillCategory title="Microservices" skills={['Docker', 'Kubernetes', 'RabbitMQ', 'gRPC']} />
+                <SkillCategory title="Frameworks" skills={['Node.js', 'Express', 'FastAPI', 'JWT']} />
+                <SkillCategory title="API Design" skills={['REST APIs', 'GraphQL', 'Postman']} />
+                <SkillCategory title="Authentication" skills={['OAuth', 'JWT', 'Session Management']} />
               </div>
             </div>
 
@@ -1640,32 +1640,31 @@ const ResumePage: React.FC = () => {
             <div className="mb-8">
               <h3 className="text-lg font-semibold text-purple-400 mb-4 font-heading">AI & Machine Learning</h3>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                <SkillCategory title="ML Frameworks" skills={['TensorFlow', 'PyTorch', 'Scikit-learn', 'Keras']} />
-                <SkillCategory title="Generative AI" skills={['OpenAI API', 'Claude API', 'LangChain', 'Hugging Face']} />
-                <SkillCategory title="NLP & CV" skills={['spaCy', 'NLTK', 'OpenCV', 'Transformers']} />
-                <SkillCategory title="MLOps" skills={['MLflow', 'DVC', 'Weights & Biases', 'Kubeflow']} />
+                <SkillCategory title="ML Frameworks" skills={['TensorFlow', 'Scikit-learn', 'OpenCV']} />
+                <SkillCategory title="Generative AI" skills={['OpenAI API', 'Google Gemini API', 'LangChain']} />
+                <SkillCategory title="Computer Vision" skills={['CNN', 'EfficientNet', 'VGG16', 'GradCAM']} />
+                <SkillCategory title="NLP" skills={['Text Processing', 'API Integration']} />
               </div>
             </div>
 
             {/* Cloud & DevOps */}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold text-cyan-400 mb-4 font-heading">Cloud & DevOps</h3>
+              <h3 className="text-lg font-semibold text-cyan-400 mb-4 font-heading">DevOps & Tools</h3>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                <SkillCategory title="Cloud Platforms" skills={['AWS', 'Azure', 'GCP', 'Vercel', 'Netlify']} />
-                <SkillCategory title="Infrastructure" skills={['Docker', 'Kubernetes', 'Terraform', 'Ansible']} />
-                <SkillCategory title="CI/CD" skills={['GitHub Actions', 'Jenkins', 'GitLab CI', 'CircleCI']} />
-                <SkillCategory title="Monitoring" skills={['Prometheus', 'Grafana', 'ELK Stack', 'Datadog']} />
+                <SkillCategory title="Version Control" skills={['Git', 'GitHub', 'GitHub Actions']} />
+                <SkillCategory title="Containerization" skills={['Docker', 'Docker Compose']} />
+                <SkillCategory title="Cloud Platforms" skills={['Vercel', 'Netlify', 'Firebase']} />
+                <SkillCategory title="Development" skills={['VS Code', 'Linux', 'npm', 'Postman']} />
               </div>
             </div>
 
-            {/* Databases & Data */}
+            {/* Databases */}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold text-emerald-400 mb-4 font-heading">Databases & Data</h3>
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                <SkillCategory title="Relational" skills={['PostgreSQL', 'MySQL', 'SQL Server', 'Oracle']} />
-                <SkillCategory title="NoSQL" skills={['MongoDB', 'Redis', 'Cassandra', 'DynamoDB']} />
-                <SkillCategory title="Data Processing" skills={['Apache Spark', 'Kafka', 'Airflow', 'Pandas']} />
-                <SkillCategory title="Analytics" skills={['Tableau', 'Power BI', 'Looker', 'Metabase']} />
+              <h3 className="text-lg font-semibold text-emerald-400 mb-4 font-heading">Databases</h3>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <SkillCategory title="NoSQL" skills={['MongoDB', 'Firebase']} />
+                <SkillCategory title="SQL" skills={['PostgreSQL', 'MySQL']} />
+                <SkillCategory title="Data Processing" skills={['Pandas', 'NumPy']} />
               </div>
             </div>
 
@@ -1673,20 +1672,9 @@ const ResumePage: React.FC = () => {
             <div className="mb-8">
               <h3 className="text-lg font-semibold text-rose-400 mb-4 font-heading">Security & Quality Assurance</h3>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <SkillCategory title="Security" skills={['OWASP', 'JWT', 'OAuth', 'SSL/TLS', 'Penetration Testing']} />
-                <SkillCategory title="Testing" skills={['Jest', 'Cypress', 'Selenium', 'Postman', 'Playwright']} />
-                <SkillCategory title="Code Quality" skills={['SonarQube', 'Prettier', 'Husky', 'Conventional Commits']} />
-              </div>
-            </div>
-
-            {/* Emerging Technologies */}
-            <div>
-              <h3 className="text-lg font-semibold text-yellow-400 mb-4 font-heading">Emerging Technologies</h3>
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                <SkillCategory title="Blockchain" skills={['Ethereum', 'Solidity', 'Web3.js', 'IPFS']} />
-                <SkillCategory title="IoT & Edge" skills={['MQTT', 'Arduino', 'Raspberry Pi', 'Edge Computing']} />
-                <SkillCategory title="AR/VR" skills={['Unity', 'Unreal Engine', 'WebXR', 'Three.js']} />
-                <SkillCategory title="Quantum Computing" skills={['Qiskit', 'Cirq', 'Quantum Algorithms']} />
+                <SkillCategory title="Security" skills={['JWT', 'OAuth', 'SSL/TLS', 'OWASP']} />
+                <SkillCategory title="Testing" skills={['Jest', 'Cypress', 'Postman', 'Playwright']} />
+                <SkillCategory title="Code Quality" skills={['ESLint', 'Prettier', 'Husky']} />
               </div>
             </div>
           </motion.section>

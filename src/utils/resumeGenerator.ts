@@ -137,12 +137,12 @@ export const generateResumeData = (): ResumeData => {
       }
     ],
     skills: {
-      "Programming Languages": ["Python", "TypeScript", "JavaScript", "Java", "SQL"],
-      "Frontend Development": ["React", "Next.js", "Tailwind CSS", "HTML5", "CSS3", "Framer Motion"],
-      "Backend Development": ["Node.js", "Express", "FastAPI", "REST APIs"],
-      "AI & Machine Learning": ["TensorFlow", "Scikit-learn", "OpenAI API", "NLP"],
+      "Programming Languages": ["Python", "TypeScript", "JavaScript", "Java", "C++", "Bash", "SQL"],
+      "Web Development": ["React", "Next.js", "Tailwind CSS", "HTML5", "CSS3", "Framer Motion"],
+      "Backend Development": ["Node.js", "Express", "FastAPI", "REST APIs", "JWT"],
+      "AI & Machine Learning": ["TensorFlow", "Scikit-learn", "OpenCV", "OpenAI API", "Google Gemini API"],
       "Databases": ["MongoDB", "PostgreSQL", "MySQL", "Firebase"],
-      "Tools & Technologies": ["Git", "Linux", "Postman", "Jest", "Docker", "Vite"]
+      "DevOps & Tools": ["Git", "GitHub Actions", "Docker", "VS Code", "Linux", "Postman", "npm"]
     },
     certifications: [
       {
