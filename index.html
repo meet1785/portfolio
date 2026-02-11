@@ -22,18 +22,142 @@
     <meta property="twitter:description" content="Full Stack Developer specializing in MERN stack, React, TypeScript, and modern web technologies." />
     <meta property="twitter:image" content="/meet.jpeg" />
     
-    <!-- Modern Google Fonts -->
+    <!-- Unique Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Nunito:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <title>Meet Shah | Full Stack Developer</title>
     <script type="module" crossorigin src="/portfolio/assets/index-gtstPFKf.js"></script>
     <link rel="modulepreload" crossorigin href="/portfolio/assets/react-vendor-r75027j3.js">
     <link rel="modulepreload" crossorigin href="/portfolio/assets/framer-motion-BehY5H-2.js">
     <link rel="stylesheet" crossorigin href="/portfolio/assets/index-DmBWeWDu.css">
+    <link rel="stylesheet" href="/portfolio/assets/custom-design.css">
+
+    <!-- Additional Dynamic Enhancements -->
+    <style>
+      /* Custom Cursor Effect */
+      body {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='%23FF6B35' opacity='0.3'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23F7931E'/%3E%3C/svg%3E") 12 12, auto;
+      }
+
+      a, button {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23FF6B35' opacity='0.5'/%3E%3Ccircle cx='12' cy='12' r='5' fill='%23FFF5E6'/%3E%3C/svg%3E") 12 12, pointer;
+      }
+
+      /* Enhanced Page Load Animation */
+      @keyframes pageReveal {
+        from {
+          opacity: 0;
+          transform: scale(0.98) translateY(20px);
+          filter: blur(10px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+          filter: blur(0);
+        }
+      }
+
+      #root {
+        animation: pageReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      /* Textured Grain Animation */
+      @keyframes grain {
+        0%, 100% { transform: translate(0, 0); }
+        10% { transform: translate(-5%, -5%); }
+        20% { transform: translate(-10%, 5%); }
+        30% { transform: translate(5%, -10%); }
+        40% { transform: translate(-5%, 15%); }
+        50% { transform: translate(-10%, 5%); }
+        60% { transform: translate(15%, 0); }
+        70% { transform: translate(0, 10%); }
+        80% { transform: translate(-15%, 0); }
+        90% { transform: translate(10%, 5%); }
+      }
+
+      #root::after {
+        animation: grain 8s steps(10) infinite;
+      }
+
+      /* Ambient Light Effect */
+      @keyframes ambientPulse {
+        0%, 100% {
+          opacity: 0.6;
+          filter: blur(80px);
+        }
+        50% {
+          opacity: 0.8;
+          filter: blur(100px);
+        }
+      }
+
+      .floating-orb {
+        animation: float-organic 15s ease-in-out infinite, ambientPulse 8s ease-in-out infinite;
+      }
+
+      /* Staggered Link Underline */
+      nav a {
+        position: relative;
+        overflow: hidden;
+      }
+
+      nav a::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, #FF6B35, #F7931E, #1A936F);
+        transform: translateX(-100%);
+        transition: transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+
+      nav a:hover::before {
+        transform: translateX(0);
+      }
+
+      /* Ripple Effect on Click */
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+
+      button {
+        position: relative;
+        overflow: hidden;
+      }
+
+      button::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 245, 230, 0.6);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      button:active::after {
+        width: 300px;
+        height: 300px;
+        animation: ripple 0.6s ease-out;
+      }
+    </style>
   </head>
   <body>
+    <!-- Floating Orbs for Atmospheric Background -->
+    <div class="orb-1 floating-orb"></div>
+    <div class="orb-2 floating-orb"></div>
+    <div class="orb-3 floating-orb"></div>
+
     <div id="root"></div>
   </body>
 </html>
