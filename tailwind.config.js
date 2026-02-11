@@ -6,39 +6,41 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#1a1a2e',
-          light: '#0f3460',
-          accent: '#e94560'
+          DEFAULT: '#1a1a1a',
+          light: '#2d2d2d',
+          accent: '#e07a5f'
         },
         text: {
-          primary: '#f8f9fa',
+          primary: '#f4f1de',
           secondary: '#e9ecef',
-          muted: '#dee2e6'
+          muted: '#a8a5a1'
         },
-        navy: '#1a1a2e',
-        electricBlue: '#0f3460',
-        vibrantRed: '#e94560',
-        lightGray: '#f8f9fa',
-        softWhite: '#ffffff',
+        burnt: '#e07a5f',
+        forest: '#3d5a3c',
+        cream: '#f4f1de',
+        charcoal: '#1a1a1a',
+        terracotta: '#c1502e',
+        olive: '#606c38',
+        sand: '#dda15e',
         dark: {
-          primary: '#0F172A',
-          secondary: '#1E293B',
-          accent: '#38BDF8'
+          primary: '#0d1117',
+          secondary: '#161b22',
+          accent: '#e07a5f'
         },
         glass: {
-          DEFAULT: 'rgba(255, 255, 255, 0.1)',
-          dark: 'rgba(0, 0, 0, 0.1)',
-          border: 'rgba(255, 255, 255, 0.05)',
-          background: 'rgba(26, 26, 46, 0.8)',
-          hover: 'rgba(255, 255, 255, 0.05)'
+          DEFAULT: 'rgba(244, 241, 222, 0.05)',
+          dark: 'rgba(0, 0, 0, 0.2)',
+          border: 'rgba(224, 122, 95, 0.15)',
+          background: 'rgba(26, 26, 26, 0.8)',
+          hover: 'rgba(224, 122, 95, 0.1)'
         }
       },
       fontFamily: {
-        primary: ['Inter', 'system-ui', 'sans-serif'],
-        secondary: ['Poppins', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
-        heading: ['Poppins', 'sans-serif'],
-        body: ['Inter', 'system-ui', 'sans-serif'],
+        primary: ['DM Sans', 'sans-serif'],
+        secondary: ['Playfair Display', 'serif'],
+        mono: ['IBM Plex Mono', 'monospace'],
+        heading: ['Playfair Display', 'serif'],
+        body: ['DM Sans', 'sans-serif'],
       },
       fontSize: {
         h1: ['64px', '1.2'],
@@ -68,14 +70,9 @@ export default {
         'glass-gradient-dark': 'linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.1))'
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-in',
-        'slide-up': 'slideUp 0.5s ease-out',
-        'scale-in': 'scaleIn 0.3s ease-out',
-        'bounce-light': 'bounce 1s ease-in-out infinite',
-        'float': 'float 6s ease-in-out infinite',
-        'glow': 'glow 2s ease-in-out infinite alternate',
-        'slide-in': 'slideIn 0.5s ease-out',
-        'blob': 'blob 7s infinite'
+        'fade-in': 'fadeIn 0.6s ease-out',
+        'slide-up': 'slideUp 0.6s ease-out',
+        'scale-in': 'scaleIn 0.4s ease-out',
       },
       keyframes: {
         fadeIn: {
@@ -83,31 +80,13 @@ export default {
           '100%': { opacity: '1' },
         },
         slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '0%': { transform: 'translateY(30px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
         scaleIn: {
-          '0%': { transform: 'scale(0.9)', opacity: '0' },
+          '0%': { transform: 'scale(0.95)', opacity: '0' },
           '100%': { transform: 'scale(1)', opacity: '1' },
         },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' }
-        },
-        glow: {
-          '0%': { boxShadow: '0 0 5px rgba(56, 189, 248, 0.5)' },
-          '100%': { boxShadow: '0 0 20px rgba(56, 189, 248, 0.8)' }
-        },
-        slideIn: {
-          '0%': { transform: 'translateX(-100%)', opacity: 0 },
-          '100%': { transform: 'translateX(0)', opacity: 1 }
-        },
-        blob: {
-          '0%': { transform: 'translate(0px, 0px) scale(1)' },
-          '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-          '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-          '100%': { transform: 'translate(0px, 0px) scale(1)' }
-        }
       }
     }
   },

@@ -9,51 +9,25 @@
   }
   
   body {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'DM Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 }
 
 @layer utilities {
-  .animation-delay-2000 {
-    animation-delay: 2s;
+  .animation-delay-200 {
+    animation-delay: 0.2s;
   }
-  
-  .animation-delay-4000 {
-    animation-delay: 4s;
+
+  .animation-delay-400 {
+    animation-delay: 0.4s;
   }
-  
-  /* Advanced Animations */
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
+
+  .animation-delay-600 {
+    animation-delay: 0.6s;
   }
-  
-  .animate-pulse-slow {
-    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-  
-  .animate-bounce-slow {
-    animation: bounce 3s infinite;
-  }
-  
-  .animate-spin-slow {
-    animation: spin 8s linear infinite;
-  }
-  
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient 3s ease infinite;
-  }
-  
-  .animate-shimmer {
-    animation: shimmer 2s linear infinite;
-  }
-  
-  .animate-glow {
-    animation: glow 2s ease-in-out infinite alternate;
-  }
-  
+
   /* Line clamp utility */
   .line-clamp-3 {
     overflow: hidden;
@@ -61,92 +35,52 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   }
-  
-  /* Glassmorphism utilities */
+
+  /* Reduced glassmorphism - less blur for better performance */
   .glass {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
-  
+
   .glass-border {
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(224, 122, 95, 0.2);
   }
-  
-  /* Custom scrollbar */
+
+  /* Custom scrollbar with new colors */
   .custom-scrollbar::-webkit-scrollbar {
     width: 8px;
   }
-  
+
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(224, 122, 95, 0.1);
     border-radius: 4px;
   }
-  
+
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(224, 122, 95, 0.4);
     border-radius: 4px;
   }
-  
+
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
-  }
-}
-
-/* Keyframe Animations */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
-}
-
-@keyframes glow {
-  from {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-  }
-  to {
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.8), 0 0 40px rgba(147, 51, 234, 0.5);
+    background: rgba(224, 122, 95, 0.6);
   }
 }
 
 /* Typography improvements */
 .font-primary {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .font-heading {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Playfair Display', serif;
 }
 
 .font-body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .font-mono {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 /* Enhanced hover effects */
