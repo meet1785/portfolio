@@ -35,9 +35,9 @@
     <style>
       /* Fix desktop UI flickering caused by heavy continuous animations */
 
-      /* Smooth out neon-flicker: remove opacity dips that cause visible flicker */
+      /* Smooth out neon-flicker: keep constant opacity to prevent visible flicker */
       @keyframes neon-flicker {
-        0%, 50%, 52%, 54%, 100% { opacity: 1; }
+        0%, 100% { opacity: 1; }
       }
 
       /* Hardware-accelerate all continuously animated elements */
@@ -51,8 +51,7 @@
       .orb-float {
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
-        -webkit-perspective: 1000px;
-        perspective: 1000px;
+        transform: translateZ(0);
       }
 
       /* Contain layout reflows from animated sections */
@@ -60,7 +59,7 @@
       .project-card,
       .card-lift,
       .hover-lift {
-        contain: layout style;
+        contain: layout style paint;
       }
 
       /* Prevent initial content flash before JS hydration */
