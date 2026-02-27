@@ -32,6 +32,49 @@
     <link rel="modulepreload" crossorigin href="/portfolio/assets/react-vendor-DNq4ZBVs.js">
     <link rel="modulepreload" crossorigin href="/portfolio/assets/framer-motion-DO2kVj14.js">
     <link rel="stylesheet" crossorigin href="/portfolio/assets/index-DOMTkXyY.css">
+    <style>
+      /* Fix desktop UI flickering caused by heavy continuous animations */
+
+      /* Smooth out neon-flicker: keep constant opacity to prevent visible flicker */
+      @keyframes neon-flicker {
+        0%, 100% { opacity: 1; }
+      }
+
+      /* Hardware-accelerate all continuously animated elements */
+      .will-change-transform,
+      .orbit-ring,
+      .floating-orb,
+      .float-badge,
+      .neon-text,
+      .skill-orbit,
+      .particle-float,
+      .orb-float {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        transform: translateZ(0);
+      }
+
+      /* Contain layout reflows from animated sections */
+      .glass-card,
+      .project-card,
+      .card-lift,
+      .hover-lift {
+        contain: layout style paint;
+      }
+
+      /* Prevent initial content flash before JS hydration */
+      #root {
+        min-height: 100vh;
+      }
+
+      /* Reduce paint complexity of gradient animations on desktop */
+      @media (min-width: 1024px) {
+        .aurora-shift,
+        .gradient-border-spin {
+          animation-timing-function: linear;
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
