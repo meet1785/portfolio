@@ -1,5 +1,5 @@
 /* Import Google Fonts - must be first */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,18 +7,28 @@
 
 /* Minimal Modern Design System */
 @layer base {
+  :root {
+    --bg-primary: #040814;
+    --bg-secondary: #070d1f;
+    --text-primary: #eff7ff;
+    --text-secondary: rgba(239, 247, 255, 0.7);
+    --accent-cyan: #67e8f9;
+    --accent-indigo: #818cf8;
+    --accent-teal: #2dd4bf;
+  }
+
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 100px;
   }
   
   body {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Manrope', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #030712;
+    background: radial-gradient(circle at 20% 20%, #0b1733 0%, #050a17 48%, #030712 100%);
     overflow-x: hidden;
-    color: #f8fafc;
+    color: var(--text-primary);
     letter-spacing: -0.01em;
   }
 
@@ -35,9 +45,9 @@
 
   /* Typography */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Sora', sans-serif;
     letter-spacing: -0.03em;
-    font-weight: 500;
+    font-weight: 600;
   }
 }
 
@@ -81,10 +91,40 @@
   }
 
   .text-gradient-accent {
-    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #6366f1 100%);
+    background: linear-gradient(140deg, #67e8f9 0%, #7dd3fc 32%, #818cf8 68%, #2dd4bf 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .cinematic-surface {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 18px 64px rgba(2, 6, 23, 0.45);
+  }
+
+  .cinematic-outline {
+    border: 1px solid rgba(103, 232, 249, 0.3);
+    box-shadow: 0 0 0 1px rgba(103, 232, 249, 0.12), 0 0 46px rgba(56, 189, 248, 0.2);
+  }
+
+  .hero-gradient-title {
+    background: linear-gradient(120deg, #ffffff 0%, #c7e7ff 28%, #8be5ff 56%, #95a5ff 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: hero-gradient-flow 9s ease-in-out infinite;
+  }
+
+  .section-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(186, 230, 253, 0.82);
+    font-size: 11px;
   }
 
   /* Blur utilities */
@@ -273,16 +313,16 @@
 
 /* Typography improvements */
 .font-primary {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Manrope', system-ui, sans-serif;
 }
 
 .font-heading {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Sora', sans-serif;
   letter-spacing: -0.02em;
 }
 
 .font-body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Manrope', system-ui, sans-serif;
 }
 
 .font-mono {
@@ -309,6 +349,16 @@
 @keyframes gradient-text-flow {
   0% { background-position: 0% 50%; }
   100% { background-position: 300% 50%; }
+}
+
+@keyframes hero-gradient-flow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* Enhanced hover effects */

@@ -1,4 +1,3 @@
-/// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
@@ -18,6 +17,7 @@ export default defineConfig({
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'framer-motion': ['framer-motion'],
+          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
         },
       },
     },
@@ -27,10 +27,5 @@ export default defineConfig({
     target: 'es2020',
     // Chunk size warning limit
     chunkSizeWarningLimit: 1000,
-  },
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./src/test/setup.ts'],
   },
 });

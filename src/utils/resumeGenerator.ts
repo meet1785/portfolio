@@ -51,7 +51,7 @@ export interface ResumeData {
 export const generateResumeData = (): ResumeData => {
   return {
     personalInfo: {
-      name: "Meet Timir Shah",
+      name: "Meet Shah",
       title: "Full Stack Developer & AI Engineer",
       email: "meetshah1785@gmail.com",
       phone: "+91-XXXXXXXXXX",
