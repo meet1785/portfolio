@@ -5,6 +5,7 @@ import { ThemeProvider} from './context/ThemeContext';
 import { motion, AnimatePresence, useScroll, useMotionValue, useSpring } from 'framer-motion';
 import { pageTransition, fadeInUp, staggerContainer, cardHover3D } from './utils/animations';
 import { useDebounce } from './utils/useDebounce';
+import { useLocalStorage } from './utils/useLocalStorage';
 import { EMAILJS_CONFIG, RATE_LIMIT_MS } from './utils/emailConfig';
 import { generatePDFResume, generateDOCXResume, generateResumeData } from './utils/resumeGenerator';
 import { PortfolioBackgroundScene } from './components/scene/PortfolioBackgroundScene';
@@ -1145,7 +1146,7 @@ const LandingPage: React.FC = () => {
 };
 
 const WorksPage: React.FC = () => {
-  const [selectedFilter, setSelectedFilter] = React.useState<string>('All');
+  const [selectedFilter, setSelectedFilter] = useLocalStorage<string>('works-filter', 'All');
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const debouncedFilter = useDebounce(selectedFilter, 50);
   
