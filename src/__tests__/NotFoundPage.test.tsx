@@ -121,11 +121,20 @@ describe('NotFoundPage', () => {
       </MemoryRouter>
     );
 
-    // Quick link labels within the NotFoundPage grid
+    // Verify all 5 quick navigation links are present
     const homeLinks = screen.getAllByRole('link', { name: /home/i });
     expect(homeLinks.length).toBeGreaterThanOrEqual(1);
 
     const workLinks = screen.getAllByRole('link', { name: /work/i });
     expect(workLinks.length).toBeGreaterThanOrEqual(1);
+
+    const resumeLinks = screen.getAllByRole('link', { name: /resume/i });
+    expect(resumeLinks.length).toBeGreaterThanOrEqual(1);
+
+    const aboutLinks = screen.getAllByRole('link', { name: /about/i });
+    expect(aboutLinks.length).toBeGreaterThanOrEqual(1);
+
+    const contactLinks = screen.getAllByRole('link', { name: /contact/i });
+    expect(contactLinks.length).toBeGreaterThanOrEqual(1);
   });
 });
