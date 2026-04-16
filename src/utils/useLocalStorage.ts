@@ -91,7 +91,7 @@ export function useLocalStorage<T>(
       setStoredValue(readValue(event.newValue));
     };
 
-    const handleLocalChange = (event: Event) => {
+    const handleLocalChange: EventListener = (event) => {
       const customEvent = event as CustomEvent<LocalStorageChangeDetail>;
       if (customEvent.detail.key !== key) {
         return;
@@ -101,13 +101,13 @@ export function useLocalStorage<T>(
     };
 
     window.addEventListener('storage', handleStorage);
-    window.addEventListener(LOCAL_STORAGE_CHANGE_EVENT, handleLocalChange as EventListener);
+    window.addEventListener(LOCAL_STORAGE_CHANGE_EVENT, handleLocalChange);
 
     return () => {
       window.removeEventListener('storage', handleStorage);
-      window.removeEventListener(LOCAL_STORAGE_CHANGE_EVENT, handleLocalChange as EventListener);
+      window.removeEventListener(LOCAL_STORAGE_CHANGE_EVENT, handleLocalChange);
     };
-  }, [key, initialValue, readValue]);
+  }, [key, readValue]);
 
   return [storedValue, setValue, removeValue];
 }
