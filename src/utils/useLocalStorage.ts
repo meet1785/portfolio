@@ -1,6 +1,10 @@
 import { useState, useCallback, useEffect } from 'react';
 
 const LOCAL_STORAGE_CHANGE_EVENT = 'local-storage-change';
+type LocalStorageChangeDetail = {
+  key: string;
+  rawValue: string | null;
+};
 
 /**
  * Custom hook for reading and writing a value to localStorage with type safety.
@@ -41,10 +45,11 @@ export function useLocalStorage<T>(
         setStoredValue((prev) => {
           const valueToStore = value instanceof Function ? value(prev) : value;
           if (typeof window !== 'undefined') {
-            window.localStorage.setItem(key, JSON.stringify(valueToStore));
+            const rawValue = JSON.stringify(valueToStore);
+            window.localStorage.setItem(key, rawValue);
             window.dispatchEvent(
               new CustomEvent(LOCAL_STORAGE_CHANGE_EVENT, {
-                detail: { key, value: valueToStore },
+                detail: { key, rawValue } satisfies LocalStorageChangeDetail,
               })
             );
           }
@@ -64,7 +69,7 @@ export function useLocalStorage<T>(
         window.localStorage.removeItem(key);
         window.dispatchEvent(
           new CustomEvent(LOCAL_STORAGE_CHANGE_EVENT, {
-            detail: { key, value: null },
+            detail: { key, rawValue: null } satisfies LocalStorageChangeDetail,
           })
         );
       }
@@ -87,12 +92,12 @@ export function useLocalStorage<T>(
     };
 
     const handleLocalChange = (event: Event) => {
-      const customEvent = event as CustomEvent<{ key?: string; value?: T | null }>;
-      if (customEvent.detail?.key !== key) {
+      const customEvent = event as CustomEvent<LocalStorageChangeDetail>;
+      if (customEvent.detail.key !== key) {
         return;
       }
 
-      setStoredValue(customEvent.detail.value === null ? initialValue : (customEvent.detail.value as T));
+      setStoredValue(readValue(customEvent.detail.rawValue));
     };
 
     window.addEventListener('storage', handleStorage);
