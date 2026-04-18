@@ -85,4 +85,49 @@ describe('useLocalStorage', () => {
     const { result } = renderHook(() => useLocalStorage('key', 'fallback'));
     expect(result.current[0]).toBe('fallback');
   });
+
+  it('syncs state when a storage event updates the same key', () => {
+    const { result } = renderHook(() => useLocalStorage('key', 'default'));
+
+    act(() => {
+      window.dispatchEvent(
+        new StorageEvent('storage', {
+          key: 'key',
+          newValue: JSON.stringify('external'),
+          storageArea: window.localStorage,
+        })
+      );
+    });
+
+    expect(result.current[0]).toBe('external');
+  });
+
+  it('resets to initial value when a storage event removes the key', () => {
+    localStorage.setItem('key', JSON.stringify('persisted'));
+    const { result } = renderHook(() => useLocalStorage('key', 'default'));
+
+    act(() => {
+      window.dispatchEvent(
+        new StorageEvent('storage', {
+          key: 'key',
+          newValue: null,
+          storageArea: window.localStorage,
+        })
+      );
+    });
+
+    expect(result.current[0]).toBe('default');
+  });
+
+  it('keeps multiple hook instances in sync in the same tab', () => {
+    const first = renderHook(() => useLocalStorage('shared', 'initial'));
+    const second = renderHook(() => useLocalStorage('shared', 'initial'));
+
+    act(() => {
+      first.result.current[1]('updated');
+    });
+
+    expect(first.result.current[0]).toBe('updated');
+    expect(second.result.current[0]).toBe('updated');
+  });
 });
