@@ -594,10 +594,10 @@ const AppContent: React.FC = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-3 z-10 ml-4">
-             <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+             <a aria-label="GitHub Profile" href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded-full p-1">
                <Github className="w-5 h-5" />
              </a>
-             <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+             <a aria-label="LinkedIn Profile" href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded-full p-1">
                <Linkedin className="w-5 h-5" />
              </a>
              <Link to="/contact" className="ml-2 bg-white text-black hover:bg-cyan-400 hover:text-black hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 transform hover:scale-105">
@@ -640,10 +640,10 @@ const AppContent: React.FC = () => {
                   </NavLink>
                 ))}
                 <div className="flex items-center gap-4 px-4 py-3 mt-2 mb-1 border-t border-white/10">
-                   <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white">
+                   <a aria-label="GitHub Profile" href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded-full p-1">
                      <Github className="w-5 h-5" />
                    </a>
-                   <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white">
+                   <a aria-label="LinkedIn Profile" href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded-full p-1">
                      <Linkedin className="w-5 h-5" />
                    </a>
                    <div className="flex-1" />
