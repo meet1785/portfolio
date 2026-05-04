@@ -594,10 +594,10 @@ const AppContent: React.FC = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-3 z-10 ml-4">
-             <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+             <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors" aria-label="GitHub Profile">
                <Github className="w-5 h-5" />
              </a>
-             <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+             <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn Profile">
                <Linkedin className="w-5 h-5" />
              </a>
              <Link to="/contact" className="ml-2 bg-white text-black hover:bg-cyan-400 hover:text-black hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 transform hover:scale-105">
@@ -640,10 +640,10 @@ const AppContent: React.FC = () => {
                   </NavLink>
                 ))}
                 <div className="flex items-center gap-4 px-4 py-3 mt-2 mb-1 border-t border-white/10">
-                   <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white">
+                   <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white" aria-label="GitHub Profile">
                      <Github className="w-5 h-5" />
                    </a>
-                   <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white">
+                   <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white" aria-label="LinkedIn Profile">
                      <Linkedin className="w-5 h-5" />
                    </a>
                    <div className="flex-1" />
@@ -2467,6 +2467,7 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
               className="group/link inline-flex items-center space-x-2 text-sky-400 hover:text-sky-300 transition-colors font-medium text-sm"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              aria-label="View Live Demo"
             >
               <span className="flex items-center space-x-1.5 bg-sky-500/10 px-3 py-1.5 rounded-lg border border-sky-500/20 group-hover/link:bg-sky-500/20 transition-colors">
                 <ExternalLink className="w-4 h-4" />
@@ -2481,6 +2482,7 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
             className="group/github inline-flex items-center space-x-2 text-white/60 hover:text-white transition-colors font-medium text-sm"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            aria-label="View Source Code"
           >
             <span className="flex items-center space-x-1.5 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10 group-hover/github:bg-white/10 transition-colors">
               <Github className="w-4 h-4" />
