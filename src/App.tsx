@@ -1,7 +1,7 @@
 import React from 'react';
-import { Github, Linkedin, Mail, FileText, Briefcase, ExternalLink, Download, Menu, X, ArrowRight, Sparkles, Code2, Zap, Rocket, Award, GraduationCap, Send, CheckCircle, AlertCircle, Loader2, Activity, BarChart3, Flame, TrendingUp } from 'lucide-react';
+import { Github, Linkedin, Mail, FileText, Briefcase, ExternalLink, Download, Menu, X, ArrowRight, Sparkles, Code2, Zap, Rocket, Award, GraduationCap, Send, CheckCircle, AlertCircle, Loader2, Activity, BarChart3, Flame, TrendingUp, Sun, Moon } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Link, NavLink } from 'react-router-dom';
-import { ThemeProvider} from './context/ThemeContext';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { motion, AnimatePresence, useScroll, useMotionValue, useSpring } from 'framer-motion';
 import { pageTransition, fadeInUp, staggerContainer, cardHover3D } from './utils/animations';
 import { useDebounce } from './utils/useDebounce';
@@ -514,6 +514,7 @@ const skillIcons: Record<string, string> = {
 };
 
 const AppContent: React.FC = () => {
+  const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
   const navItems = React.useMemo(
@@ -600,6 +601,13 @@ const AppContent: React.FC = () => {
              <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
                <Linkedin className="w-5 h-5" />
              </a>
+             <button
+               onClick={toggleTheme}
+               className="ml-2 text-slate-400 hover:text-white transition-colors p-2 rounded-full hover:bg-white/5"
+               aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+             >
+               {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+             </button>
              <Link to="/contact" className="ml-2 bg-white text-black hover:bg-cyan-400 hover:text-black hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 transform hover:scale-105">
                Let's Talk
              </Link>
@@ -646,6 +654,13 @@ const AppContent: React.FC = () => {
                    <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white">
                      <Linkedin className="w-5 h-5" />
                    </a>
+                   <button
+                     onClick={() => { toggleTheme(); closeMobileMenu(); }}
+                     className="text-slate-400 hover:text-white transition-colors p-2 rounded-full hover:bg-white/5"
+                     aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+                   >
+                     {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                   </button>
                    <div className="flex-1" />
                    <Link to="/contact" onClick={closeMobileMenu} className="bg-white text-black px-4 py-1.5 rounded-full text-sm font-bold text-center">
                      Hire Me
