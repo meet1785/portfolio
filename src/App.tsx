@@ -594,11 +594,11 @@ const AppContent: React.FC = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-3 z-10 ml-4">
-             <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
-               <Github className="w-5 h-5" />
+             <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors" aria-label="GitHub Profile">
+               <Github className="w-5 h-5" aria-hidden="true" />
              </a>
-             <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
-               <Linkedin className="w-5 h-5" />
+             <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors" aria-label="LinkedIn Profile">
+               <Linkedin className="w-5 h-5" aria-hidden="true" />
              </a>
              <Link to="/contact" className="ml-2 bg-white text-black hover:bg-cyan-400 hover:text-black hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 transform hover:scale-105">
                Let's Talk
@@ -640,11 +640,11 @@ const AppContent: React.FC = () => {
                   </NavLink>
                 ))}
                 <div className="flex items-center gap-4 px-4 py-3 mt-2 mb-1 border-t border-white/10">
-                   <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white">
-                     <Github className="w-5 h-5" />
+                   <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white" aria-label="GitHub Profile">
+                     <Github className="w-5 h-5" aria-hidden="true" />
                    </a>
-                   <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white">
-                     <Linkedin className="w-5 h-5" />
+                   <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white" aria-label="LinkedIn Profile">
+                     <Linkedin className="w-5 h-5" aria-hidden="true" />
                    </a>
                    <div className="flex-1" />
                    <Link to="/contact" onClick={closeMobileMenu} className="bg-white text-black px-4 py-1.5 rounded-full text-sm font-bold text-center">
