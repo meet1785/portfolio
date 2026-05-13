@@ -594,10 +594,10 @@ const AppContent: React.FC = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-3 z-10 ml-4">
-             <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+             <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="text-slate-400 hover:text-white transition-colors">
                <Github className="w-5 h-5" />
              </a>
-             <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+             <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="text-slate-400 hover:text-white transition-colors">
                <Linkedin className="w-5 h-5" />
              </a>
              <Link to="/contact" className="ml-2 bg-white text-black hover:bg-cyan-400 hover:text-black hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 transform hover:scale-105">
@@ -640,10 +640,10 @@ const AppContent: React.FC = () => {
                   </NavLink>
                 ))}
                 <div className="flex items-center gap-4 px-4 py-3 mt-2 mb-1 border-t border-white/10">
-                   <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white">
+                   <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="text-slate-400 hover:text-white">
                      <Github className="w-5 h-5" />
                    </a>
-                   <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white">
+                   <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="text-slate-400 hover:text-white">
                      <Linkedin className="w-5 h-5" />
                    </a>
                    <div className="flex-1" />
@@ -2186,11 +2186,15 @@ const ContactPage: React.FC = () => {
                   {...register('name')}
                   type="text"
                   id="name"
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? "name-error" : undefined}
+                  className={`w-full px-4 py-3 rounded-xl bg-white/10 border text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:border-transparent transition-all ${
+                    errors.name ? 'border-red-500 focus:ring-red-500' : 'border-white/20 focus:ring-sky-500'
+                  }`}
                   placeholder="Your full name"
                 />
                 {errors.name && (
-                  <p className="mt-1 text-sm text-red-400 flex items-center gap-1">
+                  <p id="name-error" className="mt-1 text-sm text-red-400 flex items-center gap-1">
                     <AlertCircle className="w-4 h-4" />
                     {errors.name.message}
                   </p>
@@ -2205,11 +2209,15 @@ const ContactPage: React.FC = () => {
                   {...register('email')}
                   type="email"
                   id="email"
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? "email-error" : undefined}
+                  className={`w-full px-4 py-3 rounded-xl bg-white/10 border text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:border-transparent transition-all ${
+                    errors.email ? 'border-red-500 focus:ring-red-500' : 'border-white/20 focus:ring-sky-500'
+                  }`}
                   placeholder="your.email@example.com"
                 />
                 {errors.email && (
-                  <p className="mt-1 text-sm text-red-400 flex items-center gap-1">
+                  <p id="email-error" className="mt-1 text-sm text-red-400 flex items-center gap-1">
                     <AlertCircle className="w-4 h-4" />
                     {errors.email.message}
                   </p>
@@ -2224,11 +2232,15 @@ const ContactPage: React.FC = () => {
                   {...register('subject')}
                   type="text"
                   id="subject"
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  aria-invalid={!!errors.subject}
+                  aria-describedby={errors.subject ? "subject-error" : undefined}
+                  className={`w-full px-4 py-3 rounded-xl bg-white/10 border text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:border-transparent transition-all ${
+                    errors.subject ? 'border-red-500 focus:ring-red-500' : 'border-white/20 focus:ring-sky-500'
+                  }`}
                   placeholder="What's this about?"
                 />
                 {errors.subject && (
-                  <p className="mt-1 text-sm text-red-400 flex items-center gap-1">
+                  <p id="subject-error" className="mt-1 text-sm text-red-400 flex items-center gap-1">
                     <AlertCircle className="w-4 h-4" />
                     {errors.subject.message}
                   </p>
@@ -2243,11 +2255,15 @@ const ContactPage: React.FC = () => {
                   {...register('message')}
                   id="message"
                   rows={6}
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all resize-none"
+                  aria-invalid={!!errors.message}
+                  aria-describedby={errors.message ? "message-error" : undefined}
+                  className={`w-full px-4 py-3 rounded-xl bg-white/10 border text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:border-transparent transition-all resize-none ${
+                    errors.message ? 'border-red-500 focus:ring-red-500' : 'border-white/20 focus:ring-sky-500'
+                  }`}
                   placeholder="Tell me about your project or opportunity..."
                 />
                 {errors.message && (
-                  <p className="mt-1 text-sm text-red-400 flex items-center gap-1">
+                  <p id="message-error" className="mt-1 text-sm text-red-400 flex items-center gap-1">
                     <AlertCircle className="w-4 h-4" />
                     {errors.message.message}
                   </p>
