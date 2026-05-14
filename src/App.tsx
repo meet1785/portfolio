@@ -1384,11 +1384,25 @@ const WorksPage: React.FC = () => {
         
         {filteredProjects.length === 0 && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-20"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-col items-center justify-center py-20 px-4 text-center"
           >
-            <p className="text-white/60 text-xl font-body">No projects found with the selected technology.</p>
+            <div className="w-16 h-16 rounded-2xl border border-sky-500/20 bg-sky-500/10 flex items-center justify-center mb-6">
+              <Code2 className="w-8 h-8 text-sky-400" />
+            </div>
+            <h3 className="text-2xl font-bold text-white mb-3 font-heading">No projects found</h3>
+            <p className="text-white/60 max-w-md mb-8 font-body">
+              There aren't any projects matching the selected technology. Try adjusting your filter to explore other work.
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => handleFilterChange('All')}
+              className="px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white rounded-full font-medium transition-colors"
+            >
+              Clear filter
+            </motion.button>
           </motion.div>
         )}
       </div>
