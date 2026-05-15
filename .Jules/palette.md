@@ -1,0 +1,3 @@
+## 2025-02-20 - Accessible Icon-Only Navigation & Mobile Menus
+**Learning:** Icon-only navigation links (like GitHub/LinkedIn) and dynamic mobile menu buttons often lack proper accessibility context for screen readers and visible focus states for keyboard users.
+**Action:** Always add `aria-label` and `title` (for tooltips) to icon-only buttons/links. For interactive toggles like mobile menus, include dynamic `aria-expanded` and `aria-controls` attributes. Use `focus-visible` classes with robust rings (`focus-visible:ring-2`, `focus-visible:ring-offset-2` if needed) to ensure keyboard navigability is visually apparent.
