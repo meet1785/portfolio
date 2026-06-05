@@ -1,0 +1,3 @@
+## 2024-06-05 - Navigation Icon Accessibility & Focus States
+**Learning:** Icon-only navigation links (like GitHub/LinkedIn in global nav) often lack accessible names for screen readers and lack distinct keyboard focus states, making navigation difficult for visually impaired or keyboard-only users.
+**Action:** When adding icon-only links or buttons, always include an `aria-label` (and optionally a `title` for hover tooltip), set `aria-hidden="true"` on the SVG/icon component itself to avoid redundant/confusing announcements, and ensure distinct `focus-visible` styles are applied for keyboard navigation. Additionally, toggle buttons should use `aria-expanded` and dynamic labels based on their state.
