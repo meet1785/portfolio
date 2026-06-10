@@ -1,0 +1,3 @@
+## 2025-06-10 - Missing ARIA Labels on Icon-only Social Links
+**Learning:** Icon-only anchor links used for social profiles (like GitHub and LinkedIn) within navigation headers and mobile menus frequently lack screen-reader-accessible text. Without `aria-label`s, screen readers might just announce "link" or read the raw URL, leading to poor accessibility.
+**Action:** Always verify that components consisting solely of SVG icons (like lucide-react icons inside `<a>` or `<button>` tags) include an explicit `aria-label` or visually hidden text to communicate their purpose to assistive technologies.
