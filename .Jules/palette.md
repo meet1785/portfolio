@@ -1,0 +1,3 @@
+## 2025-02-23 - Added accessible focus states and ARIA labels to navigation icons
+**Learning:** Icon-only social links (GitHub, LinkedIn) in the navigation bar lacked ARIA labels for screen reader support and keyboard focus indicators for accessible navigation.
+**Action:** When adding or auditing icon-only interactive elements, ensure they have descriptive `aria-label`s. Always apply the design system's established focus pattern (`focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]`) to provide clear visual feedback for keyboard users. Use `rounded-full` or adjust `ring-offset` styling to match the element's shape and context.
