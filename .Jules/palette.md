@@ -1,0 +1,3 @@
+## 2024-06-23 - Custom Keyboard Focus Pattern for Tailwind
+**Learning:** Tailwind's default outline style can be difficult to see on dark themes or complex backgrounds. Creating a reusable custom focus pattern using `ring` classes improves visibility significantly.
+**Action:** Use the pattern `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[theme-color] focus-visible:ring-offset-2 focus-visible:ring-offset-[background-color]` to ensure interactive elements are clearly accessible to keyboard users across the design system. Adjust border-radius (e.g. `rounded-full`) to match the component context.
