@@ -594,10 +594,10 @@ const AppContent: React.FC = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-3 z-10 ml-4">
-             <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+             <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="text-slate-400 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-full">
                <Github className="w-5 h-5" />
              </a>
-             <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition-colors">
+             <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="text-slate-400 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-full">
                <Linkedin className="w-5 h-5" />
              </a>
              <Link to="/contact" className="ml-2 bg-white text-black hover:bg-cyan-400 hover:text-black hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 transform hover:scale-105">
@@ -640,10 +640,10 @@ const AppContent: React.FC = () => {
                   </NavLink>
                 ))}
                 <div className="flex items-center gap-4 px-4 py-3 mt-2 mb-1 border-t border-white/10">
-                   <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white">
+                   <a href={DATA.personalInfo.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="text-slate-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-full">
                      <Github className="w-5 h-5" />
                    </a>
-                   <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white">
+                   <a href={DATA.personalInfo.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="text-slate-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-full">
                      <Linkedin className="w-5 h-5" />
                    </a>
                    <div className="flex-1" />
@@ -1135,9 +1135,9 @@ const LandingPage: React.FC = () => {
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-sm text-white/40">
           <p>© 2026 Meet Shah. Crafted with React, Framer Motion, and Three.js.</p>
           <div className="flex items-center gap-5">
-            <a href="https://github.com/meet1785" target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors">GitHub</a>
-            <a href="https://linkedin.com/in/meetshah1708" target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors">LinkedIn</a>
-            <a href="mailto:meetshah1785@gmail.com" className="hover:text-white/70 transition-colors">Email</a>
+            <a href="https://github.com/meet1785" target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-sm">GitHub</a>
+            <a href="https://linkedin.com/in/meetshah1708" target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-sm">LinkedIn</a>
+            <a href="mailto:meetshah1785@gmail.com" className="hover:text-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-sm">Email</a>
           </div>
         </div>
       </footer>
@@ -2133,7 +2133,7 @@ const ContactPage: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-white font-semibold">GitHub</h3>
-                  <a href="https://github.com/meet1785" className="text-white/60 hover:text-blue-400 transition-colors">
+                  <a href="https://github.com/meet1785" className="text-white/60 hover:text-blue-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-sm">
                     github.com/meet1785
                   </a>
                 </div>
@@ -2145,7 +2145,7 @@ const ContactPage: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-white font-semibold">LinkedIn</h3>
-                  <a href="https://linkedin.com/in/meetshah1708" className="text-white/60 hover:text-indigo-400 transition-colors">
+                  <a href="https://linkedin.com/in/meetshah1708" className="text-white/60 hover:text-indigo-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-sm">
                     linkedin.com/in/meetshah1708
                   </a>
                 </div>
@@ -2186,7 +2186,7 @@ const ContactPage: React.FC = () => {
                   {...register('name')}
                   type="text"
                   id="name"
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:border-transparent transition-all"
                   placeholder="Your full name"
                 />
                 {errors.name && (
@@ -2205,7 +2205,7 @@ const ContactPage: React.FC = () => {
                   {...register('email')}
                   type="email"
                   id="email"
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:border-transparent transition-all"
                   placeholder="your.email@example.com"
                 />
                 {errors.email && (
@@ -2224,7 +2224,7 @@ const ContactPage: React.FC = () => {
                   {...register('subject')}
                   type="text"
                   id="subject"
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:border-transparent transition-all"
                   placeholder="What's this about?"
                 />
                 {errors.subject && (
@@ -2243,7 +2243,7 @@ const ContactPage: React.FC = () => {
                   {...register('message')}
                   id="message"
                   rows={6}
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:border-transparent transition-all resize-none"
                   placeholder="Tell me about your project or opportunity..."
                 />
                 {errors.message && (
