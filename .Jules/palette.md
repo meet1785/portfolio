@@ -1,0 +1,3 @@
+## 2024-05-18 - Missing ARIA labels and Focus indicators on Icon-only Header Elements
+**Learning:** In the navigation header, icon-only social links and the mobile menu toggle button were missing both accessible names (`aria-label`) and clear keyboard focus indicators, making them functionally invisible to screen readers and difficult for keyboard-only users to navigate.
+**Action:** Applied `aria-label`s and standard design system focus rings (`focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]`) to all icon-only interactive elements in the header layout.
