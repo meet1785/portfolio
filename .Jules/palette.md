@@ -1,0 +1,3 @@
+## 2025-02-28 - Focus States and ARIA Labels on Icon Links
+**Learning:** Icon-only navigation links (like GitHub and LinkedIn) often miss critical ARIA labels, making them inaccessible to screen readers. Furthermore, a cohesive design system should apply visible keyboard focus indicators consistently, using a matching background offset color (like `#030712`) when dealing with dark themed apps.
+**Action:** When auditing navigation menus, always ensure that `aria-label` attributes are added to purely icon-based links and that they have visible `focus-visible` styles with a ring-offset color matching the surrounding context.
