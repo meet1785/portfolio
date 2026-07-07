@@ -233,7 +233,7 @@ export const CarJourneyLanding = () => {
         <h2 className="text-3xl font-bold text-orange-400 tracking-wide">ABOUT & WORK</h2>
       </div>
       <p className="text-base opacity-80 mb-6 leading-relaxed">Discover my professional journey and experiences architecting scalable systems across various companies.</p>
-      <button onClick={() => handleNavigate('/about')} className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-orange-500/30 w-full uppercase tracking-widest text-sm cursor-pointer pointer-events-auto flex justify-center items-center gap-2">
+      <button onClick={() => handleNavigate('/about')} className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-orange-500/30 w-full uppercase tracking-widest text-sm cursor-pointer pointer-events-auto flex justify-center items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
          Explore Work History
          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
       </button>
@@ -248,7 +248,7 @@ export const CarJourneyLanding = () => {
         <h2 className="text-3xl font-bold text-violet-400 tracking-wide">PROJECTS</h2>
       </div>
       <p className="text-base opacity-80 mb-6 leading-relaxed">A showcase of the sophisticated systems, high-traffic apps, and optimized platforms I have engineered.</p>
-      <button onClick={() => handleNavigate('/projects')} className="bg-gradient-to-r from-violet-600 to-violet-500 hover:from-violet-500 hover:to-violet-400 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-violet-500/30 w-full uppercase tracking-widest text-sm cursor-pointer pointer-events-auto flex justify-center items-center gap-2">
+      <button onClick={() => handleNavigate('/projects')} className="bg-gradient-to-r from-violet-600 to-violet-500 hover:from-violet-500 hover:to-violet-400 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-violet-500/30 w-full uppercase tracking-widest text-sm cursor-pointer pointer-events-auto flex justify-center items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
          View Portfolio
          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
       </button>
@@ -263,7 +263,7 @@ export const CarJourneyLanding = () => {
         <h2 className="text-3xl font-bold text-emerald-400 tracking-wide">SKILLS & ARCHIVE</h2>
       </div>
        <p className="text-base opacity-80 mb-6 leading-relaxed">Dive deeper into my technical stack containing React, TypeScript, Node.js, and access my verified resume.</p>
-       <button onClick={() => handleNavigate('/resume')} className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-emerald-500/30 w-full uppercase tracking-widest text-sm cursor-pointer pointer-events-auto flex justify-center items-center gap-2">
+       <button onClick={() => handleNavigate('/resume')} className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg hover:shadow-emerald-500/30 w-full uppercase tracking-widest text-sm cursor-pointer pointer-events-auto flex justify-center items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
           Access Databank
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
        </button>
@@ -278,7 +278,7 @@ export const CarJourneyLanding = () => {
        </div>
        <h2 className="text-3xl text-white font-bold text-center mb-2 tracking-wide uppercase">Initiate Uplink</h2>
        <p className="text-sm opacity-70 mb-8 text-center leading-relaxed">Establish a secure connection for collaborations, freelance inquiries, or network handshakes.</p>
-       <button onClick={() => handleNavigate('/contact')} className="bg-magenta-600 hover:bg-magenta-500 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg hover:shadow-magenta-500/40 w-full uppercase tracking-[0.2em] text-sm cursor-pointer pointer-events-auto filter drop-shadow">
+       <button onClick={() => handleNavigate('/contact')} className="bg-magenta-600 hover:bg-magenta-500 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg hover:shadow-magenta-500/40 w-full uppercase tracking-[0.2em] text-sm cursor-pointer pointer-events-auto filter drop-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-magenta-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
            Connect
        </button>
     </div>

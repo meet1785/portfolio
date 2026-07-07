@@ -549,7 +549,7 @@ export const NexusCommandCenter: React.FC<NexusCommandCenterProps> = ({ displaye
                   key={item.key}
                   type="button"
                   onClick={() => setFocus(item.key)}
-                  className={`rounded-xl border px-3 py-3 text-sm transition-all duration-300 flex flex-col items-center gap-1 ${
+                  className={`rounded-xl border px-3 py-3 text-sm transition-all duration-300 flex flex-col items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                     focus === item.key
                       ? 'border-cyan-200/45 bg-cyan-400/14 text-cyan-100'
                       : 'border-white/12 bg-white/[0.03] text-white/70 hover:text-white hover:bg-white/[0.06]'

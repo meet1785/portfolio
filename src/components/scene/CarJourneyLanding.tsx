@@ -176,7 +176,7 @@ const JourneyScene = ({ onStationChange, onProgressChange }) => {
              <input type="text" placeholder="Incoming Designation (Name)" className="bg-slate-900 border border-cyan-800 p-4 text-cyan-100 rounded focus:border-magenta-400 outline-none transition-colors" />
              <input type="email" placeholder="Frequency (Email)" className="bg-slate-900 border border-cyan-800 p-4 text-cyan-100 rounded focus:border-magenta-400 outline-none transition-colors" />
              <textarea placeholder="Message payload..." className="bg-slate-900 border border-cyan-800 p-4 h-32 resize-none text-cyan-100 rounded focus:border-magenta-400 outline-none transition-colors"></textarea>
-             <button type="button" className="bg-magenta-600 hover:bg-magenta-500 py-4 font-bold text-white tracking-[0.2em] rounded uppercase mt-2">Transmit</button>
+             <button type="button" className="bg-magenta-600 hover:bg-magenta-500 py-4 font-bold text-white tracking-[0.2em] rounded uppercase mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-magenta-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black">Transmit</button>
            </form>
            <div className="flex justify-center gap-6 mt-6">
              <a href={DATA.personalInfo.github} className="text-cyan-400 hover:text-white transition-colors">GITHUB</a>

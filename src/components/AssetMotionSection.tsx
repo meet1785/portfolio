@@ -183,7 +183,7 @@ export const AssetMotionSection: React.FC = () => {
 
             <Link
               to="/works"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-sky-400/30 text-sky-200 hover:text-white hover:bg-sky-500/10 hover:border-sky-300/50 transition-all duration-300 text-sm font-medium"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-sky-400/30 text-sky-200 hover:text-white hover:bg-sky-500/10 hover:border-sky-300/50 transition-all duration-300 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
             >
               <span>Preview with projects</span>
               <ArrowRight className="w-4 h-4" />
