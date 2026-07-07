@@ -2186,7 +2186,7 @@ const ContactPage: React.FC = () => {
                   {...register('name')}
                   type="text"
                   id="name"
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:border-transparent focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] transition-all"
                   placeholder="Your full name"
                 />
                 {errors.name && (
@@ -2205,7 +2205,7 @@ const ContactPage: React.FC = () => {
                   {...register('email')}
                   type="email"
                   id="email"
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:border-transparent focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] transition-all"
                   placeholder="your.email@example.com"
                 />
                 {errors.email && (
@@ -2224,7 +2224,7 @@ const ContactPage: React.FC = () => {
                   {...register('subject')}
                   type="text"
                   id="subject"
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:border-transparent focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] transition-all"
                   placeholder="What's this about?"
                 />
                 {errors.subject && (
@@ -2243,7 +2243,7 @@ const ContactPage: React.FC = () => {
                   {...register('message')}
                   id="message"
                   rows={6}
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:border-transparent focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] transition-all resize-none"
                   placeholder="Tell me about your project or opportunity..."
                 />
                 {errors.message && (
@@ -2257,7 +2257,7 @@ const ContactPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]"
               >
                 {isSubmitting ? (
                   <>
