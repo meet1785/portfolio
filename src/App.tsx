@@ -572,7 +572,7 @@ const AppContent: React.FC = () => {
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
-                  `relative px-5 py-2 text-sm font-medium transition-all duration-300 ${
+                  `relative px-5 py-2 text-sm font-medium transition-all duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] ${
                     isActive ? 'text-white' : 'text-slate-400 hover:text-white'
                   }`
                 }
@@ -629,7 +629,7 @@ const AppContent: React.FC = () => {
                     to={item.to}
                     onClick={closeMobileMenu}
                     className={({ isActive }) =>
-                      `px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                      `px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] ${
                         isActive
                           ? 'bg-white/10 border border-white/10 text-white'
                           : 'bg-transparent border border-transparent text-slate-400 hover:bg-white/5 hover:text-white'
@@ -747,7 +747,7 @@ const CodingActivityDashboardSection: React.FC = () => {
                 href={codolioProfileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group mt-6 inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 text-sm font-semibold rounded-full transition-all duration-300 hover:bg-sky-400 hover:text-white hover:shadow-lg hover:shadow-sky-500/25"
+                className="group mt-6 inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 text-sm font-semibold rounded-full transition-all duration-300 hover:bg-sky-400 hover:text-white hover:shadow-lg hover:shadow-sky-500/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]"
               >
                 <span>View Full Coding Profile</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -772,7 +772,7 @@ const CodingActivityDashboardSection: React.FC = () => {
                   href={codolioProfileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-sky-300 hover:text-sky-200 transition-colors"
+                  className="inline-flex items-center gap-2 text-sm text-sky-300 hover:text-sky-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-sm"
                 >
                   <span>Open profile</span>
                   <ExternalLink className="w-4 h-4" />
@@ -995,7 +995,7 @@ const LandingPage: React.FC = () => {
             </div>
             <Link
               to="/works"
-              className="group inline-flex items-center gap-2 px-6 py-3 rounded-full border border-cyan-300/30 bg-cyan-500/10 text-cyan-100 font-medium hover:bg-cyan-500/15 transition-all"
+              className="group inline-flex items-center gap-2 px-6 py-3 rounded-full border border-cyan-300/30 bg-cyan-500/10 text-cyan-100 font-medium hover:bg-cyan-500/15 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]"
             >
               <span>View all projects</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -1014,7 +1014,7 @@ const LandingPage: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.07 }}
                 whileHover={{ y: -6 }}
-                className="group relative rounded-3xl border border-white/12 bg-gradient-to-b from-white/[0.055] to-white/[0.02] p-6 backdrop-blur-md overflow-hidden"
+                className="group relative rounded-3xl border border-white/12 bg-gradient-to-b from-white/[0.055] to-white/[0.02] p-6 backdrop-blur-md overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]"
               >
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 bg-[radial-gradient(circle_at_10%_0%,rgba(56,189,248,0.18),transparent_50%),radial-gradient(circle_at_100%_100%,rgba(99,102,241,0.15),transparent_50%)]" />
 
@@ -1075,7 +1075,7 @@ const LandingPage: React.FC = () => {
                 </div>
                 <h3 className="text-white font-semibold mb-2">{card.title}</h3>
                 <p className="text-sm text-white/55 leading-relaxed mb-5">{card.description}</p>
-                <Link to={card.to} className="inline-flex items-center gap-2 text-sm text-cyan-200 hover:text-cyan-100">
+                <Link to={card.to} className="inline-flex items-center gap-2 text-sm text-cyan-200 hover:text-cyan-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-sm">
                   <span>{card.cta}</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -1104,7 +1104,7 @@ const LandingPage: React.FC = () => {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
               href="mailto:meetshah1785@gmail.com"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-slate-950 font-semibold hover:bg-cyan-300 transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-slate-950 font-semibold hover:bg-cyan-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]"
             >
               <Mail className="w-5 h-5" />
               <span>Email Me</span>
@@ -1113,7 +1113,7 @@ const LandingPage: React.FC = () => {
               href="https://linkedin.com/in/meetshah1708"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/20 bg-white/5 text-white/90 font-semibold hover:bg-white/10"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/20 bg-white/5 text-white/90 font-semibold hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]"
             >
               <Linkedin className="w-5 h-5" />
               <span>LinkedIn</span>
@@ -1122,7 +1122,7 @@ const LandingPage: React.FC = () => {
               href="https://github.com/meet1785"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/20 bg-white/5 text-white/90 font-semibold hover:bg-white/10"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/20 bg-white/5 text-white/90 font-semibold hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]"
             >
               <Github className="w-5 h-5" />
               <span>GitHub</span>
@@ -1135,9 +1135,9 @@ const LandingPage: React.FC = () => {
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-sm text-white/40">
           <p>© 2026 Meet Shah. Crafted with React, Framer Motion, and Three.js.</p>
           <div className="flex items-center gap-5">
-            <a href="https://github.com/meet1785" target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors">GitHub</a>
-            <a href="https://linkedin.com/in/meetshah1708" target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors">LinkedIn</a>
-            <a href="mailto:meetshah1785@gmail.com" className="hover:text-white/70 transition-colors">Email</a>
+            <a href="https://github.com/meet1785" target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-sm">GitHub</a>
+            <a href="https://linkedin.com/in/meetshah1708" target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-sm">LinkedIn</a>
+            <a href="mailto:meetshah1785@gmail.com" className="hover:text-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-sm">Email</a>
           </div>
         </div>
       </footer>
@@ -1310,7 +1310,7 @@ const WorksPage: React.FC = () => {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => handleFilterChange(tech)}
-                className={`relative px-4 py-2 rounded-full font-medium text-sm transition-all duration-300 font-body overflow-hidden ${
+                className={`relative px-4 py-2 rounded-full font-medium text-sm transition-all duration-300 font-body overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] ${
                   selectedFilter === tech
                     ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-500/25'
                     : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white border border-white/10 hover:border-white/20'
@@ -1436,7 +1436,7 @@ const ResumePage: React.FC = () => {
               }}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-red-500 to-pink-600 text-white font-semibold rounded-xl shadow-lg shadow-red-500/25 hover:shadow-red-500/40 transition-all duration-300 cta-shine"
+              className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-red-500 to-pink-600 text-white font-semibold rounded-xl shadow-lg shadow-red-500/25 hover:shadow-red-500/40 transition-all duration-300 cta-shine focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]"
             >
               <Download className="w-5 h-5" />
               <span>Download PDF</span>
@@ -1449,7 +1449,7 @@ const ResumePage: React.FC = () => {
               }}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 cta-shine"
+              className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 cta-shine focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]"
             >
               <Download className="w-5 h-5" />
               <span>Download DOCX</span>
@@ -2186,7 +2186,7 @@ const ContactPage: React.FC = () => {
                   {...register('name')}
                   type="text"
                   id="name"
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] transition-all"
                   placeholder="Your full name"
                 />
                 {errors.name && (
@@ -2205,7 +2205,7 @@ const ContactPage: React.FC = () => {
                   {...register('email')}
                   type="email"
                   id="email"
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] transition-all"
                   placeholder="your.email@example.com"
                 />
                 {errors.email && (
@@ -2224,7 +2224,7 @@ const ContactPage: React.FC = () => {
                   {...register('subject')}
                   type="text"
                   id="subject"
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] transition-all"
                   placeholder="What's this about?"
                 />
                 {errors.subject && (
@@ -2243,7 +2243,7 @@ const ContactPage: React.FC = () => {
                   {...register('message')}
                   id="message"
                   rows={6}
-                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] transition-all resize-none"
                   placeholder="Tell me about your project or opportunity..."
                 />
                 {errors.message && (
@@ -2257,7 +2257,7 @@ const ContactPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]"
               >
                 {isSubmitting ? (
                   <>
@@ -2464,7 +2464,7 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
               href={link} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="group/link inline-flex items-center space-x-2 text-sky-400 hover:text-sky-300 transition-colors font-medium text-sm"
+              className="group/link inline-flex items-center space-x-2 text-sky-400 hover:text-sky-300 transition-colors font-medium text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-lg"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -2478,7 +2478,7 @@ const ProjectCard = React.memo(({ title, description, link, github, tech, featur
             href={github} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="group/github inline-flex items-center space-x-2 text-white/60 hover:text-white transition-colors font-medium text-sm"
+            className="group/github inline-flex items-center space-x-2 text-white/60 hover:text-white transition-colors font-medium text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712] rounded-lg"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -2527,7 +2527,7 @@ function ProfileCard({ platform, username, link }: ProfileCardProps) {
       target="_blank"
       rel="noopener noreferrer"
       variants={fadeInUp}
-      className="group block backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 hover:scale-105 text-center"
+      className="group block backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 hover:scale-105 text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030712]"
     >
       {iconSrc && !imageFailed ? (
         <img
