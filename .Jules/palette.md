@@ -1,3 +1,6 @@
 ## 2025-03-08 - Added keyboard focus styles and ARIA labels
 **Learning:** Many interactive elements lacked clear focus states for keyboard users, and icon-only buttons lacked ARIA labels. Using Tailwind's \`focus-visible\` ensures these styles only appear during keyboard navigation, maintaining aesthetics for mouse users while improving accessibility.
 **Action:** Always add \`focus-visible:ring-2\` (and associated classes) and \`aria-label\` to custom interactive elements.
+## 2025-02-14 - Programmatic Form Validation Accessibility with React Hook Form
+**Learning:** In forms using React Hook Form (or similar libraries), simply displaying error text visually is insufficient for screen readers. It's critical to dynamically set `aria-invalid="true"` on the input when an error exists, and link the input to the specific error message `<p>` using `aria-describedby` (which must match the `id` of the error element). Additionally, giving the error message `role="alert"` ensures screen readers announce it immediately when it appears.
+**Action:** Always map validation library error states to `aria-invalid`, use `aria-describedby` matching the error element's `id`, and add `role="alert"` to dynamically rendered error messages.
