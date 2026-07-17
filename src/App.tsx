@@ -2186,11 +2186,13 @@ const ContactPage: React.FC = () => {
                   {...register('name')}
                   type="text"
                   id="name"
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? "name-error" : undefined}
                   className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
                   placeholder="Your full name"
                 />
                 {errors.name && (
-                  <p className="mt-1 text-sm text-red-400 flex items-center gap-1">
+                  <p id="name-error" role="alert" className="mt-1 text-sm text-red-400 flex items-center gap-1">
                     <AlertCircle className="w-4 h-4" />
                     {errors.name.message}
                   </p>
@@ -2205,11 +2207,13 @@ const ContactPage: React.FC = () => {
                   {...register('email')}
                   type="email"
                   id="email"
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? "email-error" : undefined}
                   className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
                   placeholder="your.email@example.com"
                 />
                 {errors.email && (
-                  <p className="mt-1 text-sm text-red-400 flex items-center gap-1">
+                  <p id="email-error" role="alert" className="mt-1 text-sm text-red-400 flex items-center gap-1">
                     <AlertCircle className="w-4 h-4" />
                     {errors.email.message}
                   </p>
@@ -2224,11 +2228,13 @@ const ContactPage: React.FC = () => {
                   {...register('subject')}
                   type="text"
                   id="subject"
+                  aria-invalid={!!errors.subject}
+                  aria-describedby={errors.subject ? "subject-error" : undefined}
                   className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
                   placeholder="What's this about?"
                 />
                 {errors.subject && (
-                  <p className="mt-1 text-sm text-red-400 flex items-center gap-1">
+                  <p id="subject-error" role="alert" className="mt-1 text-sm text-red-400 flex items-center gap-1">
                     <AlertCircle className="w-4 h-4" />
                     {errors.subject.message}
                   </p>
@@ -2243,11 +2249,13 @@ const ContactPage: React.FC = () => {
                   {...register('message')}
                   id="message"
                   rows={6}
+                  aria-invalid={!!errors.message}
+                  aria-describedby={errors.message ? "message-error" : undefined}
                   className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all resize-none"
                   placeholder="Tell me about your project or opportunity..."
                 />
                 {errors.message && (
-                  <p className="mt-1 text-sm text-red-400 flex items-center gap-1">
+                  <p id="message-error" role="alert" className="mt-1 text-sm text-red-400 flex items-center gap-1">
                     <AlertCircle className="w-4 h-4" />
                     {errors.message.message}
                   </p>
