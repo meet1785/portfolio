@@ -1,6 +1,6 @@
 import React from 'react';
-import { Github, Linkedin, Mail, FileText, Briefcase, ExternalLink, Download, Menu, X, ArrowRight, Sparkles, Code2, Zap, Rocket, Award, GraduationCap, Send, CheckCircle, AlertCircle, Loader2, Activity, BarChart3, Flame, TrendingUp } from 'lucide-react';
-import { BrowserRouter as Router, Routes, Route, Link, NavLink } from 'react-router-dom';
+import { Github, Linkedin, Mail, FileText, Briefcase, ExternalLink, Download, Menu, X, ArrowRight, Sparkles, Code2, Zap, Rocket, Award, GraduationCap, Send, CheckCircle, AlertCircle, Loader2, Activity, BarChart3, Flame, TrendingUp, Home } from 'lucide-react';
+import { BrowserRouter as Router, Routes, Route, Link, NavLink, useLocation } from 'react-router-dom';
 import { ThemeProvider} from './context/ThemeContext';
 import { motion, AnimatePresence, useScroll, useMotionValue, useSpring } from 'framer-motion';
 import { pageTransition, fadeInUp, staggerContainer, cardHover3D } from './utils/animations';
@@ -666,6 +666,7 @@ const AppContent: React.FC = () => {
           <Route path="/resume" element={<ResumePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AnimatePresence>
     </>
@@ -2303,6 +2304,98 @@ const ContactPage: React.FC = () => {
             </form>
           </motion.div>
         </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const NotFoundPage: React.FC = () => {
+  const location = useLocation();
+
+  const quickLinks = [
+    { to: '/', label: 'Home', icon: Home },
+    { to: '/works', label: 'Work', icon: Briefcase },
+    { to: '/resume', label: 'Resume', icon: FileText },
+    { to: '/about', label: 'About', icon: Award },
+    { to: '/contact', label: 'Contact', icon: Mail },
+  ];
+
+  return (
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageTransition}
+      className="pt-28 pb-16 min-h-screen flex items-center justify-center"
+    >
+      <div className="max-w-2xl mx-auto px-6 text-center">
+        {/* Animated 404 heading */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="mb-8"
+        >
+          <h1 className="text-8xl lg:text-9xl font-bold font-heading bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-600 bg-clip-text text-transparent select-none">
+            404
+          </h1>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4 font-heading">
+            Page Not Found
+          </h2>
+          <p className="text-lg text-white/60 font-body mb-2">
+            The page <code className="bg-white/10 px-2 py-0.5 rounded text-sky-300 text-sm font-mono">{location.pathname}</code> doesn't exist.
+          </p>
+          <p className="text-white/40 font-body mb-10">
+            It may have been moved or the URL might be incorrect.
+          </p>
+        </motion.div>
+
+        {/* Quick navigation links */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-10"
+        >
+          {quickLinks.map((item, index) => (
+            <motion.div
+              key={item.to}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 + index * 0.08, duration: 0.3 }}
+            >
+              <Link
+                to={item.to}
+                className="group flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-sky-500/30 transition-all duration-300 text-white/70 hover:text-white"
+              >
+                <item.icon className="w-4 h-4 text-sky-400 group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-medium">{item.label}</span>
+              </Link>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Primary CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 bg-white text-black hover:bg-cyan-400 hover:text-black hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 transform hover:scale-105"
+          >
+            <Home className="w-4 h-4" />
+            Back to Home
+          </Link>
+        </motion.div>
       </div>
     </motion.div>
   );
